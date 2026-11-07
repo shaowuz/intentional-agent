@@ -1,0 +1,56 @@
+name: Verify local framework
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install Python dependencies
+        run: uv sync --extra dev --frozen
+      - name: Prepare offline code sandbox
+        run: |
+          docker pull python:3.12-slim
+          uv run --frozen --extra dev python -c "from intentional_agent.sandbox import docker_available; assert docker_available(), 'Docker integration must run in CI'"
+      - name: Run backend and Docker integration tests
+        run: uv run --frozen --extra dev pytest -ra --junitxml=test-results/backend.xml
+      - name: Require executed sandbox integration tests
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          required = {
+              "test_docker_executes_persists_and_blocks_network",
+              "test_docker_timeout_does_not_persist_partial_files",
+          }
+          cases = {
+              case.attrib.get("name"): case
+              for case in ET.parse("test-results/backend.xml").iter("testcase")
+          }
+          assert required <= cases.keys(), "Required Docker integration tests are missing"
+          for name in required:
+              assert cases[name].find("skipped") is None, f"Docker integration was skipped: {name}"
+          PY
+      - name: Build dashboard
+        run: |
+          npm --prefix frontend ci
+          npm --prefix frontend run build

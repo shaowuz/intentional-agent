@@ -10,3 +10,14 @@ venv/
 # Generated results (keep the directory, ignore contents)
 results/*
 !results/.gitkeep
+.pytest_cache/
+.ruff_cache/
+.env.*
+!.env.example
+.data/
+data/
+frontend/node_modules/
+frontend/dist/
+playwright-report/
+test-results/
+*.log
