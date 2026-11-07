@@ -142,6 +142,20 @@ PYTHONPATH=results/luna-seed-0/runtime \
   --output results/luna-seed-0 --execute --resume
 ```
 
+### Resume independent episodes concurrently
+
+For a saved matrix, [scripts/run_concurrent_matrix.py](scripts/run_concurrent_matrix.py) schedules independent episodes using that run's frozen gameplay runtime. Stop its current runner before transferring ownership, then use its original dependency environment:
+
+```bash
+.venv/bin/python scripts/run_concurrent_matrix.py \
+  --output results/computer-3-luna-selfish-5 \
+  --workers 5 --ramp-to 10
+```
+
+This command executes remaining hosted requests when the saved backend is OpenRouter. It starts five episodes and increases to ten after a three-minute stable window: every active episode accepts at least ten new responses, records no new transport or format retries, and has a checkpoint less than 60 seconds old. Each episode keeps sequential player requests, simultaneous phase delivery, its own provider connection, and separate checkpoints. The matrix lock permits one scheduler to own the cohort.
+
+The scheduler validates the saved specification and source hashes, reuses accepted responses, and preserves original manifests and runtime files. It records scheduler provenance, live progress, and ramp evidence in `execution.json` and retains each invocation under `executions/`. SIGINT or SIGTERM stops new scheduling and lets active episodes finish their current phase before checkpointing and exiting. A worker failure triggers the same drain. Shared analysis and validated exports update after all workers stop; inspect `execution.json` for live progress. Use the same command to resume a drained run.
+
 ## Visualization quickstart
 
 Start developing immediately with the committed fixtures:
