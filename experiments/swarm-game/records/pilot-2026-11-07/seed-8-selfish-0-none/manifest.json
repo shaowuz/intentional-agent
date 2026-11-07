@@ -1,0 +1,28 @@
+{
+  "config": {
+    "communication": "none",
+    "selfish_count": 0,
+    "players": 6,
+    "rounds": 20,
+    "seed": 8,
+    "backend": "openrouter",
+    "model": "openai/gpt-6.1-terra",
+    "reasoning_effort": "medium",
+    "message_tokens": 96,
+    "tokenizer": "o200k_base",
+    "max_completion_tokens": 4096,
+    "policy": "cooperate",
+    "selfish_policy": "cooperate"
+  },
+  "provenance": {
+    "version": "0.1.0",
+    "code_sha256": "5897fa9d8521a66afd9116487a0d9101659fa0e792eff4f1d2d0b77df0bb7283",
+    "prompt_sha256": "9ed37340f68c7b08a885504de38cebfc7808f00441b5ee6014140fdb38d3120a",
+    "python": "3.11.15",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "config": {
+    "communication": "public",
+    "selfish_count": 0,
+    "players": 6,
+    "rounds": 20,
+    "seed": 0,
+    "backend": "openrouter",
+    "model": "openai/gpt-6-luna",
+    "reasoning_effort": "medium",
+    "message_tokens": 96,
+    "tokenizer": "o200k_base",
+    "max_completion_tokens": 4096,
+    "policy": "cooperate",
+    "selfish_policy": "cooperate",
+    "selfish_persona": "trump_like"
+  },
+  "seeds": 12,
+  "counts": {
+    "episodes": 24,
+    "encounters": 1440,
+    "requests_before_retries": 5760
+  },
+  "communication_modes": [
+    "public"
+  ]
+}

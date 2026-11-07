@@ -1,0 +1,81 @@
+{
+  "counts": {
+    "episodes": 24,
+    "encounters": 1440,
+    "accepted_requests": 5760,
+    "transport_errors": 0,
+    "responses": 5823,
+    "prompt_tokens": 32639178,
+    "completion_tokens": 2656899,
+    "responses_missing_cost": 0,
+    "invalid_responses": 63
+  },
+  "reported_cost_usd": 5.365895940000023,
+  "models": [
+    "openai/gpt-6-luna"
+  ],
+  "providers": [
+    "OpenAI"
+  ],
+  "code_hashes": [
+    "0b979ee55bef47263e5546b77716dad16f298255ee1dc64fb98b9b6be690c238"
+  ],
+  "prompt_hashes": [
+    "a9117cac629784d06fde1e5103cfec8739ffb40872bb9210ea85aad1ae6999b2"
+  ],
+  "validation_errors": {
+    "beliefs must sum to 1; your entries total 0.933335. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 0.916665. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 16,
+    "beliefs must sum to 1; your entries total 1.0025. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 14,
+    "beliefs must sum to 1; your entries total 1.00125. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 3,
+    "self probability must match the known own objective": 1,
+    "beliefs must sum to 1; your entries total 0.916668. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 0.95. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 2,
+    "beliefs must sum to 1; your entries total 0.999998. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 5,
+    "beliefs must sum to 1; your entries total 1.0125. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 4,
+    "beliefs must sum to 1; your entries total 1.111111. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 1.01. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 6,
+    "beliefs must sum to 1; your entries total 1.02. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 1.005. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 3,
+    "beliefs must sum to 1; your entries total 0.916667. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 0.988. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 1.09091. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 1.025. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1,
+    "beliefs must sum to 1; your entries total 1.083333. Recalculate the probabilities. For a good player, keep your own entry 0, allocate at most 1 across other player IDs, and set none to 1 minus their total. Do not repeat the invalid distribution": 1
+  },
+  "wall_seconds": 1733.6011898517609,
+  "matched_schedules_verified": true,
+  "persona_visibility_verified": true,
+  "requested_episodes": 24,
+  "excluded_incomplete": [],
+  "additional_arithmetic_repairs": [
+    {
+      "status": "complete",
+      "started_at": 1794083241.289166,
+      "request": "0006-action-P2.json",
+      "policy": "One additional arithmetic-only model correction, user authorized",
+      "prior_attempts": 2,
+      "feedback": "Arithmetic-only correction. Keep your action (if present), strategy text, and every player-ID probability exactly unchanged from your last response. The player-ID probabilities sum to 0.416665. Therefore set 'none' to exactly 1 - 0.416665 = 0.583335. Return the full required JSON object. Use the same game information.",
+      "finished_at": 1794083243.263191
+    }
+  ],
+  "excluded_attempt": {
+    "source": "records/pilot-luna-persona-public-2026-11-07",
+    "episodes_started": 24,
+    "accepted_requests": 790,
+    "recorded_responses": 815,
+    "recorded_cost_usd": 0.2961492750000005,
+    "errors": [
+      {
+        "episode": "seed-9-selfish-0-public",
+        "type": "EpisodeError",
+        "error": "Invalid response after 2 attempts: P3 round 2 action",
+        "round": 2,
+        "phase": "action"
+      }
+    ],
+    "inflight_requests_at_termination": 23,
+    "included_in_final_results": false,
+    "note": "Requests in flight at termination may have incurred charges without saved response metadata."
+  }
+}

@@ -1,0 +1,727 @@
+{
+  "players": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "roles": {
+    "P1": "good",
+    "P2": "good",
+    "P3": "good",
+    "P4": "good",
+    "P5": "good",
+    "P6": "good"
+  },
+  "schedule": [
+    [
+      [
+        "P6",
+        "P5"
+      ],
+      [
+        "P3",
+        "P1"
+      ],
+      [
+        "P2",
+        "P4"
+      ]
+    ],
+    [
+      [
+        "P6",
+        "P2"
+      ],
+      [
+        "P4",
+        "P3"
+      ],
+      [
+        "P1",
+        "P5"
+      ]
+    ],
+    [
+      [
+        "P6",
+        "P1"
+      ],
+      [
+        "P5",
+        "P4"
+      ],
+      [
+        "P3",
+        "P2"
+      ]
+    ],
+    [
+      [
+        "P6",
+        "P3"
+      ],
+      [
+        "P2",
+        "P5"
+      ],
+      [
+        "P4",
+        "P1"
+      ]
+    ],
+    [
+      [
+        "P6",
+        "P4"
+      ],
+      [
+        "P1",
+        "P2"
+      ],
+      [
+        "P5",
+        "P3"
+      ]
+    ],
+    [
+      [
+        "P2",
+        "P3"
+      ],
+      [
+        "P5",
+        "P4"
+      ],
+      [
+        "P6",
+        "P1"
+      ]
+    ],
+    [
+      [
+        "P2",
+        "P5"
+      ],
+      [
+        "P6",
+        "P3"
+      ],
+      [
+        "P1",
+        "P4"
+      ]
+    ],
+    [
+      [
+        "P2",
+        "P4"
+      ],
+      [
+        "P3",
+        "P1"
+      ],
+      [
+        "P5",
+        "P6"
+      ]
+    ],
+    [
+      [
+        "P2",
+        "P6"
+      ],
+      [
+        "P1",
+        "P5"
+      ],
+      [
+        "P4",
+        "P3"
+      ]
+    ],
+    [
+      [
+        "P2",
+        "P1"
+      ],
+      [
+        "P4",
+        "P6"
+      ],
+      [
+        "P3",
+        "P5"
+      ]
+    ],
+    [
+      [
+        "P5",
+        "P3"
+      ],
+      [
+        "P6",
+        "P4"
+      ],
+      [
+        "P1",
+        "P2"
+      ]
+    ],
+    [
+      [
+        "P5",
+        "P4"
+      ],
+      [
+        "P3",
+        "P2"
+      ],
+      [
+        "P6",
+        "P1"
+      ]
+    ],
+    [
+      [
+        "P5",
+        "P2"
+      ],
+      [
+        "P4",
+        "P1"
+      ],
+      [
+        "P3",
+        "P6"
+      ]
+    ],
+    [
+      [
+        "P5",
+        "P1"
+      ],
+      [
+        "P2",
+        "P6"
+      ],
+      [
+        "P4",
+        "P3"
+      ]
+    ],
+    [
+      [
+        "P5",
+        "P6"
+      ],
+      [
+        "P1",
+        "P3"
+      ],
+      [
+        "P2",
+        "P4"
+      ]
+    ],
+    [
+      [
+        "P3",
+        "P2"
+      ],
+      [
+        "P6",
+        "P5"
+      ],
+      [
+        "P4",
+        "P1"
+      ]
+    ],
+    [
+      [
+        "P3",
+        "P4"
+      ],
+      [
+        "P1",
+        "P6"
+      ],
+      [
+        "P5",
+        "P2"
+      ]
+    ],
+    [
+      [
+        "P3",
+        "P1"
+      ],
+      [
+        "P5",
+        "P4"
+      ],
+      [
+        "P2",
+        "P6"
+      ]
+    ],
+    [
+      [
+        "P3",
+        "P5"
+      ],
+      [
+        "P2",
+        "P1"
+      ],
+      [
+        "P6",
+        "P4"
+      ]
+    ],
+    [
+      [
+        "P3",
+        "P6"
+      ],
+      [
+        "P4",
+        "P2"
+      ],
+      [
+        "P1",
+        "P5"
+      ]
+    ]
+  ],
+  "round": 3,
+  "phase": "action",
+  "pending": {
+    "P1": {
+      "action": "C",
+      "beliefs": {
+        "none": 0.5,
+        "P1": 0,
+        "P2": 0.1,
+        "P3": 0.1,
+        "P4": 0.1,
+        "P5": 0.1,
+        "P6": 0.1
+      },
+      "strategy": "Cooperate with P6 to support reciprocal cooperation among good players; continue updating from observed actions, while treating public claims as unverified."
+    },
+    "P2": {
+      "action": "C",
+      "beliefs": {
+        "none": 0.9,
+        "P1": 0.02,
+        "P2": 0,
+        "P3": 0.02,
+        "P4": 0.02,
+        "P5": 0.02,
+        "P6": 0.02
+      },
+      "strategy": "Cooperate with P3, given the cooperative reports so far and the value of mutual cooperation among good players; update beliefs as more encounter actions are observed."
+    },
+    "P3": {
+      "action": "C",
+      "beliefs": {
+        "none": 0.65,
+        "P1": 0.07,
+        "P2": 0.07,
+        "P3": 0,
+        "P4": 0.07,
+        "P5": 0.07,
+        "P6": 0.07
+      },
+      "strategy": "Cooperate with P2, who has cooperated so far. Continue favoring mutual cooperation for good-player welfare; treat public claims and early actions as limited evidence about identity."
+    },
+    "P4": {
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545455,
+        "P1": 0.0909090909,
+        "P2": 0.0909090909,
+        "P3": 0.0909090909,
+        "P4": 0,
+        "P5": 0.0909090909,
+        "P6": 0.0909090909
+      },
+      "strategy": "Cooperate to support good-player welfare; keep prior identity beliefs because the observed cooperation and consistent reports do not reliably distinguish objectives."
+    },
+    "P5": {
+      "action": "C",
+      "beliefs": {
+        "none": 0.8,
+        "P1": 0.04,
+        "P2": 0.04,
+        "P3": 0.04,
+        "P4": 0.04,
+        "P5": 0,
+        "P6": 0.04
+      },
+      "strategy": "Cooperate to support mutual gains among good players; observed cooperation so far lowers concern about a selfish player. Adapt to actual encounter behavior."
+    }
+  },
+  "completed": false,
+  "encounters": [
+    {
+      "round": 1,
+      "players": [
+        "P6",
+        "P5"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 1,
+      "players": [
+        "P3",
+        "P1"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 1,
+      "players": [
+        "P2",
+        "P4"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P6",
+        "P2"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P4",
+        "P3"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P1",
+        "P5"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    }
+  ],
+  "discussions": [
+    {
+      "after_round": 1,
+      "visibility": "public",
+      "posts": [
+        {
+          "sender": "P1",
+          "content": "I cooperated with P3 in round 1 and received 3. I’ll continue cooperating with players who reciprocate; please share your observed actions honestly."
+        },
+        {
+          "sender": "P2",
+          "content": "I’m good; P4 and I both cooperated in round 1. I’ll cooperate with cooperative players and respond to repeated defection with D, aiming to maximize good players’ total payoff."
+        },
+        {
+          "sender": "P3",
+          "content": "I’m good and cooperated with P1; we both chose C and earned 3. I suggest cooperating by default and sharing encounter actions/payoffs truthfully so we can identify mutually beneficial cooperation."
+        },
+        {
+          "sender": "P4",
+          "content": "I cooperated with P2 in round 1 and we both earned 3. I’ll continue cooperating by default to support good-player welfare; actions and claims from any player may still be strategic."
+        },
+        {
+          "sender": "P5",
+          "content": "I cooperated with P6 in round 1 and we both earned 3. I’ll continue cooperating with players who reciprocate; please share encounter results honestly."
+        },
+        {
+          "sender": "P6",
+          "content": "I cooperated with P5 in round 1, and we both cooperated. I plan to support cooperation among good players and adapt to observed play."
+        }
+      ]
+    },
+    {
+      "after_round": 2,
+      "visibility": "public",
+      "posts": [
+        {
+          "sender": "P1",
+          "content": "P5 and I both cooperated in round 2 and earned 3 each. I’ll cooperate with cooperators and use D against players who defect, to avoid giving unilateral gains at good players’ expense. Please report observed actions accurately."
+        },
+        {
+          "sender": "P2",
+          "content": "P6 and I both cooperated in round 2 (3 each). I’ll continue cooperating by default and share my observed outcomes truthfully."
+        },
+        {
+          "sender": "P3",
+          "content": "Round 2: P4 and I both cooperated (3 each). I’ll keep cooperating with reciprocators; please report encounters accurately so we can identify defection and protect good-player welfare."
+        },
+        {
+          "sender": "P4",
+          "content": "Round 2: P3 and I both chose C and earned 3. I’ll keep cooperating to support good-player welfare; please share observed actions accurately, while remembering claims are unverified."
+        },
+        {
+          "sender": "P5",
+          "content": "P1 and I both chose C in round 2 and earned 3 each. I’ll keep cooperating by default; please share observed actions and results honestly."
+        },
+        {
+          "sender": "P6",
+          "content": "P2 and I both chose C in round 2 and earned 3 each. I favor C with reciprocal players; please report observed actions and payoffs accurately. Against confirmed repeated defection, D can limit exploitation."
+        }
+      ]
+    }
+  ],
+  "belief_records": [
+    {
+      "player": "P1",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545455,
+        "P1": 0,
+        "P2": 0.0909090909,
+        "P3": 0.0909090909,
+        "P4": 0.0909090909,
+        "P5": 0.0909090909,
+        "P6": 0.0909090909
+      },
+      "strategy": "Cooperate initially to support mutually beneficial outcomes among good players; update beliefs and adapt to observed actions and messages."
+    },
+    {
+      "player": "P2",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5,
+        "P1": 0.1,
+        "P2": 0,
+        "P3": 0.1,
+        "P4": 0.1,
+        "P5": 0.1,
+        "P6": 0.1
+      },
+      "strategy": "Cooperate initially, favoring mutual gains with likely good opponents; update beliefs and adapt to observed play."
+    },
+    {
+      "player": "P3",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545,
+        "P1": 0.0909091,
+        "P2": 0.0909091,
+        "P3": 0,
+        "P4": 0.0909091,
+        "P5": 0.0909091,
+        "P6": 0.0909091
+      },
+      "strategy": "Cooperate initially; use encounter outcomes and public messages to infer intentions, then favor actions that maximize good players’ total payoff."
+    },
+    {
+      "player": "P4",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545455,
+        "P1": 0.0909090909,
+        "P2": 0.0909090909,
+        "P3": 0.0909090909,
+        "P4": 0,
+        "P5": 0.0909090909,
+        "P6": 0.0909090909
+      },
+      "strategy": "Cooperate by default to maximize good-player welfare; update beliefs from observed actions and messages, accounting for incentives and possible deception."
+    },
+    {
+      "player": "P5",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545455,
+        "P1": 0.0909090909,
+        "P2": 0.0909090909,
+        "P3": 0.0909090909,
+        "P4": 0.0909090909,
+        "P5": 0,
+        "P6": 0.0909090909
+      },
+      "strategy": "Cooperate with likely-good players to support mutual gains; use observed actions to adapt in future encounters."
+    },
+    {
+      "player": "P6",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545455,
+        "P1": 0.0909090909,
+        "P2": 0.0909090909,
+        "P3": 0.0909090909,
+        "P4": 0.0909090909,
+        "P5": 0.0909090909,
+        "P6": 0
+      },
+      "strategy": "Cooperate initially to support mutual gains among good players; use encounter outcomes and public messages to update beliefs and adapt in later rounds."
+    },
+    {
+      "player": "P1",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545455,
+        "P1": 0,
+        "P2": 0.0909090909,
+        "P3": 0.0909090909,
+        "P4": 0.0909090909,
+        "P5": 0.0909090909,
+        "P6": 0.0909090909
+      },
+      "strategy": "Cooperate by default to support good-player welfare; update beliefs and adapt to observed actions, treating public claims as unverified."
+    },
+    {
+      "player": "P2",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.6,
+        "P1": 0.08,
+        "P2": 0,
+        "P3": 0.08,
+        "P4": 0.08,
+        "P5": 0.08,
+        "P6": 0.08
+      },
+      "strategy": "Cooperate with P6 given the reported mutual cooperation last round; favor reciprocal cooperation and update cautiously because public claims may be strategic."
+    },
+    {
+      "player": "P3",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.65,
+        "P1": 0.07,
+        "P2": 0.07,
+        "P3": 0,
+        "P4": 0.07,
+        "P5": 0.07,
+        "P6": 0.07
+      },
+      "strategy": "Cooperate with P4; cooperation maximizes joint good-player welfare against likely good opponents. Update identity beliefs cautiously from observed actions and treat public claims as unverified."
+    },
+    {
+      "player": "P4",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5454545455,
+        "P1": 0.0909090909,
+        "P2": 0.0909090909,
+        "P3": 0.0909090909,
+        "P4": 0,
+        "P5": 0.0909090909,
+        "P6": 0.0909090909
+      },
+      "strategy": "Cooperate to support good-player welfare; retain prior identity beliefs since first-round cooperation and unverified claims do not reliably identify anyone."
+    },
+    {
+      "player": "P5",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.5376,
+        "P1": 0.1075,
+        "P2": 0.1075,
+        "P3": 0.1075,
+        "P4": 0.1075,
+        "P5": 0,
+        "P6": 0.0324
+      },
+      "strategy": "Cooperate to support good-player welfare; use observed play to update beliefs and adapt in later encounters."
+    },
+    {
+      "player": "P6",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "none": 0.56,
+        "P1": 0.1,
+        "P2": 0.04,
+        "P3": 0.1,
+        "P4": 0.1,
+        "P5": 0.1,
+        "P6": 0
+      },
+      "strategy": "Cooperate with P2 given the corroborated report of mutual cooperation; use observed actions to adapt and support cooperation among good players."
+    }
+  ],
+  "final_reports": {},
+  "payoffs": {
+    "P1": 6,
+    "P2": 6,
+    "P3": 6,
+    "P4": 6,
+    "P5": 6,
+    "P6": 6
+  }
+}

@@ -1,6 +1,6 @@
 # intentional-agent
 
-This repository contains two complementary implementations for studying the
+This repository contains three complementary implementations for studying the
 Iterated Prisoner's Dilemma with LLM agents:
 
 - **Local research dashboard** (`backend/`, `frontend/`, `docs/`) -- an
@@ -12,9 +12,13 @@ Iterated Prisoner's Dilemma with LLM agents:
   affect the emergence and evolution of cooperation, with mock/real LLM backends,
   JSONL recording, checkpoint/resume, analysis and plots. See **Part 2** below
   and `PILOT_REPORT.md`.
+- **OpenRouter swarm-game pilots** (`experiments/swarm-game/`) -- the rotating
+  six-player experiments with zero or one selfish player, exact prompts,
+  recorded Terra/Luna results, and complete agent transcripts. See **Part 3** below.
 
 Each part has its own runtime requirements (Part 1: Python 3.11+ / Node 22+;
-Part 2: Python 3.9+ with `requirements.txt`).
+Part 2: Python 3.9+ with `requirements.txt`; Part 3: Python 3.11+ with its own
+`pyproject.toml` and `uv.lock`).
 
 # Part 1 -- Local research dashboard (`backend/`, `frontend/`)
 
@@ -383,3 +387,33 @@ scripts/        run_experiment, analyze, validate_run, report_usage, run_tests
 tests/          unittest suite
 results/        generated data, tables, figures, reports (git-ignored)
 ```
+
+# Part 3 -- OpenRouter swarm-game pilots (`experiments/swarm-game/`)
+
+[The standalone swarm-game runner](experiments/swarm-game/README.md) implements
+6-player, 20-round experiments with randomized round-robin matching, private
+objectives, simultaneous actions, and either private notes or public communication.
+The selfish player maximizes its own cumulative payoff and can cooperate or lie.
+
+[Browse the recorded experiments](experiments/swarm-game/records/README.md):
+
+- **Terra pilot:** 48 episodes comparing none/public communication and zero/one
+  selfish player across 12 matched seeds.
+- **Luna persona repeat:** 24 public-communication episodes with zero/one selfish
+  player; only the selfish player receives the fictional Trump-like persona.
+
+Reports include collective returns, identification, recorded strategy summaries,
+messages, exact prompts, frozen runtimes, and losslessly compressed request logs.
+The repeat changes both model and persona, so it cannot isolate a personality
+effect relative to Terra. Each component retains its own documented game rules.
+
+Install and test this runner from its directory; this command makes no paid
+model requests:
+
+```bash
+cd experiments/swarm-game
+uv sync --locked --no-editable
+uv run --no-editable pytest -q
+```
+
+The runner's README provides separate launch commands for live experiments.
