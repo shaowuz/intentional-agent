@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "swarm-game"
+version = "0.1.0"
+description = "Rotating Prisoner's Dilemma experiments with private and public communication"
+requires-python = ">=3.11"
+dependencies = ["httpx>=0.28,<1", "jsonschema>=4.23,<5", "python-dotenv>=1.0,<2", "tiktoken>=0.9,<1"]
+
+[project.scripts]
+swarm-game = "swarm_game.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/swarm_game"]
+
+[tool.uv]
+cache-keys = [{ file = "pyproject.toml" }, { file = "src/**/*.py" }, { file = "src/**/*.txt" }]

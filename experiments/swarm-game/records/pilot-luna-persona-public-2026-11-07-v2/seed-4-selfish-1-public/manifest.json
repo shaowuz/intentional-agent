@@ -1,0 +1,29 @@
+{
+  "config": {
+    "communication": "public",
+    "selfish_count": 1,
+    "players": 6,
+    "rounds": 20,
+    "seed": 4,
+    "backend": "openrouter",
+    "model": "openai/gpt-6-luna",
+    "reasoning_effort": "medium",
+    "message_tokens": 96,
+    "tokenizer": "o200k_base",
+    "max_completion_tokens": 4096,
+    "policy": "cooperate",
+    "selfish_policy": "cooperate",
+    "selfish_persona": "trump_like"
+  },
+  "provenance": {
+    "version": "0.1.0",
+    "code_sha256": "0b979ee55bef47263e5546b77716dad16f298255ee1dc64fb98b9b6be690c238",
+    "prompt_sha256": "a9117cac629784d06fde1e5103cfec8739ffb40872bb9210ea85aad1ae6999b2",
+    "python": "3.11.15",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0"
+    }
+  }
+}

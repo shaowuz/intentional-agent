@@ -1,0 +1,23 @@
+{
+  "config": {
+    "communication": "none",
+    "selfish_count": 0,
+    "players": 6,
+    "rounds": 20,
+    "seed": 0,
+    "backend": "openrouter",
+    "model": "openai/gpt-6.1-terra",
+    "reasoning_effort": "medium",
+    "message_tokens": 96,
+    "tokenizer": "o200k_base",
+    "max_completion_tokens": 4096,
+    "policy": "cooperate",
+    "selfish_policy": "cooperate"
+  },
+  "seeds": 12,
+  "counts": {
+    "episodes": 48,
+    "encounters": 2880,
+    "requests_before_retries": 11520
+  }
+}

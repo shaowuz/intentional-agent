@@ -1,0 +1,42 @@
+[
+  {
+    "episode": "seed-11-selfish-0-public",
+    "seed": 11,
+    "selfish_count": 0,
+    "round": 20,
+    "actor": "P3",
+    "actual_opponent": "P6",
+    "probability_opponent_selfish": 0.1,
+    "strategy_summary": "In the final round, defect: against a defection this improves good-player payoff, and against cooperation it limits the loss if P6 defects or is selfish. Retain prior identity beliefs; the cooperative record does not prove objectives."
+  },
+  {
+    "episode": "seed-7-selfish-1-public",
+    "seed": 7,
+    "selfish_count": 1,
+    "round": 14,
+    "actor": "P3",
+    "actual_opponent": "P5",
+    "probability_opponent_selfish": 0.005,
+    "strategy_summary": "Defect against P2 given their repeated observed defections; cooperate with reliable partners to support good-player welfare."
+  },
+  {
+    "episode": "seed-7-selfish-1-public",
+    "seed": 7,
+    "selfish_count": 1,
+    "round": 15,
+    "actor": "P6",
+    "actual_opponent": "P3",
+    "probability_opponent_selfish": 0.08,
+    "strategy_summary": "P3’s verified defection against P5 raises concern despite our prior mutual cooperation. Defect this round; update identity beliefs from observed actions and support cooperation with reliable partners."
+  },
+  {
+    "episode": "seed-7-selfish-1-public",
+    "seed": 7,
+    "selfish_count": 1,
+    "round": 16,
+    "actor": "P5",
+    "actual_opponent": "P6",
+    "probability_opponent_selfish": 0.1,
+    "strategy_summary": "Defect against P6 after their admitted exploitation of P3; retain high suspicion of P2 from repeated defections. Cooperate with reliable partners to maximize good players’ combined payoff."
+  }
+]

@@ -91,3 +91,10 @@ npm run dev
 Vite serves http://127.0.0.1:5173 and proxies `/api` to the backend. API documentation is available at http://127.0.0.1:8000/docs.
 
 See [the user guide](docs/user-guide.md) for setup fields, permissions, and recovery. This MVP targets a local or single-server pilot; internet-facing hosting, large-population performance, and production hardening remain separate work.
+
+## Recorded OpenRouter pilots
+
+[The standalone swarm-game experiments](experiments/swarm-game/README.md) include
+the Python runner, exact prompt templates, tests, and recorded Terra/Luna pilots.
+[Browse reports and agent transcripts](experiments/swarm-game/records/README.md).
+These experiments retain their documented protocol independently of the dashboard.

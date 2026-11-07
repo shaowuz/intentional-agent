@@ -1,0 +1,636 @@
+{
+  "cells": {
+    "0_none": {
+      "n": 12,
+      "good_total_return": {
+        "mean": 360,
+        "sd": 0.0,
+        "min": 360,
+        "max": 360,
+        "n": 12
+      },
+      "return_per_good_encounter": {
+        "mean": 3.0,
+        "sd": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "n": 12
+      },
+      "good_good_return": {
+        "mean": 360,
+        "sd": 0.0,
+        "min": 360,
+        "max": 360,
+        "n": 12
+      },
+      "good_selfish_return": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "good_cooperation_rate": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "final_mean_brier_score": {
+        "mean": 0.06796855843846393,
+        "sd": 0.013565956059140925,
+        "min": 0.05189645,
+        "max": 0.09158350512499999,
+        "n": 12
+      },
+      "good_agents_ever_identifying_selfish": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "good_agents_identifying_before_personal_encounter": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "false_accusation_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "n": 12
+      },
+      "good_good_cooperation_rate": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "good_agents_ever_false_accusing": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "first_selfish_defection_round": null
+    },
+    "0_public": {
+      "n": 12,
+      "good_total_return": {
+        "mean": 360,
+        "sd": 0.0,
+        "min": 360,
+        "max": 360,
+        "n": 12
+      },
+      "return_per_good_encounter": {
+        "mean": 3.0,
+        "sd": 0.0,
+        "min": 3.0,
+        "max": 3.0,
+        "n": 12
+      },
+      "good_good_return": {
+        "mean": 360,
+        "sd": 0.0,
+        "min": 360,
+        "max": 360,
+        "n": 12
+      },
+      "good_selfish_return": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "good_cooperation_rate": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "final_mean_brier_score": {
+        "mean": 0.08892975347222223,
+        "sd": 0.026106647850657715,
+        "min": 0.054992500000000014,
+        "max": 0.1432866666666667,
+        "n": 12
+      },
+      "good_agents_ever_identifying_selfish": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "good_agents_identifying_before_personal_encounter": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "false_accusation_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "n": 12
+      },
+      "good_good_cooperation_rate": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "good_agents_ever_false_accusing": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "first_selfish_defection_round": null
+    },
+    "1_none": {
+      "n": 12,
+      "good_total_return": {
+        "mean": 285,
+        "sd": 0.0,
+        "min": 285,
+        "max": 285,
+        "n": 12
+      },
+      "return_per_good_encounter": {
+        "mean": 2.85,
+        "sd": 0.0,
+        "min": 2.85,
+        "max": 2.85,
+        "n": 12
+      },
+      "good_good_return": {
+        "mean": 240,
+        "sd": 0.0,
+        "min": 240,
+        "max": 240,
+        "n": 12
+      },
+      "good_selfish_return": {
+        "mean": 45,
+        "sd": 0.0,
+        "min": 45,
+        "max": 45,
+        "n": 12
+      },
+      "good_cooperation_rate": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "final_mean_brier_score": {
+        "mean": 0.19033704583333333,
+        "sd": 0.07684925174434173,
+        "min": 0.08061259999999998,
+        "max": 0.35701200000000005,
+        "n": 12
+      },
+      "final_identification_rate": {
+        "mean": 0.26666666666666666,
+        "sd": 0.1556997888323046,
+        "min": 0.0,
+        "max": 0.6,
+        "n": 12
+      },
+      "good_agents_ever_identifying_selfish": {
+        "mean": 1.3333333333333333,
+        "sd": 0.778498944161523,
+        "min": 0,
+        "max": 3,
+        "n": 12
+      },
+      "good_agents_identifying_before_personal_encounter": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "false_accusation_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "n": 12
+      },
+      "good_good_cooperation_rate": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "good_selfish_cooperation_rate": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "selfish_cooperation_rate": {
+        "mean": 0.75,
+        "sd": 0.0,
+        "min": 0.75,
+        "max": 0.75,
+        "n": 12
+      },
+      "selfish_return": {
+        "mean": 70,
+        "sd": 0.0,
+        "min": 70,
+        "max": 70,
+        "n": 12
+      },
+      "identification_during_game_rate": {
+        "mean": 0.08333333333333334,
+        "sd": 0.1337115846843043,
+        "min": 0.0,
+        "max": 0.4,
+        "n": 12
+      },
+      "good_agents_ever_false_accusing": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "first_selfish_defection_round": {
+        "mean": 16,
+        "sd": 0.0,
+        "min": 16,
+        "max": 16,
+        "n": 12
+      }
+    },
+    "1_public": {
+      "n": 12,
+      "good_total_return": {
+        "mean": 295.3333333333333,
+        "sd": 1.874873733122184,
+        "min": 291,
+        "max": 297,
+        "n": 12
+      },
+      "return_per_good_encounter": {
+        "mean": 2.9533333333333336,
+        "sd": 0.018748737331221857,
+        "min": 2.91,
+        "max": 2.97,
+        "n": 12
+      },
+      "good_good_return": {
+        "mean": 239.83333333333334,
+        "sd": 0.5773502691896257,
+        "min": 238,
+        "max": 240,
+        "n": 12
+      },
+      "good_selfish_return": {
+        "mean": 55.5,
+        "sd": 1.7320508075688772,
+        "min": 51,
+        "max": 57,
+        "n": 12
+      },
+      "good_cooperation_rate": {
+        "mean": 0.9908333333333333,
+        "sd": 0.010836246694508327,
+        "min": 0.97,
+        "max": 1.0,
+        "n": 12
+      },
+      "final_mean_brier_score": {
+        "mean": 0.4989461666666667,
+        "sd": 0.5142120279934831,
+        "min": 0.0028914000000000036,
+        "max": 1.12284625,
+        "n": 12
+      },
+      "final_identification_rate": {
+        "mean": 0.5166666666666667,
+        "sd": 0.38573031873042957,
+        "min": 0.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "good_agents_ever_identifying_selfish": {
+        "mean": 2.5833333333333335,
+        "sd": 1.9286515936521478,
+        "min": 0,
+        "max": 5,
+        "n": 12
+      },
+      "good_agents_identifying_before_personal_encounter": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "false_accusation_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "n": 12
+      },
+      "good_good_cooperation_rate": {
+        "mean": 0.9979166666666667,
+        "sd": 0.007216878364870329,
+        "min": 0.975,
+        "max": 1.0,
+        "n": 12
+      },
+      "good_selfish_cooperation_rate": {
+        "mean": 0.9625,
+        "sd": 0.043301270189221946,
+        "min": 0.85,
+        "max": 1.0,
+        "n": 12
+      },
+      "selfish_cooperation_rate": {
+        "mean": 0.9125,
+        "sd": 0.0433012701892219,
+        "min": 0.8,
+        "max": 0.95,
+        "n": 12
+      },
+      "selfish_return": {
+        "mean": 60.5,
+        "sd": 1.7320508075688772,
+        "min": 56,
+        "max": 62,
+        "n": 12
+      },
+      "identification_during_game_rate": {
+        "mean": 0.35,
+        "sd": 0.43588989435406733,
+        "min": 0.0,
+        "max": 1.0,
+        "n": 12
+      },
+      "good_agents_ever_false_accusing": {
+        "mean": 0,
+        "sd": 0.0,
+        "min": 0,
+        "max": 0,
+        "n": 12
+      },
+      "first_selfish_defection_round": {
+        "mean": 19,
+        "sd": 1.2792042981336627,
+        "min": 16,
+        "max": 20,
+        "n": 12
+      }
+    }
+  },
+  "paired_effects": {
+    "0": {
+      "good_total_return": {
+        "mean_public_minus_none": 0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "bootstrap_95pct": [
+          0,
+          0
+        ],
+        "paired_sign_flip_p": 1.0
+      },
+      "return_per_good_encounter": {
+        "mean_public_minus_none": 0.0,
+        "paired_differences": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "bootstrap_95pct": [
+          0.0,
+          0.0
+        ],
+        "paired_sign_flip_p": 1.0
+      },
+      "good_cooperation_rate": {
+        "mean_public_minus_none": 0.0,
+        "paired_differences": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "bootstrap_95pct": [
+          0.0,
+          0.0
+        ],
+        "paired_sign_flip_p": 1.0
+      },
+      "final_mean_brier_score": {
+        "mean_public_minus_none": 0.020961195033758297,
+        "paired_differences": [
+          -0.007851666666666673,
+          -0.004344963458333323,
+          -0.03269483180499998,
+          0.04186938333333334,
+          -0.013660387971666674,
+          0.018066666666666675,
+          -0.006260048471666682,
+          0.08572030000000003,
+          0.036141933985099496,
+          0.06298951819500001,
+          0.039936397931666645,
+          0.031622038666666685
+        ],
+        "bootstrap_95pct": [
+          0.002491881841805569,
+          0.0399719981112583
+        ],
+        "paired_sign_flip_p": 0.0634765625
+      }
+    },
+    "1": {
+      "good_total_return": {
+        "mean_public_minus_none": 10.333333333333334,
+        "paired_differences": [
+          10,
+          10,
+          10,
+          12,
+          10,
+          6,
+          12,
+          12,
+          10,
+          8,
+          12,
+          12
+        ],
+        "bootstrap_95pct": [
+          9.333333333333334,
+          11.333333333333334
+        ],
+        "paired_sign_flip_p": 0.00048828125
+      },
+      "return_per_good_encounter": {
+        "mean_public_minus_none": 0.10333333333333343,
+        "paired_differences": [
+          0.10000000000000009,
+          0.10000000000000009,
+          0.10000000000000009,
+          0.1200000000000001,
+          0.10000000000000009,
+          0.06000000000000005,
+          0.1200000000000001,
+          0.1200000000000001,
+          0.10000000000000009,
+          0.08000000000000007,
+          0.1200000000000001,
+          0.1200000000000001
+        ],
+        "bootstrap_95pct": [
+          0.09333333333333342,
+          0.11333333333333344
+        ],
+        "paired_sign_flip_p": 0.00048828125
+      },
+      "good_cooperation_rate": {
+        "mean_public_minus_none": -0.009166666666666675,
+        "paired_differences": [
+          -0.010000000000000009,
+          -0.010000000000000009,
+          -0.010000000000000009,
+          0.0,
+          -0.010000000000000009,
+          -0.030000000000000027,
+          0.0,
+          0.0,
+          -0.010000000000000009,
+          -0.030000000000000027,
+          0.0,
+          0.0
+        ],
+        "bootstrap_95pct": [
+          -0.01583333333333335,
+          -0.00416666666666667
+        ],
+        "paired_sign_flip_p": 0.015625
+      },
+      "final_mean_brier_score": {
+        "mean_public_minus_none": 0.3086091208333333,
+        "paired_differences": [
+          -0.12901975000000002,
+          -0.1289618,
+          -0.1986678,
+          0.84750365,
+          -0.1228937,
+          -0.17942355,
+          0.9714024000000001,
+          0.8737893999999998,
+          0.22069505000000006,
+          -0.07127700000000003,
+          0.7026074999999998,
+          0.91755505
+        ],
+        "bootstrap_95pct": [
+          0.04054247916666668,
+          0.584512925
+        ],
+        "paired_sign_flip_p": 0.05908203125
+      },
+      "final_identification_rate": {
+        "mean_public_minus_none": 0.25,
+        "paired_differences": [
+          0.6000000000000001,
+          0.6,
+          1.0,
+          0.0,
+          0.6000000000000001,
+          0.8,
+          -0.39999999999999997,
+          0.0,
+          -0.4,
+          0.19999999999999996,
+          0.0,
+          0.0
+        ],
+        "bootstrap_95pct": [
+          0.016666666666666663,
+          0.5
+        ],
+        "paired_sign_flip_p": 0.109375
+      },
+      "selfish_return": {
+        "mean_public_minus_none": -9.5,
+        "paired_differences": [
+          -10,
+          -10,
+          -10,
+          -8,
+          -10,
+          -14,
+          -8,
+          -8,
+          -10,
+          -10,
+          -8,
+          -8
+        ],
+        "bootstrap_95pct": [
+          -10.5,
+          -8.666666666666666
+        ],
+        "paired_sign_flip_p": 0.00048828125
+      }
+    }
+  }
+}
