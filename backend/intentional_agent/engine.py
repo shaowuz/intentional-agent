@@ -15,11 +15,12 @@ import random
 from typing import Any, Awaitable, Callable
 from uuid import UUID, uuid4, uuid5
 
+from swarm_game.game import PAYOFFS
+
 from .models import ExperimentConfig
 
 
 MAX_FORUM_MESSAGE_LENGTH = 4000
-PAYOFFS = {("C", "C"): (3, 3), ("C", "D"): (0, 5), ("D", "C"): (5, 0), ("D", "D"): (1, 1)}
 PUBLIC_MATCH_FIELDS = ("round", "a", "b", "action_a", "action_b", "payoff_a", "payoff_b")
 PUBLIC_FORUM_FIELDS = ("id", "round", "agent_id", "content", "parent_id", "stage")
 UpdateCallback = Callable[[], Awaitable[None]]

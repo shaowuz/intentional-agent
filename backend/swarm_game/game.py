@@ -44,6 +44,8 @@ def initial_state(config: Config):
         "discussions": [],
         "belief_records": [],
         "final_reports": {},
+        "midpoint_reports": {},
+        "election": None,
         "payoffs": dict.fromkeys(players, 0),
     }
 
@@ -67,9 +69,10 @@ def player_view(state, config, player):
         )
     discussion = []
     for event in state["discussions"]:
-        posts = event["posts"]
-        if config.communication == "none":
-            posts = [p for p in posts if p["sender"] == player]
+        posts = [
+            p for p in event["posts"]
+            if p.get("visibility", event["visibility"]) == "public" or p["sender"] == player
+        ]
         discussion.append({"after_round": event["after_round"], "posts": posts})
     opponent = None
     if state["phase"] == "action":
@@ -90,6 +93,8 @@ def player_view(state, config, player):
             "encounters": encounters,
             "discussion_history": discussion,
             "own_previous_reports": reports,
+            "own_midpoint_report": state.get("midpoint_reports", {}).get(player),
+            "leader": state["election"]["winner"] if state.get("election") else None,
         }
     )
 
@@ -111,20 +116,37 @@ def commit_phase(state, config):
             )
             for player, payoff in zip(pair, payoffs):
                 state["payoffs"][player] += payoff
-        state["phase"] = "discussion" if round_number < config.rounds else "final"
+        if config.protocol_version == "rotating-v2" and round_number == config.midpoint_round:
+            state["phase"] = "midpoint"
+        else:
+            state["phase"] = "discussion" if round_number < config.rounds else "final"
+    elif state["phase"] == "midpoint":
+        state["midpoint_reports"] = copy.deepcopy(pending)
+        if config.communication == "leader":
+            counts = {p: sum(r["vote"] == p for r in pending.values()) for p in state["players"]}
+            tied = sorted(p for p, n in counts.items() if n == max(counts.values()))
+            winner = random.Random(derived_seed(config.seed, "election_tie")).choice(tied)
+            state["election"] = {
+                "after_round": round_number, "winner": winner,
+                "votes": {p: r["vote"] for p, r in pending.items()},
+                "counts": counts, "tied_candidates": tied,
+            }
+        state["phase"] = "discussion"
     elif state["phase"] == "discussion":
         state["discussions"].append(
             {
                 "after_round": round_number,
                 "visibility": config.communication,
                 "posts": [
-                    {"sender": p, "content": pending[p]["content"]} for p in state["players"]
+                    {"sender": p, "content": pending[p]["content"],
+                     "visibility": "public" if can_broadcast(state, config, p) else "private"}
+                    for p in state["players"]
                 ],
             }
         )
         state["round"] += 1
         state["phase"] = "action"
-    else:
+    elif state["phase"] == "final":
         state["final_reports"] = copy.deepcopy(pending)
         for player, response in pending.items():
             state["belief_records"].append(
@@ -132,4 +154,13 @@ def commit_phase(state, config):
             )
         state["completed"] = True
         state["phase"] = "complete"
+    else:
+        raise ValueError(f"Unknown phase {state['phase']}")
     state["pending"] = {}
+
+
+def can_broadcast(state, config, player):
+    if config.communication == "public":
+        return True
+    election = state.get("election")
+    return bool(config.communication == "leader" and election and election["winner"] == player)

@@ -43,8 +43,10 @@ class ScriptedProvider:
         policy = (
             self.config.selfish_policy if view["objective"] == "selfish" else self.config.policy
         )
-        if request.phase == "discussion":
+        if request.phase in ("discussion", "midpoint"):
             data = {"content": f"I follow a {policy} policy."}
+            if request.phase == "midpoint" and self.config.communication == "leader":
+                data["vote"] = view["player"]
         else:
             data = {"beliefs": prior_beliefs(view), "strategy": f"Scripted {policy}."}
             if request.phase == "action":
@@ -92,6 +94,9 @@ class OpenRouterProvider:
             raise ProviderError(
                 "Model catalog lacks required structured-output/reasoning parameters"
             )
+        efforts = (entry.get("reasoning") or {}).get("supported_efforts")
+        if efforts is not None and self.config.reasoning_effort not in efforts:
+            raise ProviderError("Model does not support the configured reasoning effort")
         return {
             k: entry.get(k)
             for k in (
@@ -110,7 +115,7 @@ class OpenRouterProvider:
             "messages": messages or request.messages,
             "reasoning": {"effort": self.config.reasoning_effort, "exclude": True},
             "max_tokens": self.config.max_completion_tokens,
-            "provider": {"only": ["openai"], "allow_fallbacks": False, "require_parameters": True},
+            "provider": {"only": [self.config.provider], "allow_fallbacks": False, "require_parameters": True},
             "response_format": {
                 "type": "json_schema",
                 "json_schema": {
@@ -153,8 +158,8 @@ class OpenRouterProvider:
                             raise ProviderError(
                                 f"Response model differs from configured {self.config.model}"
                             )
-                        if str(data.get("provider", "")).lower() != "openai":
-                            raise ProviderError("Response provider is not OpenAI")
+                        if str(data.get("provider", "")).lower() != self.config.provider:
+                            raise ProviderError(f"Response provider is not {self.config.provider}")
                         return Completion(
                             content if isinstance(content, str) else "",
                             {

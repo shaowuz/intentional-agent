@@ -5,9 +5,14 @@ from dataclasses import replace
 from itertools import combinations
 
 import pytest
-
 from swarm_game.config import Config, pilot_counts
-from swarm_game.game import PAYOFFS, commit_phase, initial_state, make_schedule, player_view
+from swarm_game.game import (
+    PAYOFFS,
+    commit_phase,
+    initial_state,
+    make_schedule,
+    player_view,
+)
 from swarm_game.protocol import make_request, validate_response
 from swarm_game.providers import ScriptedProvider, prior_beliefs
 

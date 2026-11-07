@@ -67,7 +67,7 @@ def provenance():
         "code_sha256": code_hash(),
         "prompt_sha256": protocol_hash(),
         "python": platform.python_version(),
-        "dependencies": {p: version(p) for p in ("httpx", "jsonschema", "tiktoken")},
+        "dependencies": {p: version(p) for p in ("httpx", "jsonschema", "tiktoken", "python-dotenv")},
     }
 
 

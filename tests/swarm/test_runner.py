@@ -1,5 +1,4 @@
 import pytest
-
 from swarm_game.analysis import analyze_comparison, score_state
 from swarm_game.config import Config
 from swarm_game.providers import Completion, ProviderError, ScriptedProvider

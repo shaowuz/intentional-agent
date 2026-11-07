@@ -1,0 +1,14 @@
+{
+  "models": ["openai/gpt-6-luna", "anthropic/claude-haiku-5.5"],
+  "communication_modes": ["none", "public", "leader"],
+  "selfish_counts": [0, 1],
+  "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "game": {
+    "protocol_version": "rotating-v2",
+    "players": 6,
+    "rounds": 20,
+    "backend": "openrouter",
+    "reasoning_effort": "medium",
+    "selfish_persona": "neutral"
+  }
+}

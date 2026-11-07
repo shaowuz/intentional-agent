@@ -9,7 +9,7 @@ from string import Template
 import jsonschema
 import tiktoken
 
-from .game import player_view
+from .game import can_broadcast, player_view
 
 
 @lru_cache
@@ -27,7 +27,7 @@ def prompt_text(name):
 
 def protocol_hash():
     content = "".join(
-        prompt_text(n) for n in ("rules", "action", "discussion", "final", "selfish_trump_like")
+        prompt_text(n) for n in ("rules", "action", "discussion", "midpoint", "final", "selfish_trump_like")
     )
     return hashlib.sha256(content.encode()).hexdigest()
 
@@ -41,7 +41,12 @@ def object_schema(properties):
     }
 
 
-def response_schema(phase, players):
+def response_schema(phase, players, communication="none"):
+    if phase == "midpoint":
+        props = {"content": {"type": "string"}}
+        if communication == "leader":
+            props["vote"] = {"type": "string", "enum": players}
+        return object_schema(props)
     if phase == "discussion":
         return object_schema({"content": {"type": "string"}})
     beliefs = object_schema(
@@ -84,6 +89,23 @@ def make_request(state, config, player):
             "Each player posts one public message. Every player, including any "
             "selfish player, receives every post."
         )
+    if config.communication == "leader":
+        communication = (
+            f"Before the election after round {config.midpoint_round}, everyone writes only "
+            "private notes; no player can broadcast. At the midpoint each player submits one "
+            "secret vote for any player ID, including itself. All votes commit simultaneously. "
+            "Plurality wins; a seeded random draw breaks ties. Only the winner's identity is "
+            "announced. Ballots, vote totals, and private ballot notes remain secret. "
+            "From the discussion immediately after the election through the penultimate round, "
+            "only the elected leader posts publicly. Every other player writes a private note. "
+            "The leader receives no extra private evidence or powers and cannot control actions. "
+            "There is no reelection. Any player, including a selfish player, can win and can lie."
+        )
+    if config.protocol_version == "rotating-v2" and config.communication != "leader":
+        communication += (
+            f" After round {config.midpoint_round}, before the ordinary note/post phase, "
+            "everyone writes one additional private reflection. It is never shared."
+        )
     rules = Template(prompt_text("rules")).substitute(
         players=config.players,
         rounds=config.rounds,
@@ -93,7 +115,13 @@ def make_request(state, config, player):
         last_discussion=config.rounds - 1,
     )
     instruction = Template(prompt_text(state["phase"])).substitute(
-        message_kind="public message" if config.communication == "public" else "private note"
+        message_kind="public message" if can_broadcast(state, config, player) else "private note",
+        midpoint_instruction=(
+            "Cast one secret vote for any player ID, including yourself. Return vote and content; "
+            "content is your private ballot note. Choose the leader according to your objective."
+            if config.communication == "leader" else
+            "Write a private reflection on the game so far. Return content only."
+        ),
     )
     if view["objective"] == "selfish" and config.selfish_persona == "trump_like":
         rules += "\n" + prompt_text("selfish_trump_like")
@@ -107,7 +135,7 @@ def make_request(state, config, player):
         state["phase"],
         view,
         messages,
-        response_schema(state["phase"], state["players"]),
+        response_schema(state["phase"], state["players"], config.communication),
     )
 
 
@@ -119,7 +147,7 @@ def validate_response(data, request, config):
         raise ValueError(
             f"Response violates {exc.validator} at {list(exc.absolute_path)}"
         ) from None
-    if request.phase == "discussion":
+    if request.phase in ("discussion", "midpoint"):
         if token_count(data["content"]) > config.message_tokens:
             raise ValueError("content exceeds 96 o200k_base tokens")
     else:

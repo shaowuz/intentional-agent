@@ -2,7 +2,6 @@ import json
 
 import httpx
 import pytest
-
 from swarm_game.config import Config
 from swarm_game.game import initial_state
 from swarm_game.protocol import make_request

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Tuple
 
+from swarm_game.game import PAYOFFS
+
 COOPERATE = "C"
 DEFECT = "D"
 ACTIONS: Tuple[str, str] = (COOPERATE, DEFECT)
@@ -12,12 +14,8 @@ ACTIONS: Tuple[str, str] = (COOPERATE, DEFECT)
 #          Opponent C   Opponent D
 # Agent C    (3, 3)       (0, 5)
 # Agent D    (5, 0)       (1, 1)
-PAYOFF_MATRIX = {
-    (COOPERATE, COOPERATE): 3,
-    (COOPERATE, DEFECT): 0,
-    (DEFECT, COOPERATE): 5,
-    (DEFECT, DEFECT): 1,
-}
+
+PAYOFF_MATRIX = {actions: values[0] for actions, values in PAYOFFS.items()}
 
 # Conditions.
 FIXED = "fixed"

@@ -64,6 +64,11 @@ def score_state(state, config):
     final = [r for r in records if r["phase"] == "final"]
     total = sum(state["payoffs"][p] for p in good)
     return {
+        "schema_version": "intentional-experiments/1",
+        "protocol_version": config.get("protocol_version", "rotating-v1"),
+        "model": config["model"],
+        "reasoning_effort": config["reasoning_effort"],
+        "selfish_persona": config.get("selfish_persona", "neutral"),
         "communication": config["communication"],
         "selfish_count": config["selfish_count"],
         "seed": config["seed"],
@@ -95,6 +100,10 @@ def score_state(state, config):
         - min(state["payoffs"][p] for p in good),
         "payoffs": state["payoffs"],
         "selfish_player": selfish,
+        "leader": state.get("election", {}).get("winner") if state.get("election") else None,
+        "leader_is_selfish": (
+            state["election"]["winner"] == selfish if state.get("election") else None
+        ),
     }
 
 
@@ -112,6 +121,13 @@ def analyze_episode(output):
             if b["round"] == r and b["phase"] == "action"
         ]
         events += [{"type": "encounter", **e} for e in state["encounters"] if e["round"] == r]
+        if state.get("midpoint_reports") and r == config["rounds"] // 2:
+            events += [
+                {"type": "midpoint", "after_round": r, "player": p, **v}
+                for p, v in state["midpoint_reports"].items()
+            ]
+            if state.get("election"):
+                events.append({"type": "election", **state["election"]})
         events += [
             {"type": "discussion", **d} for d in state["discussions"] if d["after_round"] == r
         ]
@@ -121,7 +137,7 @@ def analyze_episode(output):
         "# Episode report",
         "",
         (
-            f"Backend: **{config['backend']}**. "
+            f"Backend: **{config['backend']}**; model: **{config['model']}**. "
             f"Communication: **{config['communication']}**; selfish players: **{config['selfish_count']}**."
         ),
         "",
@@ -158,8 +174,11 @@ def analyze_episode(output):
             for post in event["posts"]:
                 # Quote arbitrary messages as data; escape HTML to keep reports inert.
                 content = post["content"].replace("&", "&amp;").replace("<", "&lt;")
-                lines.append(f"- {post['sender']}: {content.replace(chr(10), ' ')}")
+                visibility = post.get("visibility", event["visibility"])
+                lines.append(f"- {post['sender']} ({visibility}): {content.replace(chr(10), ' ')}")
             lines.append("")
+        elif event["type"] == "election":
+            lines.append(f"- Election after round {event['after_round']}: leader {event['winner']}.")
     lines += [
         "",
         (
