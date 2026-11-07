@@ -177,8 +177,8 @@ python3 scripts/validate_run.py --results results/smoke
 # 3. Analyse: writes tables/, figures/ and report.md
 python3 -m ipd.cli analyze --results results/smoke
 
-# 4. Run the test suite
-python3 -m unittest discover -s tests -v      # or: bash scripts/run_tests.sh
+# 4. Run the ipd test suite
+bash scripts/run_tests.sh
 ```
 
 `scripts/run_experiment.py` and `scripts/analyze.py` are thin wrappers around the
@@ -350,7 +350,8 @@ replications across seeds.
 
 ## Tests
 
-Run `python3 -m unittest discover -s tests -v`. Coverage includes: payoff matrix;
+Run `bash scripts/run_tests.sh` (it targets the `ipd/` suite; `tests/` also
+contains the dashboard's pytest tests). Coverage includes: payoff matrix;
 round-robin/no-repeat/random pairing; exact fixed-horizon length; random-horizon
 bounds, cap and reproducibility; simultaneous actions (no look-ahead);
 memory isolation, serialisation and **lossless prompt views**; output parsing;
