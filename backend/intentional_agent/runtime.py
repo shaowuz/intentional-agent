@@ -172,7 +172,7 @@ class OpenRouterRuntime:
                 response.raise_for_status()
                 data = response.json().get("data", [])
                 self._catalog = {item["id"]: item for item in data if isinstance(item, dict) and isinstance(item.get("id"), str)}
-            except (httpx.HTTPError, ValueError, TypeError, KeyError) as exc:
+            except (httpx.HTTPError, ValueError, TypeError, KeyError):
                 raise RuntimeError("Could not load the OpenRouter model catalog. No inference request was sent.") from None
         if model_id not in self._catalog:
             raise RuntimeError("The configured model is not present in the current OpenRouter catalog.")

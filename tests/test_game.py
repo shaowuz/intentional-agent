@@ -4,8 +4,6 @@ import unittest
 
 from ipd.game import (
     ACTIONS,
-    COOPERATE,
-    DEFECT,
     PAYOFF_MATRIX,
     horizon_system_description,
     payoff,

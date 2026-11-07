@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from ..config import LLMConfig
 from .base import LLMClient
 from .mock import MockClient
@@ -25,30 +23,22 @@ def build_client(config: LLMConfig) -> LLMClient:
     if provider == "mock":
         return MockClient(model=config.model)
     if provider in ("openai", "openai-compatible", "azure", "vllm", "ollama"):
-        return OpenAICompatibleClient(
-            model=config.model,
-            temperature=config.temperature,
-            top_p=config.top_p,
-            max_tokens=config.max_tokens,
-            seed=config.seed,
-            api_key_env=config.api_key_env,
-            base_url=config.base_url,
-            timeout=config.timeout,
-            max_retries=config.max_retries,
+        client = OpenAICompatibleClient
+    elif provider == "anthropic":
+        client = AnthropicClient
+    else:
+        raise ValueError(
+            f"Unknown LLM provider {config.provider!r}. "
+            "Use 'mock', 'openai', or 'anthropic'."
         )
-    if provider == "anthropic":
-        return AnthropicClient(
-            model=config.model,
-            temperature=config.temperature,
-            top_p=config.top_p,
-            max_tokens=config.max_tokens,
-            seed=config.seed,
-            api_key_env=config.api_key_env,
-            base_url=config.base_url,
-            timeout=config.timeout,
-            max_retries=config.max_retries,
-        )
-    raise ValueError(
-        f"Unknown LLM provider {config.provider!r}. "
-        "Use 'mock', 'openai', or 'anthropic'."
+    return client(
+        model=config.model,
+        temperature=config.temperature,
+        top_p=config.top_p,
+        max_tokens=config.max_tokens,
+        seed=config.seed,
+        api_key_env=config.api_key_env,
+        base_url=config.base_url,
+        timeout=config.timeout,
+        max_retries=config.max_retries,
     )

@@ -89,7 +89,6 @@ class OpenAICompatibleClient(LLMClient):
                     output_tokens=int(usage.get("completion_tokens", 0)),
                     model=data.get("model", self.model),
                     provider=self.provider,
-                    raw=None,
                 )
             except Exception as exc:  # noqa: BLE001 - retry any transient error
                 last_exc = exc

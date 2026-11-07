@@ -194,10 +194,6 @@ class AgentMemory:
         return game
 
     @property
-    def current_game(self) -> Optional[GameRecord]:
-        return self._current
-
-    @property
     def n_games_completed(self) -> int:
         return len(self.games)
 

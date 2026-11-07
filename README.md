@@ -185,8 +185,8 @@ python3 -m ipd.cli analyze --results results/smoke
 bash scripts/run_tests.sh
 ```
 
-`scripts/run_experiment.py` and `scripts/analyze.py` are thin wrappers around the
-same CLI (`python3 scripts/run_experiment.py --config ...`).
+Use `python3 -m ipd.cli run` and `python3 -m ipd.cli analyze` as the experiment
+entry points.
 
 ---
 
@@ -383,7 +383,7 @@ See `PILOT_REPORT.md` for the status of the pilot and instructions.
 ipd/            core package (game, pairing, memory, prompts, agent, tournament,
                 recorder, usage, analysis, cli, llm backends)
 config/         smoke / pilot / full configurations
-scripts/        run_experiment, analyze, validate_run, report_usage, run_tests
+scripts/        validate_run, report_usage, run_tests, dev, check
 tests/          unittest suite
 results/        generated data, tables, figures, reports (git-ignored)
 ```

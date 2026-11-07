@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import random
 import re
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 from ..usage import LLMResponse
 from ..utils import stable_seed_from_text
@@ -48,7 +48,6 @@ class MockClient(LLMClient):
             output_tokens=output_tokens,
             model=self.model,
             provider=self.provider,
-            raw=None,
         )
 
     # ------------------------------------------------------------------ #

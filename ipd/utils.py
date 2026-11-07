@@ -52,10 +52,3 @@ def atomic_write_text(path: str, text: str) -> None:
         fh.flush()
         os.fsync(fh.fileno())
     os.replace(tmp, path)
-
-
-def mean(values):
-    values = list(values)
-    if not values:
-        return float("nan")
-    return sum(values) / len(values)
