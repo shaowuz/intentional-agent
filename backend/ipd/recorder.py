@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 from .utils import atomic_write_text, ensure_dir
 

@@ -34,10 +34,6 @@ def payoff(own_action: str, opponent_action: str) -> int:
         ) from exc
 
 
-def is_valid_action(action: str) -> bool:
-    return action in ACTIONS
-
-
 def horizon_system_description(
     condition: str, fixed_rounds: int, continue_prob: float
 ) -> str:

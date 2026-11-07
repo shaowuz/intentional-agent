@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 import numpy as np
 
@@ -35,8 +35,6 @@ def load_condition(results_root: str, condition: str) -> Dict[str, object]:
     cdir = os.path.join(results_root, condition)
     rounds = read_jsonl(os.path.join(cdir, "rounds.jsonl"))
     games = read_jsonl(os.path.join(cdir, "games.jsonl"))
-    beliefs = read_jsonl(os.path.join(cdir, "beliefs.jsonl"))
-    usage = read_jsonl(os.path.join(cdir, "usage.jsonl"))
 
     games_flat = []
     for g in games:
@@ -68,19 +66,7 @@ def load_condition(results_root: str, condition: str) -> Dict[str, object]:
     return {
         "rounds": pd.DataFrame(rounds),
         "games": pd.DataFrame(games_flat),
-        "beliefs": pd.DataFrame(beliefs),
-        "usage": pd.DataFrame(usage),
     }
-
-
-def load_roster(results_root: str):
-    import pandas as pd
-
-    path = os.path.join(results_root, "roster.json")
-    if not os.path.exists(path):
-        return pd.DataFrame([])
-    with open(path, "r", encoding="utf-8") as fh:
-        return pd.DataFrame(json.load(fh))
 
 
 # ---------------------------------------------------------------------- #
@@ -204,7 +190,6 @@ def group_game_stats(agent_game, value_col: str):
 
 def conditional_coop(rounds):
     """Return per-agent and grouped P(own C | previous joint outcome)."""
-    import pandas as pd
 
     keys = ["condition", "game_index", "agent_id"]
     df = rounds.sort_values(keys + ["round"]).copy()

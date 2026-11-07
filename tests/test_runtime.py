@@ -1,7 +1,6 @@
 """Contract tests use an explicitly mocked OpenRouter transport, never paid inference."""
 
 import asyncio
-import copy
 import json
 
 import httpx

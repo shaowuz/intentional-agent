@@ -6,11 +6,11 @@ import json
 import os
 import random
 import time
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 from .agent import LLMAgent
 from .config import ExperimentConfig, save_config_snapshot
-from .game import DEFECT, FIXED, RANDOM, payoff
+from .game import FIXED, payoff
 from .llm import build_client
 from .pairing import PairingManager
 from .recorder import ConditionRecorder, read_jsonl

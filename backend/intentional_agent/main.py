@@ -27,6 +27,7 @@ from .auth import hash_password, token_hash, verify_password
 from .engine import advance_round, create_experiment
 from .models import ExperimentConfig
 from .runtime import DemoRuntime, OpenRouterRuntime
+from .sandbox import docker_available
 from .storage import Store
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -54,23 +55,6 @@ class ControlInput(BaseModel):
 class ReconcileInput(BaseModel):
     confirmed_cost_usd: float = Field(ge=0, le=100000, allow_inf_nan=False)
     note: str = Field(min_length=3, max_length=1000)
-
-
-async def docker_is_available() -> bool:
-    """Bounded health probe; no Docker daemon is required to run a demo."""
-    try:
-        proc = await asyncio.create_subprocess_exec(
-            "docker", "info", "--format", "{{.ServerVersion}}",
-            stdout=asyncio.subprocess.DEVNULL, stderr=asyncio.subprocess.DEVNULL,
-        )
-        try:
-            return await asyncio.wait_for(proc.wait(), 2) == 0
-        except TimeoutError:
-            proc.kill()
-            await proc.wait()
-    except (FileNotFoundError, OSError):
-        pass
-    return False
 
 
 def create_app(data_dir: Path | None = None) -> FastAPI:
@@ -140,7 +124,7 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
 
     @app.get("/api/health")
     async def health():
-        return {"status": "ok", "docker_available": await docker_is_available(), "version": "0.1.0"}
+        return {"status": "ok", "docker_available": await asyncio.to_thread(docker_available), "version": "0.1.0"}
 
     @app.post("/api/auth/register", status_code=201)
     async def register(body: Credentials):

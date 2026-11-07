@@ -15,7 +15,6 @@ class LLMResponse:
     output_tokens: int = 0
     model: str = ""
     provider: str = ""
-    raw: Optional[dict] = None
 
     @property
     def total_tokens(self) -> int:
