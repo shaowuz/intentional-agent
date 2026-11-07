@@ -72,9 +72,9 @@ def provenance():
 
 
 @contextmanager
-def exclusive_run(path):
+def exclusive_run(path, *, lock_name=".lock"):
     """Prevent two processes from issuing requests for the same episode."""
-    with (Path(path) / ".lock").open("a") as f:
+    with (Path(path) / lock_name).open("a") as f:
         try:
             fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:

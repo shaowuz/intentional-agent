@@ -1,42 +1,22 @@
 """Observer-only tables and reports for the canonical matched experiment matrix."""
 
-import csv
 import html
 import itertools
-import json
 import statistics
 from pathlib import Path
 
-from .analysis import analyze_episode, bootstrap_mean_interval, usage_totals
-from .config import Config
-from .game import initial_state
-from .storage import read_json, scrub, write_json
-
-METRICS = (
-    "good_total_return",
-    "return_per_good_encounter",
-    "good_good_return",
-    "good_selfish_return",
-    "good_cooperation_rate",
-    "all_cooperation_rate",
-    "mean_brier_score",
-    "final_mean_brier_score",
-    "final_identification_rate",
-    "final_correct_none_rate",
-    "false_accusation_rate",
-    "leader_is_selfish",
-    "pre_midpoint_return_per_good_encounter",
-    "post_midpoint_return_per_good_encounter",
+from .analysis import (
+    analyze_episode,
+    bootstrap_mean_interval,
+    episode_events,
+    usage_totals,
 )
+from .config import Config
+from .export_contract import METRICS, publish
+from .game import initial_state
+from .storage import read_json, write_json
+
 AXES = ("episode_id", "model", "communication", "selfish_count", "seed", "backend")
-
-
-def write_csv(path, rows, columns=None):
-    columns = columns or list(dict.fromkeys(key for row in rows for key in row))
-    with path.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=columns, extrasaction="ignore")
-        writer.writeheader()
-        writer.writerows(scrub(rows))
 
 
 def mean(values):
@@ -44,11 +24,13 @@ def mean(values):
     return statistics.mean(values) if values else None
 
 
-def contrast(kind, label, model, mode, count, pairs):
+def contrast(kind, baseline, comparison, model, mode, count, pairs):
     # Each complete pair is one independent seed block, never an agent or turn.
     return {
         "kind": kind,
-        "contrast": label,
+        "contrast": f"{comparison} minus {baseline}",
+        "baseline_value": baseline,
+        "comparison_value": comparison,
         "model": model,
         "communication": mode,
         "selfish_count": count,
@@ -104,7 +86,14 @@ def analyze_matrix(output):
         )
         totals = usage_totals(episode)
         statuses.append(
-            {**axes, "status": status, "round": state["round"] if state else 0, **totals}
+            {
+                **axes,
+                "status": status,
+                "current_round": state["round"] if state else None,
+                "phase": state["phase"] if state else None,
+                "rounds_completed": len({e["round"] for e in state["encounters"]}) if state else 0,
+                **totals,
+            }
         )
         for path in sorted((episode / "requests").glob("*.json")):
             record = read_json(path)
@@ -129,22 +118,25 @@ def analyze_matrix(output):
                         "request_file": str(path.relative_to(output)),
                     }
                 )
-        if status != "complete":
+        if state is None:
             continue
-        summary = {**axes, **analyze_episode(episode)}
-        for prefix, chosen in (
-            ("pre", [e for e in state["encounters"] if e["round"] <= config.midpoint_round]),
-            ("post", [e for e in state["encounters"] if e["round"] > config.midpoint_round]),
-        ):
-            good_returns = [
-                v
-                for e in chosen
-                for p, v in zip(e["players"], e["payoffs"])
-                if state["roles"][p] == "good"
-            ]
-            summary[f"{prefix}_midpoint_return_per_good_encounter"] = mean(good_returns)
-        summaries.append(summary)
-        lookup[(config.model, config.communication, config.selfish_count, config.seed)] = summary
+        if status == "complete":
+            summary = {**axes, **analyze_episode(episode)}
+            for prefix, chosen in (
+                ("pre", [e for e in state["encounters"] if e["round"] <= config.midpoint_round]),
+                ("post", [e for e in state["encounters"] if e["round"] > config.midpoint_round]),
+            ):
+                good_returns = [
+                    v
+                    for e in chosen
+                    for p, v in zip(e["players"], e["payoffs"])
+                    if state["roles"][p] == "good"
+                ]
+                summary[f"{prefix}_midpoint_return_per_good_encounter"] = mean(good_returns)
+            summaries.append(summary)
+            lookup[(config.model, config.communication, config.selfish_count, config.seed)] = (
+                summary
+            )
         cumulative = dict.fromkeys(state["players"], 0)
         for e in state["encounters"]:
             for i, player in enumerate(e["players"]):
@@ -162,7 +154,7 @@ def analyze_matrix(output):
                         "cumulative_payoff": cumulative[player],
                     }
                 )
-        truth = summary["selfish_player"] or "none"
+        truth = next((p for p, role in state["roles"].items() if role == "selfish"), "none")
         for b in state["belief_records"]:
             beliefs.extend(
                 {
@@ -209,10 +201,7 @@ def analyze_matrix(output):
                 }
                 for p, v in e["votes"].items()
             )
-        events.extend(
-            {**axes, **json.loads(line)}
-            for line in (episode / "timeline.jsonl").read_text().splitlines()
-        )
+        events.extend({**axes, **event} for event in episode_events(state, config.to_dict()))
     cells = []
     for model, mode, count in itertools.product(
         spec["models"], spec["communication_modes"], spec["selfish_counts"]
@@ -240,7 +229,7 @@ def analyze_matrix(output):
                 for seed in spec["seeds"]
                 if (model, a, count, seed) in lookup and (model, b, count, seed) in lookup
             ]
-            effects.append(contrast("communication", f"{b} minus {a}", model, None, count, pairs))
+            effects.append(contrast("communication", a, b, model, None, count, pairs))
     for mode, count in itertools.product(spec["communication_modes"], spec["selfish_counts"]):
         for a, b in itertools.combinations(spec["models"], 2):
             pairs = [
@@ -248,7 +237,7 @@ def analyze_matrix(output):
                 for seed in spec["seeds"]
                 if (a, mode, count, seed) in lookup and (b, mode, count, seed) in lookup
             ]
-            effects.append(contrast("model", f"{b} minus {a}", None, mode, count, pairs))
+            effects.append(contrast("model", a, b, None, mode, count, pairs))
     result = {
         "schema_version": manifest["schema_version"],
         "status": "complete" if len(summaries) == len(manifest["plan"]) else "incomplete",
@@ -271,88 +260,19 @@ def analyze_matrix(output):
         "interval_method": "10000 paired seed-block bootstrap resamples; exploratory, unadjusted; null for fewer than two pairs",
     }
     write_json(output / "analysis.json", result)
-    write_csv(
-        output / "episodes.csv",
-        [{**s, **s["usage"]} for s in summaries],
-        [
-            *AXES,
-            "protocol_version",
-            "players",
-            "rounds",
-            "reasoning_effort",
-            "selfish_persona",
-            *METRICS,
-            "leader",
-            "selfish_player",
-            "completed_model_responses",
-            "prompt_tokens",
-            "completion_tokens",
-            "reported_cost_usd",
-            "responses_missing_cost",
-        ],
+    publish(
+        output,
+        manifest,
+        result,
+        summaries,
+        statuses,
+        actions,
+        beliefs,
+        messages,
+        elections,
+        usage,
+        events,
     )
-    write_csv(output / "cells.csv", cells)
-    write_csv(output / "contrasts.csv", effects)
-    write_csv(output / "status.csv", statuses)
-    for name, rows, fields in (
-        (
-            "actions",
-            actions,
-            [
-                *AXES,
-                "round",
-                "player",
-                "role",
-                "opponent",
-                "action",
-                "opponent_action",
-                "payoff",
-                "cumulative_payoff",
-            ],
-        ),
-        (
-            "beliefs",
-            beliefs,
-            [
-                *AXES,
-                "round",
-                "phase",
-                "player",
-                "role",
-                "target",
-                "probability",
-                "is_true",
-                "strategy",
-            ],
-        ),
-        ("messages", messages, [*AXES, "after_round", "phase", "sender", "visibility", "content"]),
-        (
-            "elections",
-            elections,
-            [*AXES, "after_round", "voter", "vote", "voter_role", "winner", "winner_role", "tie"],
-        ),
-        (
-            "usage",
-            usage,
-            [
-                *AXES,
-                "request_id",
-                "player",
-                "round",
-                "phase",
-                "attempt",
-                "accepted",
-                "response_model",
-                "provider",
-                "prompt_tokens",
-                "completion_tokens",
-                "reported_cost_usd",
-                "request_file",
-            ],
-        ),
-    ):
-        write_csv(output / f"{name}.csv", rows, fields)
-    (output / "timeline.jsonl").write_text("".join(json.dumps(scrub(e)) + "\n" for e in events))
     render_report(output, result, summaries)
     return result
 
@@ -406,6 +326,8 @@ def render_report(output, result, summaries):
         "Medium is the same requested reasoning setting; providers may spend different token budgets. Collective payoff and identity detection measure separate outcomes.",
         "",
         "## Files",
+        "",
+        "Visualization clients should read visualization.json (intentional-agent.visualization/1). The exported visualization.schema.json defines all typed tables. Run intentional-experiments validate-output on this directory before using CSV mirrors.",
         "",
         "episodes.csv, cells.csv, contrasts.csv: scores and paired effects. actions.csv, beliefs.csv, messages.csv, elections.csv, timeline.jsonl: observer traces. usage.csv and status.csv include failed/incomplete episodes. Exact prompts and all response attempts remain under episodes/*/requests/.",
         "",

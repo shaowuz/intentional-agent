@@ -124,6 +124,8 @@ def main(argv=None):
     resume.add_argument("output", type=Path)
     analyze = commands.add_parser("analyze", help="Rebuild episode or comparison analysis")
     analyze.add_argument("output", type=Path)
+    validate = commands.add_parser("validate-output", help="Validate the visualization bundle and CSV/JSONL mirrors; no model calls")
+    validate.add_argument("output", type=Path)
     matrix = commands.add_parser("matrix", help="Preview or execute the matched model × communication matrix")
     matrix.add_argument("--config", type=Path, default=Path("configs/experiment_matrix.json"))
     matrix.add_argument("--output", type=Path, default=Path("results/model-communication"))
@@ -142,7 +144,11 @@ def main(argv=None):
     load_dotenv(args.env_file, override=False)
     provider = None
     try:
-        if args.command == "matrix":
+        if args.command == "validate-output":
+            from .export_contract import validate_output
+
+            result = validate_output(args.output)
+        elif args.command == "matrix":
             from .matrix import preview, run_matrix
 
             spec = read_json(args.config)

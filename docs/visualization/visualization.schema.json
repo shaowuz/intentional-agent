@@ -1,0 +1,1697 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/shaowuz/intentional-agent/schemas/visualization-v1",
+  "title": "Intentional Agent visualization bundle v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "intentional-agent.visualization/1"
+    },
+    "run_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "incomplete"
+      ]
+    },
+    "tables": {
+      "type": "object",
+      "properties": {
+        "episodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/episodes"
+          }
+        },
+        "cells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cells"
+          }
+        },
+        "contrasts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contrasts"
+          }
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/status"
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/actions"
+          }
+        },
+        "beliefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/beliefs"
+          }
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/messages"
+          }
+        },
+        "elections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/elections"
+          }
+        },
+        "usage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/usage"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/events"
+          }
+        }
+      },
+      "required": [
+        "episodes",
+        "cells",
+        "contrasts",
+        "status",
+        "actions",
+        "beliefs",
+        "messages",
+        "elections",
+        "usage",
+        "events"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "snapshot_id",
+    "status",
+    "tables"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "episodes": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_started",
+            "incomplete",
+            "complete"
+          ]
+        },
+        "protocol_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "players": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rounds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "reasoning_effort": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selfish_persona": {
+          "type": "string",
+          "minLength": 1
+        },
+        "good_total_return": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Total payoff points of all actual good players; null until complete."
+        },
+        "return_per_good_encounter": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Good total return / (rounds × number of good players)."
+        },
+        "good_good_return": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "good_selfish_return": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "good_cooperation_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "all_cooperation_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mean_brier_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2.000002
+        },
+        "final_mean_brier_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2.000002
+        },
+        "final_identification_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "final_correct_none_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "false_accusation_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "leader_is_selfish": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "True/false for an elected leader; null if no leader or episode incomplete."
+        },
+        "pre_midpoint_return_per_good_encounter": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "post_midpoint_return_per_good_encounter": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "leader": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "selfish_player": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "completed_model_responses": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "prompt_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completion_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reported_cost_usd": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Sum of known reported costs in USD; may be incomplete."
+        },
+        "responses_missing_cost": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "status",
+        "protocol_version",
+        "players",
+        "rounds",
+        "reasoning_effort",
+        "selfish_persona",
+        "good_total_return",
+        "return_per_good_encounter",
+        "good_good_return",
+        "good_selfish_return",
+        "good_cooperation_rate",
+        "all_cooperation_rate",
+        "mean_brier_score",
+        "final_mean_brier_score",
+        "final_identification_rate",
+        "final_correct_none_rate",
+        "false_accusation_rate",
+        "leader_is_selfish",
+        "pre_midpoint_return_per_good_encounter",
+        "post_midpoint_return_per_good_encounter",
+        "leader",
+        "selfish_player",
+        "completed_model_responses",
+        "prompt_tokens",
+        "completion_tokens",
+        "reported_cost_usd",
+        "responses_missing_cost"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id"
+      ],
+      "description": "One row for every planned episode. Metrics are null until complete."
+    },
+    "cells": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "completed_episodes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "planned_episodes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "good_total_return": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Total payoff points of all actual good players; null until complete."
+        },
+        "return_per_good_encounter": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Good total return / (rounds × number of good players)."
+        },
+        "good_good_return": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "good_selfish_return": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "good_cooperation_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "all_cooperation_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mean_brier_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2.000002
+        },
+        "final_mean_brier_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2.000002
+        },
+        "final_identification_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "final_correct_none_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "false_accusation_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "selfish_leader_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "pre_midpoint_return_per_good_encounter": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        },
+        "post_midpoint_return_per_good_encounter": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 5
+        }
+      },
+      "required": [
+        "run_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "completed_episodes",
+        "planned_episodes",
+        "good_total_return",
+        "return_per_good_encounter",
+        "good_good_return",
+        "good_selfish_return",
+        "good_cooperation_rate",
+        "all_cooperation_rate",
+        "mean_brier_score",
+        "final_mean_brier_score",
+        "final_identification_rate",
+        "final_correct_none_rate",
+        "false_accusation_rate",
+        "selfish_leader_rate",
+        "pre_midpoint_return_per_good_encounter",
+        "post_midpoint_return_per_good_encounter"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "model",
+        "communication",
+        "selfish_count"
+      ],
+      "description": "One row per planned model/communication/role cell; means use completed episodes only."
+    },
+    "contrasts": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "model",
+            "communication"
+          ]
+        },
+        "contrast": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseline_value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comparison_value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "communication": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "none",
+            "public",
+            "leader",
+            null
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "matched_seeds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "seed_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "mean_total_return_difference": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mean_normalized_difference": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normalized_ci_lower": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normalized_ci_upper": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "run_id",
+        "kind",
+        "contrast",
+        "baseline_value",
+        "comparison_value",
+        "model",
+        "communication",
+        "selfish_count",
+        "matched_seeds",
+        "seed_ids",
+        "mean_total_return_difference",
+        "mean_normalized_difference",
+        "normalized_ci_lower",
+        "normalized_ci_upper"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "kind",
+        "baseline_value",
+        "comparison_value",
+        "model",
+        "communication",
+        "selfish_count"
+      ],
+      "description": "One planned contrast; difference = comparison minus baseline. CI bounds are null with fewer than two matched seeds."
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_started",
+            "incomplete",
+            "complete"
+          ]
+        },
+        "current_round": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "phase": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "action",
+            "midpoint",
+            "discussion",
+            "final",
+            "complete",
+            null
+          ]
+        },
+        "rounds_completed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_model_responses": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "prompt_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completion_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reported_cost_usd": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Sum of known reported costs in USD; may be incomplete."
+        },
+        "responses_missing_cost": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "status",
+        "current_round",
+        "phase",
+        "rounds_completed",
+        "completed_model_responses",
+        "prompt_tokens",
+        "completion_tokens",
+        "reported_cost_usd",
+        "responses_missing_cost"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id"
+      ],
+      "description": "One row per planned episode. The cursor round can have an unfinished action phase."
+    },
+    "actions": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "player": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "good",
+            "selfish"
+          ]
+        },
+        "opponent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "C",
+            "D"
+          ]
+        },
+        "opponent_action": {
+          "type": "string",
+          "enum": [
+            "C",
+            "D"
+          ]
+        },
+        "payoff": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            3,
+            5
+          ]
+        },
+        "cumulative_payoff": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "round",
+        "player",
+        "role",
+        "opponent",
+        "action",
+        "opponent_action",
+        "payoff",
+        "cumulative_payoff"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id",
+        "round",
+        "player"
+      ],
+      "description": "One row per player per committed encounter round, including incomplete episodes."
+    },
+    "beliefs": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "action",
+            "final"
+          ]
+        },
+        "player": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "good",
+            "selfish"
+          ]
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "is_true": {
+          "type": "boolean"
+        },
+        "strategy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "round",
+        "phase",
+        "player",
+        "role",
+        "target",
+        "probability",
+        "is_true",
+        "strategy"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id",
+        "round",
+        "phase",
+        "player",
+        "target"
+      ],
+      "description": "One row per belief target per committed report. Target 'none' is a category, not null."
+    },
+    "messages": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "after_round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "midpoint",
+            "discussion"
+          ]
+        },
+        "sender": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "private",
+            "public"
+          ]
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "after_round",
+        "phase",
+        "sender",
+        "visibility",
+        "content"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id",
+        "after_round",
+        "phase",
+        "sender"
+      ],
+      "description": "One committed post or note. Empty content is a valid message, not missing data."
+    },
+    "elections": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "after_round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "voter": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "voter_role": {
+          "type": "string",
+          "enum": [
+            "good",
+            "selfish"
+          ]
+        },
+        "winner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "winner_role": {
+          "type": "string",
+          "enum": [
+            "good",
+            "selfish"
+          ]
+        },
+        "tie": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "after_round",
+        "voter",
+        "vote",
+        "voter_role",
+        "winner",
+        "winner_role",
+        "tie"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id",
+        "after_round",
+        "voter"
+      ],
+      "description": "One secret ballot per voter; observer-only. Empty table in nonleader conditions."
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "player": {
+          "type": "string",
+          "minLength": 1
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "action",
+            "midpoint",
+            "discussion",
+            "final"
+          ]
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "accepted": {
+          "type": "boolean"
+        },
+        "response_model": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "prompt_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "completion_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "reported_cost_usd": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "request_file": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "request_id",
+        "player",
+        "round",
+        "phase",
+        "attempt",
+        "accepted",
+        "response_model",
+        "provider",
+        "prompt_tokens",
+        "completion_tokens",
+        "reported_cost_usd",
+        "request_file"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id",
+        "request_id",
+        "attempt"
+      ],
+      "description": "One received model-response attempt, including invalid responses. Transport failures stay in raw request logs."
+    },
+    "events": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "event_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "action",
+            "midpoint",
+            "discussion",
+            "final"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "belief",
+            "encounter",
+            "midpoint",
+            "election",
+            "discussion"
+          ]
+        },
+        "payload": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "event_id",
+        "sequence",
+        "round",
+        "phase",
+        "type",
+        "payload"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id",
+        "event_id"
+      ],
+      "description": "One committed event, ordered by sequence within an episode. Payload follows the type discriminator.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "belief"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "player": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "beliefs": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  },
+                  "strategy": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "enum": [
+                      "C",
+                      "D",
+                      null
+                    ]
+                  }
+                },
+                "required": [
+                  "player",
+                  "beliefs",
+                  "strategy",
+                  "action"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "encounter"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "players": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "actions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "C",
+                        "D"
+                      ]
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "payoffs": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "enum": [
+                        0,
+                        1,
+                        3,
+                        5
+                      ]
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "required": [
+                  "players",
+                  "actions",
+                  "payoffs"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "discussion"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "visibility": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "public",
+                      "leader"
+                    ]
+                  },
+                  "posts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "sender": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "content": {
+                          "type": "string"
+                        },
+                        "visibility": {
+                          "type": "string",
+                          "enum": [
+                            "private",
+                            "public"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "sender",
+                        "content",
+                        "visibility"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "visibility",
+                  "posts"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "midpoint"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "player": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "vote": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "player",
+                  "content",
+                  "vote"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "election"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "winner": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "votes": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "counts": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "tied_candidates": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "winner",
+                  "votes",
+                  "counts",
+                  "tied_candidates"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -54,3 +54,4 @@ jobs:
         run: |
           npm --prefix frontend ci
           npm --prefix frontend run build
+          frontend/node_modules/.bin/tsc --noEmit --strict --skipLibCheck --target es2022 docs/visualization/types.ts

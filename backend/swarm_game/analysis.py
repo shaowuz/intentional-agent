@@ -107,12 +107,8 @@ def score_state(state, config):
     }
 
 
-def analyze_episode(output):
-    output = Path(output)
-    config = read_json(output / "manifest.json")["config"]
-    state = read_json(output / "checkpoint.json")
-    summary = {**score_state(state, config), "usage": usage_totals(output)}
-    write_json(output / "summary.json", summary)
+def episode_events(state, config):
+    """Only committed phase events, including those in incomplete episodes."""
     events = []
     for r in range(1, config["rounds"] + 1):
         events += [
@@ -132,6 +128,16 @@ def analyze_episode(output):
             {"type": "discussion", **d} for d in state["discussions"] if d["after_round"] == r
         ]
     events += [{"type": "belief", **b} for b in state["belief_records"] if b["phase"] == "final"]
+    return events
+
+
+def analyze_episode(output):
+    output = Path(output)
+    config = read_json(output / "manifest.json")["config"]
+    state = read_json(output / "checkpoint.json")
+    summary = {**score_state(state, config), "usage": usage_totals(output)}
+    write_json(output / "summary.json", summary)
+    events = episode_events(state, config)
     (output / "timeline.jsonl").write_text("".join(json.dumps(scrub(e)) + "\n" for e in events))
     lines = [
         "# Episode report",

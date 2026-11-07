@@ -104,10 +104,20 @@ uv run --frozen --no-editable intentional-experiments analyze \
 
 ## Unified outputs
 
+The visualization team's stable entry point is **`visualization.json`**, with contract version **`intentional-agent.visualization/1`**. It uses fixed typed tables, explicit nulls, stable run/episode IDs, and an atomic snapshot. The [visualization handoff](docs/visualization/README.md) includes a JSON Schema, generated TypeScript types, synthetic complete/incomplete fixtures, and parsing rules.
+
+Validate exports without model calls:
+
+```bash
+uv run --frozen --no-editable intentional-experiments validate-output results/luna-haiku-communication
+```
+
 Every matrix writes the same files, regardless of model or communication condition:
 
 | File | Contents |
 |---|---|
+| `visualization.json`, `visualization.schema.json` | Validated visualization bundle and machine-readable contract |
+| `output_identity.json` | Stable cohort identity; keep this with archived outputs |
 | `matrix_manifest.json`, `spec.json` | Full planned cells, randomized order, configuration, source provenance |
 | `analysis.json`, `report.md`, `report.html` | Combined analysis and portable reports |
 | `episodes.csv`, `cells.csv` | Episode metrics and model/communication/role means |
@@ -117,11 +127,11 @@ Every matrix writes the same files, regardless of model or communication conditi
 | `messages.csv` | Public messages and private notes, with explicit visibility |
 | `elections.csv` | Observer-only ballots, winner, true role, tie status |
 | `usage.csv`, `status.csv` | Response attempts, cost, provider metadata, and missing/incomplete cells |
-| `timeline.jsonl` | Combined observer timeline with model and condition coordinates |
+| `events.csv`, `timeline.jsonl` | Fixed event envelopes with typed payloads and stable sequence IDs |
 | `episodes/*/` | Checkpoints, exact permitted prompts, responses, and episode reports |
 | `runtime/` | Saved runner, prompts, and dependency provenance |
 
-The output schema is `intentional-experiments/1`; the new experimental protocol is `rotating-v2`. Report normalized good return as total good payoff divided by `rounds × good_player_count`. Other metrics include good–good/good–selfish contributions, cooperation, identity Brier scores, identification at 0.8, false accusations, pre/post-midpoint return, and election of a selfish leader.
+The visualization contract is `intentional-agent.visualization/1`; the matrix manifest uses `intentional-experiments/1`, and the experimental protocol is `rotating-v2`. Report normalized good return as total good payoff divided by `rounds × good_player_count`. Other metrics include good–good/good–selfish contributions, cooperation, identity Brier scores, identification at 0.8, false accusations, pre/post-midpoint return, and election of a selfish leader.
 
 Contrasts match complete seed blocks and retain separate zero/one-selfish strata. They compare communication within each model and models within each communication condition. Bootstrap intervals resample seed blocks; they use 10,000 resamples and remain null with fewer than two pairs. Missing cells remain explicit, and cost summaries include failed/incomplete episodes. Collective return and identification measure distinct outcomes; a cooperative selfish player can improve return without becoming identifiable.
 
