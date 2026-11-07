@@ -23,7 +23,10 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def spec(**overrides):
-    return {"game": {"backend": "scripted", "players": 2, "rounds": 2}, "seeds": [7], **overrides}
+    return {
+        "game": {"protocol_version": "rotating-v2", "backend": "scripted", "players": 2, "rounds": 2},
+        "seeds": [7], **overrides,
+    }
 
 
 @pytest.fixture(scope="module")
@@ -134,7 +137,7 @@ def test_empty_tables_keep_headers_and_missing_values(tmp_path):
     with pytest.raises(ProviderError):
         run_matrix(one, output, provider_factory=Fail, progress=lambda _: None)
     bundle = load_bundle(output / "visualization.json")
-    for name in ("actions", "beliefs", "messages", "elections", "usage", "events", "contrasts"):
+    for name in ("actions", "beliefs", "messages", "elections", "leader_assignments", "usage", "events", "contrasts"):
         assert bundle["tables"][name] == []
         assert (output / f"{name}.csv").read_text().strip() == ",".join(TABLES[name]["properties"])
     assert bundle["tables"]["episodes"][0]["good_total_return"] is None
@@ -156,7 +159,9 @@ def test_partial_committed_events_and_resume_keep_identity(tmp_path):
         run_matrix(one, output, provider_factory=FailMidpoint, progress=lambda _: None)
     before = load_bundle(output / "visualization.json")
     assert len(before["tables"]["actions"]) == 2
-    assert before["tables"]["messages"] == before["tables"]["elections"] == []
+    assert len(before["tables"]["messages"]) == 2
+    assert all(m["phase"] == "pre_round" for m in before["tables"]["messages"])
+    assert before["tables"]["elections"] == []
     assert before["tables"]["status"][0]["rounds_completed"] == 1
     assert before["tables"]["episodes"][0]["good_total_return"] is None
     before_ids = [e["event_id"] for e in before["tables"]["events"]]
@@ -166,6 +171,46 @@ def test_partial_committed_events_and_resume_keep_identity(tmp_path):
     assert before["snapshot_id"] != after["snapshot_id"]
     assert [e["event_id"] for e in after["tables"]["events"]][: len(before_ids)] == before_ids
     assert after["tables"]["episodes"][0]["status"] == "complete"
+    assert validate_output(output)["status"] == "valid"
+
+
+def test_interrupted_opponent_exchange_stays_private_and_resumes(tmp_path):
+    accepted = []
+
+    class FailExchange(ScriptedProvider):
+        def complete(self, req, *args, **kwargs):
+            if req.phase == "pre_round" and req.player == "P2":
+                raise ProviderError("interrupt opponent exchange")
+            accepted.append((req.round, req.phase, req.player))
+            return super().complete(req, *args, **kwargs)
+
+    output = tmp_path / "exchange"
+    one = spec(models=["openai/gpt-6-luna"], communication_modes=["leader"], selfish_counts=[1])
+    with pytest.raises(ProviderError):
+        run_matrix(one, output, provider_factory=FailExchange, progress=lambda _: None)
+    before = load_bundle(output / "visualization.json")
+    assert before["tables"]["messages"] == before["tables"]["events"] == []
+    assert before["tables"]["status"][0]["phase"] == "pre_round"
+    assert before["tables"]["status"][0]["rounds_completed"] == 0
+
+    class Resume(ScriptedProvider):
+        def complete(self, req, *args, **kwargs):
+            assert (req.round, req.phase, req.player) not in accepted
+            accepted.append((req.round, req.phase, req.player))
+            if req.phase == "action" and req.round == 1:
+                posts = req.view["discussion_history"][0]["posts"]
+                assert {p["sender"] for p in posts} == {"P1", "P2"}
+            return super().complete(req, *args, **kwargs)
+
+    run_matrix(one, output, resume=True, provider_factory=Resume, progress=lambda _: None)
+    after = load_bundle(output / "visualization.json")
+    exchange = [m for m in after["tables"]["messages"] if m["phase"] == "pre_round"]
+    assert len(exchange) == 2
+    assert all(m["after_round"] == 0 and m["visibility"] == "opponent" for m in exchange)
+    assert {(m["sender"], m["recipient"]) for m in exchange} == {("P1", "P2"), ("P2", "P1")}
+    first = after["tables"]["events"][0]
+    assert (first["type"], first["phase"], first["round"]) == ("discussion", "pre_round", 1)
+    assert len(accepted) == after["tables"]["episodes"][0]["completed_model_responses"] == 12
     assert validate_output(output)["status"] == "valid"
 
 
@@ -209,6 +254,14 @@ def test_published_visualization_fixtures_are_valid_and_scripted():
         bundle = load_bundle(ROOT / f"docs/visualization/examples/{name}.json")
         assert bundle["status"] == name
         assert {e["backend"] for e in bundle["tables"]["episodes"]} == {"scripted"}
+        assert {e["protocol_version"] for e in bundle["tables"]["episodes"]} == {"rotating-v4"}
+        assert bundle["tables"]["elections"] == []
+        if name == "complete":
+            assert {e["communication"] for e in bundle["tables"]["episodes"]} == {
+                "none", "public", "opponent", "good_leader", "selfish_leader",
+            }
+            assert {e["selfish_count"] for e in bundle["tables"]["episodes"]} == {1, 3, 5}
+            assert len(bundle["tables"]["leader_assignments"]) == 12
 
 
 def test_valid_probability_rounding_does_not_break_export(tmp_path):

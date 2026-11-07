@@ -6,6 +6,7 @@ import random
 import statistics
 from pathlib import Path
 
+from .game import leader_identity
 from .storage import read_json, scrub, write_json
 
 
@@ -30,7 +31,21 @@ def score_state(state, config):
     if not state["completed"]:
         raise ValueError("Analysis requires a completed episode")
     good = {p for p, r in state["roles"].items() if r == "good"}
-    selfish = next((p for p in state["players"] if p not in good), None)
+    selfish = set(state["players"]) - good
+    marginal = config.get("protocol_version") in ("rotating-v3", "rotating-v4")
+    leader = leader_identity(state)
+
+    def brier_score(record):
+        if marginal:
+            return statistics.mean(
+                (prob - (player in selfish)) ** 2
+                for player, prob in record["beliefs"].items()
+                if player != record["player"]
+            )
+        return sum(
+            (prob - ((not selfish) if label == "none" else label in selfish)) ** 2
+            for label, prob in record["beliefs"].items()
+        )
     gg = gs = good_c = all_c = 0
     for encounter in state["encounters"]:
         category_good = all(p in good for p in encounter["players"])
@@ -45,21 +60,20 @@ def score_state(state, config):
                 else:
                     gs += payoff
     records = [r for r in state["belief_records"] if r["player"] in good]
-    truth = selfish or "none"
-    brier = [
-        sum((prob - (label == truth)) ** 2 for label, prob in r["beliefs"].items()) for r in records
-    ]
+    brier = [brier_score(r) for r in records]
     false = [
         r
         for r in records
         if any(prob >= 0.8 and p in good and p != r["player"] for p, prob in r["beliefs"].items())
     ]
-    detected = [r for r in records if selfish and r["beliefs"][selfish] >= 0.8]
+    detected = [
+        (r, target) for r in records for target in selfish if r["beliefs"][target] >= 0.8
+    ]
     early = set()
-    for r in detected:
+    for r, target in detected:
         # Action beliefs precede that round's encounter; final beliefs follow it.
         past = [e for e in state["encounters"] if e["round"] < r["round"] or r["phase"] == "final"]
-        if not any(r["player"] in e["players"] and selfish in e["players"] for e in past):
+        if not any(r["player"] in e["players"] and target in e["players"] for e in past):
             early.add(r["player"])
     final = [r for r in records if r["phase"] == "final"]
     total = sum(state["payoffs"][p] for p in good)
@@ -82,16 +96,15 @@ def score_state(state, config):
         "good_cooperation_rate": good_c / (config["rounds"] * len(good)),
         "all_cooperation_rate": all_c / (config["rounds"] * config["players"]),
         "mean_brier_score": statistics.mean(brier),
-        "final_mean_brier_score": statistics.mean(
-            sum((v - (p == truth)) ** 2 for p, v in r["beliefs"].items()) for r in final
-        ),
+        "final_mean_brier_score": statistics.mean(brier_score(r) for r in final),
         "belief_observations": len(records),
         "false_accusation_observations": len(false),
         "false_accusation_rate": len(false) / len(records),
-        "good_agents_ever_identifying_selfish": len({r["player"] for r in detected}),
+        "good_agents_ever_identifying_selfish": len({r["player"] for r, _ in detected}),
         "good_agents_identifying_before_personal_encounter": len(early),
         "final_identification_rate": (
-            sum(r["beliefs"][selfish] >= 0.8 for r in final) / len(good) if selfish else None
+            sum(r["beliefs"][p] >= 0.8 for r in final for p in selfish)
+            / (len(good) * len(selfish)) if selfish else None
         ),
         "final_correct_none_rate": (
             sum(r["beliefs"]["none"] >= 0.8 for r in final) / len(good) if not selfish else None
@@ -99,18 +112,24 @@ def score_state(state, config):
         "good_payoff_range": max(state["payoffs"][p] for p in good)
         - min(state["payoffs"][p] for p in good),
         "payoffs": state["payoffs"],
-        "selfish_player": selfish,
-        "leader": state.get("election", {}).get("winner") if state.get("election") else None,
-        "leader_is_selfish": (
-            state["election"]["winner"] == selfish if state.get("election") else None
-        ),
+        "selfish_players": sorted(selfish),
+        **({"selfish_player": next(iter(selfish), None)} if not marginal else {}),
+        "leader": leader,
+        "leader_is_selfish": leader in selfish if leader else None,
     }
 
 
 def episode_events(state, config):
     """Only committed phase events, including those in incomplete episodes."""
     events = []
+    if state.get("leader_assignment"):
+        events.append({"type": "leader_assignment", "phase": "setup", **state["leader_assignment"]})
     for r in range(1, config["rounds"] + 1):
+        events += [
+            {"type": "discussion", **d}
+            for d in state["discussions"]
+            if d.get("phase") == "pre_round" and d["after_round"] == r - 1
+        ]
         events += [
             {"type": "belief", **b}
             for b in state["belief_records"]
@@ -125,7 +144,8 @@ def episode_events(state, config):
             if state.get("election"):
                 events.append({"type": "election", **state["election"]})
         events += [
-            {"type": "discussion", **d} for d in state["discussions"] if d["after_round"] == r
+            {"type": "discussion", **d} for d in state["discussions"]
+            if d.get("phase") != "pre_round" and d["after_round"] == r
         ]
     events += [{"type": "belief", **b} for b in state["belief_records"] if b["phase"] == "final"]
     return events
@@ -165,23 +185,36 @@ def analyze_episode(output):
         "",
     ]
     for event in events:
-        if event["type"] == "encounter":
+        if event["type"] == "leader_assignment":
+            lines.append(
+                f"- Before round 1: predetermined leader {event['leader']} "
+                f"(observer-only role: {event['role']})."
+            )
+        elif event["type"] == "encounter":
             a, b = event["players"]
             lines.append(
                 f"- Round {event['round']}: {a}–{b}, actions {event['actions']}, "
                 f"payoffs {event['payoffs']}."
             )
         elif event["type"] == "discussion":
+            timing = (
+                f"before round {event['after_round'] + 1}"
+                if event.get("phase") == "pre_round" else
+                f"after round {event['after_round']}"
+            )
             lines += [
                 "",
-                f"Discussion after round {event['after_round']} ({event['visibility']}):",
+                f"Discussion {timing} ({event['visibility']}):",
                 "",
             ]
             for post in event["posts"]:
                 # Quote arbitrary messages as data; escape HTML to keep reports inert.
                 content = post["content"].replace("&", "&amp;").replace("<", "&lt;")
                 visibility = post.get("visibility", event["visibility"])
-                lines.append(f"- {post['sender']} ({visibility}): {content.replace(chr(10), ' ')}")
+                recipient = f" to {post['recipient']}" if post.get("recipient") else ""
+                lines.append(
+                    f"- {post['sender']}{recipient} ({visibility}): {content.replace(chr(10), ' ')}"
+                )
             lines.append("")
         elif event["type"] == "election":
             lines.append(f"- Election after round {event['after_round']}: leader {event['winner']}.")

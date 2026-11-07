@@ -102,9 +102,10 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     run = commands.add_parser("run", help="Run one episode")
     common_options(run)
-    run.add_argument("--communication", choices=COMMUNICATION_MODES, default="none")
-    run.add_argument("--protocol-version", choices=["rotating-v1", "rotating-v2"], default="rotating-v2")
-    run.add_argument("--selfish-count", type=int, choices=[0, 1], default=0)
+    run.add_argument("--communication", choices=(*COMMUNICATION_MODES, "leader"), default="none")
+    run.add_argument("--protocol-version", choices=["rotating-v1", "rotating-v2", "rotating-v3", "rotating-v4"], default="rotating-v4")
+    run.add_argument("--selfish-count", type=int, choices=[0, 1, 3, 5], default=1)
+    run.set_defaults(players=10, rounds=10)
     run.add_argument("--output", type=Path, required=True)
     paired = commands.add_parser(
         "compare", help="Run matched none/public episodes for both role counts"

@@ -21,6 +21,18 @@ class Completion:
 
 def prior_beliefs(view):
     players, player = view["players"], view["player"]
+    if view.get("belief_format") == "marginal":
+        n = len(players)
+        own_selfish = view["objective"] == "selfish"
+        counts = view["selfish_count_options"]
+        weights = [k if own_selfish else n - k for k in counts]
+        # Equal count priors, conditioned on the player's known role.
+        other_probability = sum(
+            weight * (k - own_selfish) for k, weight in zip(counts, weights)
+        ) / (sum(weights) * (n - 1))
+        return {
+            p: float(own_selfish) if p == player else other_probability for p in players
+        }
     result = dict.fromkeys(["none", *players], 0.0)
     if view["objective"] == "selfish":
         result[player] = 1.0
@@ -43,7 +55,7 @@ class ScriptedProvider:
         policy = (
             self.config.selfish_policy if view["objective"] == "selfish" else self.config.policy
         )
-        if request.phase in ("discussion", "midpoint"):
+        if request.phase in ("pre_round", "discussion", "midpoint"):
             data = {"content": f"I follow a {policy} policy."}
             if request.phase == "midpoint" and self.config.communication == "leader":
                 data["vote"] = view["player"]

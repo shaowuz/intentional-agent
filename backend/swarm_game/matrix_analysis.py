@@ -62,6 +62,7 @@ def analyze_matrix(output):
         [],
         [],
     )
+    leader_assignments = []
     lookup = {}
     for entry in manifest["plan"]:
         name, config = entry["episode_id"], Config(**entry["config"])
@@ -77,6 +78,8 @@ def analyze_matrix(output):
             expected = initial_state(config)
             if any(state[k] != expected[k] for k in ("players", "roles", "schedule")):
                 raise ValueError(f"Episode schedules/roles differ from the matched design: {name}")
+            if state.get("leader_assignment") != expected.get("leader_assignment"):
+                raise ValueError(f"Episode leader assignment differs from the matched design: {name}")
         status = (
             "complete"
             if state and state["completed"]
@@ -120,6 +123,12 @@ def analyze_matrix(output):
                 )
         if state is None:
             continue
+        if state.get("leader_assignment"):
+            assignment = state["leader_assignment"]
+            leader_assignments.append({
+                **axes, "before_round": assignment["round"],
+                "leader": assignment["leader"], "leader_role": assignment["role"],
+            })
         if status == "complete":
             summary = {**axes, **analyze_episode(episode)}
             for prefix, chosen in (
@@ -154,7 +163,7 @@ def analyze_matrix(output):
                         "cumulative_payoff": cumulative[player],
                     }
                 )
-        truth = next((p for p, role in state["roles"].items() if role == "selfish"), "none")
+        selfish = {p for p, role in state["roles"].items() if role == "selfish"}
         for b in state["belief_records"]:
             beliefs.extend(
                 {
@@ -165,14 +174,15 @@ def analyze_matrix(output):
                     "role": state["roles"][b["player"]],
                     "target": target,
                     "probability": prob,
-                    "is_true": target == truth,
+                    "is_true": not selfish if target == "none" else target in selfish,
                     "strategy": b["strategy"],
                 }
                 for target, prob in b["beliefs"].items()
             )
         for d in state["discussions"]:
             messages.extend(
-                {**axes, "after_round": d["after_round"], "phase": "discussion", **p}
+                {**axes, "after_round": d["after_round"],
+                 "phase": d.get("phase", "discussion"), "recipient": None, **p}
                 for p in d["posts"]
             )
         messages.extend(
@@ -182,6 +192,7 @@ def analyze_matrix(output):
                 "phase": "midpoint",
                 "sender": p,
                 "visibility": "private",
+                "recipient": None,
                 "content": value["content"],
             }
             for p, value in state.get("midpoint_reports", {}).items()
@@ -272,12 +283,13 @@ def analyze_matrix(output):
         elections,
         usage,
         events,
+        leader_assignments,
     )
-    render_report(output, result, summaries)
+    render_report(output, result, summaries, spec["game"]["protocol_version"])
     return result
 
 
-def render_report(output, result, summaries):
+def render_report(output, result, summaries, protocol_version):
     def fmt(v):
         return "—" if v is None else f"{v:.4f}"
 
@@ -305,7 +317,7 @@ def render_report(output, result, summaries):
         "",
         "## Matched contrasts",
         "",
-        "Differences pair identical seed, role roster, and schedules. Zero/one-selfish groups stay separate.",
+        "Differences pair identical seed, role roster, and schedules. Selfish-count groups stay separate.",
         "",
         "| Contrast | Model / communication | Selfish players | Matched seeds | Total difference | Normalized difference |",
         "|---|---|---:|---:|---:|---:|",
@@ -319,7 +331,20 @@ def render_report(output, result, summaries):
         "Intervals appear in analysis.json and contrasts.csv. Seeds, not agent-rounds, define sampling units.",
         "Incomplete cells and unmatched pairs remain explicit; zero completed episodes produce no estimates.",
         "",
-        "Election happens after floor(rounds/2), before that round's discussion. Before election the leader condition has no public messages; afterward only the winner broadcasts. Other modes receive a private midpoint reflection to match the extra call. Ballots stay secret; the winner's identity is public.",
+        (
+            "All five conditions use simultaneous communication before every round. "
+            "No communication uses private notes; full communication broadcasts all messages; "
+            "opponent-only communication delivers each message to the current opponent. "
+            "Good-leader and selfish-leader conditions predetermine the required leader before "
+            "gameplay; only the leader broadcasts, while other players write private notes. "
+            "Agents see the same neutral leader condition and judge the leader using their own "
+            "encounters and permitted messages. Leader roles remain observer-only. "
+            "Every condition uses the same request count; no election or midpoint requests occur."
+            if protocol_version == "rotating-v4" else
+            "Legacy midpoint protocol: the leader condition elects a leader after floor(rounds/2). "
+            "Other conditions receive a private midpoint reflection. Consult the recorded prompts "
+            "and frozen runtime for the original communication rules."
+        ),
         "",
         "All observer exports contain true roles and private notes. Experimental agents receive only their permitted histories.",
         "",
@@ -327,9 +352,9 @@ def render_report(output, result, summaries):
         "",
         "## Files",
         "",
-        "Visualization clients should read visualization.json (intentional-agent.visualization/1). The exported visualization.schema.json defines all typed tables. Run intentional-experiments validate-output on this directory before using CSV mirrors.",
+        "Visualization clients should read visualization.json (intentional-agent.visualization/4). The exported visualization.schema.json defines all typed tables. Run intentional-experiments validate-output on this directory before using CSV mirrors.",
         "",
-        "episodes.csv, cells.csv, contrasts.csv: scores and paired effects. actions.csv, beliefs.csv, messages.csv, elections.csv, timeline.jsonl: observer traces. usage.csv and status.csv include failed/incomplete episodes. Exact prompts and all response attempts remain under episodes/*/requests/.",
+        "episodes.csv, cells.csv, contrasts.csv: scores and paired effects. actions.csv, beliefs.csv, messages.csv, leader_assignments.csv, timeline.jsonl: observer traces. elections.csv contains legacy ballots only. usage.csv and status.csv include failed/incomplete episodes. Exact prompts and all response attempts remain under episodes/*/requests/.",
         "",
         "## Episode reports",
         "",
@@ -357,7 +382,7 @@ def render_report(output, result, summaries):
     table += "</tbody></table>"
     body = f"<h1>{title}</h1><p>{html.escape(note)}</p><p>{result['status']}: {result['completed_episodes']}/{result['planned_episodes']} episodes</p>{table}"
     body += '<p><a href="report.md">Full report and episode index</a> · <a href="analysis.json">Structured analysis</a> · <a href="episodes.csv">Episode table</a> · <a href="contrasts.csv">Paired contrasts</a></p>'
-    body += "<p>Zero/one-selfish groups remain separate. Every contrast uses matched seed blocks. See the full report for election rules, missing cells, and uncertainty.</p>"
+    body += "<p>Selfish-count groups remain separate. Every contrast uses matched seed blocks. See the full report for communication rules, missing cells, and uncertainty.</p>"
     (output / "report.html").write_text(
         '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Experiment report</title><style>body{font:16px system-ui;max-width:1150px;margin:40px auto;padding:0 20px;color:#162d3d;background:#f5f8fb}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #dbe3eb}th{background:#e7f0f5}a{color:#12628a}</style>'
         + body

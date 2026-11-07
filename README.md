@@ -1,6 +1,6 @@
 # Intentional Agent — collaborator guide
 
-Compare **Luna and Haiku** across **no communication, public communication, and an elected leader** in a rotating Prisoner's Dilemma. This repository provides one runner, reproducible configurations, and a versioned output contract for the visualization team.
+Compare **Luna and Haiku** across **no communication, full communication, opponent-only communication, a predetermined good leader, and a predetermined selfish leader** in a rotating Prisoner's Dilemma. This repository provides one runner, reproducible configurations, and a versioned output contract for the visualization team.
 
 ## Start here
 
@@ -32,9 +32,9 @@ The default [experiment configuration](configs/experiment_matrix.json) specifies
 
 | Models | Communication modes | Selfish-player groups | Seeds | Total episodes |
 |---|---|---|---|---:|
-| Luna, Haiku 5.5; medium reasoning | `none`, `public`, `leader` | 0 and 1, reported separately | 0–11 | 144 |
+| Luna, Haiku 5.5; medium reasoning | `none`, `public`, `opponent`, `good_leader`, `selfish_leader` | 1, 3, and 5, reported separately | 0–11 | 360 |
 
-Each episode has **6 players, 20 rounds, and neutral personalities**. The full matrix contains **8,640 encounters and 35,424 generation requests before retries**. Each episode uses 246 requests; histories and reasoning tokens also contribute to API usage.
+Each episode has **10 players, 10 rounds, and neutral personalities**. The design crosses **2 models × 5 communication modes × 3 selfish-player counts × 12 seeds**, for **360 episodes, 18,000 encounters, and 75,600 generation requests before retries**. Every episode uses **210 requests**: 10 players each provide 10 messages or private notes, 10 actions, and one final private report. Histories and reasoning tokens also contribute to API usage.
 
 For additional CLI options:
 
@@ -57,7 +57,7 @@ Keep your real key out of Git and shared output archives. The CLI reads `.env`, 
 
 ### Preview a smaller cohort
 
-One seed still includes both models, all three communication modes, and both role groups: **12 episodes and 2,952 generation requests before retries**.
+One seed includes both models, all five communication modes, and all three selfish-player counts: **30 episodes and 6,300 generation requests before retries**.
 
 ```bash
 uv run --frozen --no-editable intentional-experiments matrix --seeds 0
@@ -137,7 +137,7 @@ Start developing immediately with the committed fixtures:
 - [JSON Schema](docs/visualization/visualization.schema.json).
 - [Full data contract and parsing guide](docs/visualization/README.md).
 
-For actual results, read **`RUN_DIRECTORY/visualization.json`**. Every condition uses schema version **`intentional-agent.visualization/1`**, with fixed fields, explicit nulls, stable IDs, and an atomic snapshot.
+For actual results, read **`RUN_DIRECTORY/visualization.json`**. Every condition uses schema version **`intentional-agent.visualization/4`**, with fixed fields, explicit nulls, stable IDs, and an atomic snapshot.
 
 A Python reader can validate a bundle and access a table:
 
@@ -153,7 +153,7 @@ actions = bundle["tables"]["actions"]
 
 For frontend development, use the generated TypeScript types and JSON Schema at ingestion. Serve the JSON through your team's data route; the CLI writes files rather than starting a web server.
 
-Use `(run_id, episode_id)` to join episode tables. Keep zero/one-selfish groups separate, filter final-score charts to completed episodes, and retain `backend` so scripted fixtures stay distinguishable from hosted-model results. Treat private notes, ballots, and true roles as observer data.
+Use `(run_id, episode_id)` to join episode tables. Keep the 1-, 3-, and 5-selfish-player groups separate, filter final-score charts to completed episodes, and retain `backend` so scripted fixtures stay distinguishable from hosted-model results. Treat private messages, notes, ballots, and true roles as observer data.
 
 The existing dashboard uses its original protocol. Build this study's visualizations against the versioned bundle above; [legacy workflows](docs/legacy-workflows.md) describe the older interface.
 
@@ -196,7 +196,7 @@ Useful entry points:
 | Change | Files |
 |---|---|
 | Cohort dimensions | [configs/experiment_matrix.json](configs/experiment_matrix.json) |
-| Matching, elections, and visibility | [game.py](backend/swarm_game/game.py) |
+| Matching, predetermined leaders, and visibility | [game.py](backend/swarm_game/game.py) |
 | Agent instructions and output validation | [prompts/](backend/swarm_game/prompts/), [protocol.py](backend/swarm_game/protocol.py) |
 | Provider calls and routing | [providers.py](backend/swarm_game/providers.py) |
 | Scores and comparisons | [analysis.py](backend/swarm_game/analysis.py), [matrix_analysis.py](backend/swarm_game/matrix_analysis.py) |
@@ -217,36 +217,39 @@ Open a pull request describing the behavior change and checks you ran. Keep hist
 |---|---|
 | Model axis | `openai/gpt-6-luna`, `anthropic/claude-haiku-5.5` |
 | Reasoning | `medium` for both models |
-| Communication axis | `none`, `public`, `leader` |
-| Role strata | Zero or one selfish player; analyze separately |
-| Population / horizon | 6 players, 20 rounds |
+| Communication axis | `none`, `public`, `opponent`, `good_leader`, `selfish_leader` |
+| Selfish-player count axis | 1, 3, or 5 selfish players; analyze separately |
+| Population / horizon | 10 players, 10 rounds |
 | Replications | 12 matched seeds, 0–11 |
 | Personalities | Neutral for everyone |
 | Primary outcome | Total cumulative payoff of actual good players |
 
-All players in an episode use the same model. A good player maximizes the collective payoff of actual good players; a selfish player maximizes its own payoff and may cooperate or lie. Players know their own objective and the equal prior over zero/one-selfish episodes. Other objectives and the realized count stay hidden.
+All players in an episode use the same model. A good player maximizes the collective payoff of actual good players; each selfish player maximizes its own payoff and may cooperate or lie. Players know their own objective and an equal prior over 1, 3, and 5 selfish players before role assignment. They condition that prior on their own role. Other objectives, fellow selfish players, and the realized count stay hidden. A fixed seeded role ordering gives nested selfish rosters across counts and identical rosters across models and communication modes within each count.
 
-Every round matches each player with exactly one opponent. Seeded round-robin cycles give everyone every opponent once per five rounds. Payoffs: CC=(3,3), DC=(5,0), CD=(0,5), DD=(1,1). The runner collects all actions before resolving them and reveals each encounter only to its participants.
+Agents report a marginal probability for each player's selfish role. Multiple players can have high probabilities simultaneously; the sum represents the expected selfish-player count and lies between 1 and 5. Reports include each player's known own role and omit the `none` category. Analysis scores good agents' reports with the mean binary Brier score over other players and measures final identification across all good-agent/selfish-target pairs.
 
-### Communication and election
+Every round matches each player with exactly one opponent. Seeded round-robin cycles give everyone every opponent once per nine rounds; round 10 starts a new cycle. Payoffs: CC=(3,3), DC=(5,0), CD=(0,5), DD=(1,1). The runner collects all actions before resolving them and reveals each encounter only to its participants.
 
-| Condition | Before midpoint | Midpoint, after round 10 | After election |
-|---|---|---|---|
-| `none` | Private notes | Additional private reflection | Private notes |
-| `public` | Everyone broadcasts | Additional private reflection | Everyone broadcasts |
-| `leader` | Private notes | Simultaneous secret election | Leader broadcasts; others write private notes |
+### Communication and predetermined leaders
 
-Election details:
+| Condition | Before every round, including round 1 |
+|---|---|
+| `none` | Everyone writes a private note |
+| `public` | Everyone broadcasts to all players |
+| `opponent` | Each player privately messages that round's opponent |
+| `good_leader` | Only the predetermined good leader broadcasts; everyone else writes a private note |
+| `selfish_leader` | Only the predetermined selfish leader broadcasts; everyone else writes a private note |
 
-- Each player casts one vote for any player ID, including itself. Plurality wins; a separate seeded random draw breaks ties.
-- Everyone receives only the winner's identity. Individual ballots, vote totals, and ballot notes remain private. The observer logs them for analysis.
-- The leader's first broadcast follows the election, before round 11 actions. The leader retains the role through the end. Any player, including a selfish player, can win.
-- Leadership grants speaking permission. Every player still chooses its own actions; the leader receives only its own encounters and permitted history.
-- Notes, public messages, and private midpoint reflections/ballot notes each permit 96 `o200k_base` content tokens. Every player receives one midpoint request, which matches the additional deliberation opportunity across conditions.
-- Normal discussion follows rounds 1–19; a final private belief report follows round 20. For other horizons, election follows `floor(rounds/2)`; the horizon must be at least two rounds.
-- All messages in a phase commit together. The engine authenticates sender identity and leaves message claims unverified. Nonleaders cannot broadcast through notes or ballots.
+Communication rules:
 
-Every condition uses identical schedules, roles, identities, and seeds. The runner randomizes execution order within each seed block. Seeds control the design, not hosted-model responses. The shared `medium` setting does not guarantee identical reasoning-token expenditure across providers.
+- The engine predetermines a leader before gameplay using a separate seeded draw among players with the required role. That player remains leader for all 10 rounds. The protocol has no election or midpoint reflection.
+- Both leader conditions appear to agents as **leader communication**. Agents see the leader's identity; only observer records identify the good/selfish condition and leader's role. Each player continues to know its own objective.
+- The audience judges the leader using its own encounters and permitted messages. Each player sees only its own playing history. Leadership grants speaking permission; everyone still chooses their own actions and pursues their own objective.
+- Before every round, all players submit one message or private note. The engine delivers permitted messages together before anyone chooses an action. Opponent messages reach only the sender and that round's opponent; private notes remain visible only to their author.
+- Each message or note permits 96 `o200k_base` content tokens. Every condition has the same deliberation opportunities and request count. A final private belief report follows round 10.
+- Sender IDs are authentic. Message claims remain unverified, and every player may lie. Leader roles describe objectives rather than a prescribed action or speaking style.
+
+Within each selfish-count/seed combination, every condition and model uses identical schedules, roles, and player identities. Good-leader and selfish-leader conditions can designate different players; each designation stays fixed across models for the same condition and seed. The runner randomizes execution order within each seed block. Seeds control the design, not hosted-model responses. The shared `medium` setting does not guarantee identical reasoning-token expenditure across providers.
 
 <a id="unified-outputs"></a>
 
@@ -264,16 +267,17 @@ Every matrix writes the same files, regardless of model or communication conditi
 | `contrasts.csv` | Paired communication and model contrasts, bootstrap intervals |
 | `actions.csv` | One row per player-round: opponent, action, payoff, role |
 | `beliefs.csv` | Private identity probabilities and brief recorded strategy summaries |
-| `messages.csv` | Public messages and private notes, with explicit visibility |
-| `elections.csv` | Observer-only ballots, winner, true role, tie status |
+| `messages.csv` | Public messages, opponent messages, and private notes, with explicit visibility |
+| `leader_assignments.csv` | Predetermined leader identity and role; observer-only, available from setup |
+| `elections.csv` | Historical election ballots; empty for the final five-condition protocol |
 | `usage.csv`, `status.csv` | Response attempts, cost, provider metadata, and missing/incomplete cells |
 | `events.csv`, `timeline.jsonl` | Fixed event envelopes with typed payloads and stable sequence IDs |
 | `episodes/*/` | Checkpoints, exact permitted prompts, responses, and episode reports |
 | `runtime/` | Saved runner, prompts, and dependency provenance |
 
-The visualization contract is `intentional-agent.visualization/1`; the matrix manifest uses `intentional-experiments/1`, and the experimental protocol is `rotating-v2`. Report normalized good return as total good payoff divided by `rounds × good_player_count`. Other metrics include good–good/good–selfish contributions, cooperation, identity Brier scores, identification at 0.8, false accusations, pre/post-midpoint return, and election of a selfish leader.
+The visualization contract is `intentional-agent.visualization/4`; the matrix manifest uses `intentional-experiments/1`, and the experimental protocol is `rotating-v4`. Exports include all `selfish_players`, the `belief_format`, opponent recipients, predetermined leader assignments, and the `pre_round` phase. Report normalized good return as total good payoff divided by `rounds × good_player_count`. The good-player count is 9, 7, or 5 for the three role groups. Other metrics include good–good/good–selfish contributions, cooperation, binary Brier scores, identification at 0.8, false accusations, and first/second-half return. The existing `pre_midpoint`/`post_midpoint` metric names identify those halves; they imply no election in this protocol.
 
-Contrasts match complete seed blocks and retain separate zero/one-selfish strata. They compare communication within each model and models within each communication condition. Bootstrap intervals resample seed blocks; they use 10,000 resamples and remain null with fewer than two pairs. Missing cells remain explicit, and cost summaries include failed/incomplete episodes. Collective return and identification measure distinct outcomes; a cooperative selfish player can improve return without becoming identifiable.
+Contrasts match complete seed blocks and retain separate 1-, 3-, and 5-selfish-player groups. They compare communication within each model and models within each communication condition. Bootstrap intervals resample seed blocks; they use 10,000 resamples and remain null with fewer than two pairs. Missing cells remain explicit, and cost summaries include failed/incomplete episodes. Collective return and identification measure distinct outcomes; cooperative selfish players can improve return without becoming identifiable.
 
 Observer exports include true roles and private reports. The engine builds each agent's prompt from an explicit information allowlist; agents receive no observer exports or tools.
 
@@ -291,6 +295,6 @@ experiments/swarm-game/records/  immutable Terra/Luna pilot records
 pyproject.toml, uv.lock     single installation and dependency lock
 ```
 
-`swarm-game` remains an alias for `intentional-experiments`. Historical `compare`/`pilot` commands retain `rotating-v1` (240 requests per default episode); they do not include the new midpoint control. Current single-episode `run` defaults to `rotating-v2`. Historical runs retain their recorded prompts, frozen runtimes, and output formats; the new matrix never pools them into its estimates.
+`swarm-game` remains an alias for `intentional-experiments`. Historical `compare`/`pilot` commands retain `rotating-v1` (240 requests per default episode); `rotating-v2`/`rotating-v3` retain their legacy midpoint protocols. Current single-episode `run` defaults to `rotating-v4`, 10 players, 10 rounds, and one selfish player; `--selfish-count 3` or `5` selects another role group, and `--communication` selects one of the five conditions. Historical runs retain their recorded prompts, frozen runtimes, and output formats; resume them with their saved runtime. The new matrix keeps their results separate.
 
 The existing dashboard and IPD entry points remain available for their original protocols; the matrix CLI above is the canonical path for this study. All packages now share the root install and payoff definition. See [legacy workflows](docs/legacy-workflows.md) for the original interfaces and [recorded pilots](experiments/swarm-game/records/README.md) for prior results. Do not treat the historical Trump-like persona pilot as a neutral Haiku/Luna matrix cell.

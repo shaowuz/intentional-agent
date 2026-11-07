@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/shaowuz/intentional-agent/schemas/visualization-v1",
-  "title": "Intentional Agent visualization bundle v1",
+  "$id": "https://github.com/shaowuz/intentional-agent/schemas/visualization-v4",
+  "title": "Intentional Agent visualization bundle v4",
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": "intentional-agent.visualization/1"
+      "const": "intentional-agent.visualization/4"
     },
     "run_id": {
       "type": "string",
@@ -73,6 +73,12 @@
             "$ref": "#/$defs/elections"
           }
         },
+        "leader_assignments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/leader_assignments"
+          }
+        },
         "usage": {
           "type": "array",
           "items": {
@@ -95,6 +101,7 @@
         "beliefs",
         "messages",
         "elections",
+        "leader_assignments",
         "usage",
         "events"
       ],
@@ -130,6 +137,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -137,7 +147,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -162,6 +174,13 @@
         "protocol_version": {
           "type": "string",
           "minLength": 1
+        },
+        "belief_format": {
+          "type": "string",
+          "enum": [
+            "categorical",
+            "marginal"
+          ]
         },
         "players": {
           "type": "integer",
@@ -232,7 +251,8 @@
             "null"
           ],
           "minimum": 0,
-          "maximum": 2.000002
+          "maximum": 2.000002,
+          "description": "Marginal: mean binary error over other players, then good-agent reports. Legacy categorical: summed category error."
         },
         "final_mean_brier_score": {
           "type": [
@@ -240,7 +260,8 @@
             "null"
           ],
           "minimum": 0,
-          "maximum": 2.000002
+          "maximum": 2.000002,
+          "description": "Same Brier definition using final good-agent reports only."
         },
         "final_identification_rate": {
           "type": [
@@ -248,7 +269,8 @@
             "null"
           ],
           "minimum": 0,
-          "maximum": 1
+          "maximum": 1,
+          "description": "Fraction of good-agent/selfish-target pairs with final probability >= 0.8; null with no selfish players."
         },
         "final_correct_none_rate": {
           "type": [
@@ -271,7 +293,7 @@
             "boolean",
             "null"
           ],
-          "description": "True/false for an elected leader; null if no leader or episode incomplete."
+          "description": "True/false for a predetermined or legacy elected leader; null if no leader or episode incomplete."
         },
         "pre_midpoint_return_per_good_encounter": {
           "type": [
@@ -296,12 +318,16 @@
           ],
           "minLength": 1
         },
-        "selfish_player": {
+        "selfish_players": {
           "type": [
-            "string",
+            "array",
             "null"
           ],
-          "minLength": 1
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
         },
         "completed_model_responses": {
           "type": "integer",
@@ -335,6 +361,7 @@
         "backend",
         "status",
         "protocol_version",
+        "belief_format",
         "players",
         "rounds",
         "reasoning_effort",
@@ -354,7 +381,7 @@
         "pre_midpoint_return_per_good_encounter",
         "post_midpoint_return_per_good_encounter",
         "leader",
-        "selfish_player",
+        "selfish_players",
         "completed_model_responses",
         "prompt_tokens",
         "completion_tokens",
@@ -384,6 +411,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -391,7 +421,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "completed_episodes": {
@@ -455,7 +487,8 @@
             "null"
           ],
           "minimum": 0,
-          "maximum": 2.000002
+          "maximum": 2.000002,
+          "description": "Marginal: mean binary error over other players, then good-agent reports. Legacy categorical: summed category error."
         },
         "final_mean_brier_score": {
           "type": [
@@ -463,7 +496,8 @@
             "null"
           ],
           "minimum": 0,
-          "maximum": 2.000002
+          "maximum": 2.000002,
+          "description": "Same Brier definition using final good-agent reports only."
         },
         "final_identification_rate": {
           "type": [
@@ -471,7 +505,8 @@
             "null"
           ],
           "minimum": 0,
-          "maximum": 1
+          "maximum": 1,
+          "description": "Fraction of good-agent/selfish-target pairs with final probability >= 0.8; null with no selfish players."
         },
         "final_correct_none_rate": {
           "type": [
@@ -586,6 +621,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader",
             null
           ]
@@ -594,7 +632,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "matched_seeds": {
@@ -682,6 +722,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -689,7 +732,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -724,6 +769,7 @@
             "null"
           ],
           "enum": [
+            "pre_round",
             "action",
             "midpoint",
             "discussion",
@@ -803,6 +849,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -810,7 +859,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -917,6 +968,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -924,7 +978,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -1002,7 +1058,7 @@
         "player",
         "target"
       ],
-      "description": "One row per belief target per committed report. Target 'none' is a category, not null."
+      "description": "One row per target per committed report. Marginal reports contain player IDs only; legacy categorical reports also include 'none'."
     },
     "messages": {
       "type": "object",
@@ -1024,6 +1080,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -1031,7 +1090,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -1047,11 +1108,12 @@
         },
         "after_round": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 0
         },
         "phase": {
           "type": "string",
           "enum": [
+            "pre_round",
             "midpoint",
             "discussion"
           ]
@@ -1060,10 +1122,18 @@
           "type": "string",
           "minLength": 1
         },
+        "recipient": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
         "visibility": {
           "type": "string",
           "enum": [
             "private",
+            "opponent",
             "public"
           ]
         },
@@ -1082,6 +1152,7 @@
         "after_round",
         "phase",
         "sender",
+        "recipient",
         "visibility",
         "content"
       ],
@@ -1093,7 +1164,7 @@
         "phase",
         "sender"
       ],
-      "description": "One committed post or note. Empty content is a valid message, not missing data."
+      "description": "One committed message or note. Pre-round messages precede after_round + 1; opponent-only messages name a recipient. Other recipients are null."
     },
     "elections": {
       "type": "object",
@@ -1115,6 +1186,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -1122,7 +1196,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -1193,7 +1269,88 @@
         "after_round",
         "voter"
       ],
-      "description": "One secret ballot per voter; observer-only. Empty table in nonleader conditions."
+      "description": "One legacy secret ballot per voter; observer-only. Empty for rotating-v4."
+    },
+    "leader_assignments": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communication": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
+            "leader"
+          ]
+        },
+        "selfish_count": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            3,
+            5
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backend": {
+          "type": "string",
+          "enum": [
+            "openrouter",
+            "scripted"
+          ]
+        },
+        "before_round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "leader": {
+          "type": "string",
+          "minLength": 1
+        },
+        "leader_role": {
+          "type": "string",
+          "enum": [
+            "good",
+            "selfish"
+          ]
+        }
+      },
+      "required": [
+        "run_id",
+        "episode_id",
+        "model",
+        "communication",
+        "selfish_count",
+        "seed",
+        "backend",
+        "before_round",
+        "leader",
+        "leader_role"
+      ],
+      "additionalProperties": false,
+      "x-primary-key": [
+        "run_id",
+        "episode_id"
+      ],
+      "description": "One predetermined leader per leader episode, recorded at setup; observer-only."
     },
     "usage": {
       "type": "object",
@@ -1215,6 +1372,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -1222,7 +1382,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -1251,6 +1413,8 @@
         "phase": {
           "type": "string",
           "enum": [
+            "setup",
+            "pre_round",
             "action",
             "midpoint",
             "discussion",
@@ -1354,6 +1518,9 @@
           "enum": [
             "none",
             "public",
+            "opponent",
+            "good_leader",
+            "selfish_leader",
             "leader"
           ]
         },
@@ -1361,7 +1528,9 @@
           "type": "integer",
           "enum": [
             0,
-            1
+            1,
+            3,
+            5
           ]
         },
         "seed": {
@@ -1390,6 +1559,8 @@
         "phase": {
           "type": "string",
           "enum": [
+            "setup",
+            "pre_round",
             "action",
             "midpoint",
             "discussion",
@@ -1403,7 +1574,8 @@
             "encounter",
             "midpoint",
             "election",
-            "discussion"
+            "discussion",
+            "leader_assignment"
           ]
         },
         "payload": {
@@ -1433,6 +1605,40 @@
       ],
       "description": "One committed event, ordered by sequence within an episode. Payload follows the type discriminator.",
       "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "leader_assignment"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "leader": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "good",
+                      "selfish"
+                    ]
+                  }
+                },
+                "required": [
+                  "leader",
+                  "role"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
         {
           "if": {
             "properties": {
@@ -1561,6 +1767,9 @@
                     "enum": [
                       "none",
                       "public",
+                      "opponent",
+                      "good_leader",
+                      "selfish_leader",
                       "leader"
                     ]
                   },
@@ -1576,10 +1785,18 @@
                         "content": {
                           "type": "string"
                         },
+                        "recipient": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "minLength": 1
+                        },
                         "visibility": {
                           "type": "string",
                           "enum": [
                             "private",
+                            "opponent",
                             "public"
                           ]
                         }
@@ -1587,6 +1804,7 @@
                       "required": [
                         "sender",
                         "content",
+                        "recipient",
                         "visibility"
                       ],
                       "additionalProperties": false

@@ -15,9 +15,10 @@ from uuid import uuid4
 
 import jsonschema
 
+from .config import COMMUNICATION_MODES
 from .storage import exclusive_run, read_json, scrub, write_json
 
-VERSION = "intentional-agent.visualization/1"
+VERSION = "intentional-agent.visualization/4"
 
 
 def field(kind, *, nullable=False, enum=None, description="", **extra):
@@ -37,17 +38,17 @@ R = field("integer", minimum=1)
 N = field("number", nullable=True)
 RATE = field("number", nullable=True, minimum=0, maximum=1)
 BOOL = field("boolean")
-MODE = field("string", enum=["none", "public", "leader"])
+MODE = field("string", enum=[*COMMUNICATION_MODES, "leader"])
 ROLE = field("string", enum=["good", "selfish"])
 STATUS = field("string", enum=["not_started", "incomplete", "complete"])
-PHASE = field("string", enum=["action", "midpoint", "discussion", "final"])
+PHASE = field("string", enum=["setup", "pre_round", "action", "midpoint", "discussion", "final"])
 RUN = {"run_id": field("string", format="uuid")}
 AXES = {
     **RUN,
     "episode_id": S,
     "model": S,
     "communication": MODE,
-    "selfish_count": field("integer", enum=[0, 1]),
+    "selfish_count": field("integer", enum=[0, 1, 3, 5]),
     "seed": I,
     "backend": field("string", enum=["openrouter", "scripted"]),
 }
@@ -78,15 +79,24 @@ METRICS = {
     "good_selfish_return": field("integer", nullable=True, minimum=0),
     "good_cooperation_rate": RATE,
     "all_cooperation_rate": RATE,
-    "mean_brier_score": field("number", nullable=True, minimum=0, maximum=2.000002),
-    "final_mean_brier_score": field("number", nullable=True, minimum=0, maximum=2.000002),
-    "final_identification_rate": RATE,
+    "mean_brier_score": field(
+        "number", nullable=True, minimum=0, maximum=2.000002,
+        description="Marginal: mean binary error over other players, then good-agent reports. Legacy categorical: summed category error.",
+    ),
+    "final_mean_brier_score": field(
+        "number", nullable=True, minimum=0, maximum=2.000002,
+        description="Same Brier definition using final good-agent reports only.",
+    ),
+    "final_identification_rate": field(
+        "number", nullable=True, minimum=0, maximum=1,
+        description="Fraction of good-agent/selfish-target pairs with final probability >= 0.8; null with no selfish players.",
+    ),
     "final_correct_none_rate": RATE,
     "false_accusation_rate": RATE,
     "leader_is_selfish": field(
         "boolean",
         nullable=True,
-        description="True/false for an elected leader; null if no leader or episode incomplete.",
+        description="True/false for a predetermined or legacy elected leader; null if no leader or episode incomplete.",
     ),
     "pre_midpoint_return_per_good_encounter": field("number", nullable=True, minimum=0, maximum=5),
     "post_midpoint_return_per_good_encounter": field("number", nullable=True, minimum=0, maximum=5),
@@ -116,13 +126,14 @@ TABLES = {
             **AXES,
             "status": STATUS,
             "protocol_version": S,
+            "belief_format": field("string", enum=["categorical", "marginal"]),
             "players": R,
             "rounds": R,
             "reasoning_effort": S,
             "selfish_persona": S,
             **METRICS,
             "leader": NS,
-            "selfish_player": NS,
+            "selfish_players": field("array", nullable=True, items=S, uniqueItems=True),
             **USAGE_TOTALS,
         },
         ["episode_id"],
@@ -133,7 +144,7 @@ TABLES = {
             **RUN,
             "model": S,
             "communication": MODE,
-            "selfish_count": field("integer", enum=[0, 1]),
+            "selfish_count": field("integer", enum=[0, 1, 3, 5]),
             "completed_episodes": I,
             "planned_episodes": R,
             **CELL_METRICS,
@@ -149,8 +160,8 @@ TABLES = {
             "baseline_value": S,
             "comparison_value": S,
             "model": NS,
-            "communication": field("string", nullable=True, enum=["none", "public", "leader"]),
-            "selfish_count": field("integer", enum=[0, 1]),
+            "communication": field("string", nullable=True, enum=[*COMMUNICATION_MODES, "leader"]),
+            "selfish_count": field("integer", enum=[0, 1, 3, 5]),
             "matched_seeds": I,
             "seed_ids": field("array", items=I, uniqueItems=True),
             "mean_total_return_difference": N,
@@ -169,7 +180,7 @@ TABLES = {
             "phase": field(
                 "string",
                 nullable=True,
-                enum=["action", "midpoint", "discussion", "final", "complete"],
+                enum=["pre_round", "action", "midpoint", "discussion", "final", "complete"],
             ),
             "rounds_completed": I,
             **USAGE_TOTALS,
@@ -205,19 +216,20 @@ TABLES = {
             "strategy": TEXT,
         },
         ["episode_id", "round", "phase", "player", "target"],
-        "One row per belief target per committed report. Target 'none' is a category, not null.",
+        "One row per target per committed report. Marginal reports contain player IDs only; legacy categorical reports also include 'none'.",
     ),
     "messages": table(
         {
             **AXES,
-            "after_round": R,
-            "phase": field("string", enum=["midpoint", "discussion"]),
+            "after_round": I,
+            "phase": field("string", enum=["pre_round", "midpoint", "discussion"]),
             "sender": S,
-            "visibility": field("string", enum=["private", "public"]),
+            "recipient": NS,
+            "visibility": field("string", enum=["private", "opponent", "public"]),
             "content": TEXT,
         },
         ["episode_id", "after_round", "phase", "sender"],
-        "One committed post or note. Empty content is a valid message, not missing data.",
+        "One committed message or note. Pre-round messages precede after_round + 1; opponent-only messages name a recipient. Other recipients are null.",
     ),
     "elections": table(
         {
@@ -231,7 +243,17 @@ TABLES = {
             "tie": BOOL,
         },
         ["episode_id", "after_round", "voter"],
-        "One secret ballot per voter; observer-only. Empty table in nonleader conditions.",
+        "One legacy secret ballot per voter; observer-only. Empty for rotating-v4.",
+    ),
+    "leader_assignments": table(
+        {
+            **AXES,
+            "before_round": R,
+            "leader": S,
+            "leader_role": ROLE,
+        },
+        ["episode_id"],
+        "One predetermined leader per leader episode, recorded at setup; observer-only.",
     ),
     "usage": table(
         {
@@ -260,7 +282,7 @@ TABLES = {
             "round": R,
             "phase": PHASE,
             "type": field(
-                "string", enum=["belief", "encounter", "midpoint", "election", "discussion"]
+                "string", enum=["belief", "encounter", "midpoint", "election", "discussion", "leader_assignment"]
             ),
             "payload": field("object"),
         },
@@ -280,6 +302,7 @@ def obj(properties):
 
 
 PAYLOADS = {
+    "leader_assignment": obj({"leader": S, "role": ROLE}),
     "belief": obj(
         {
             "player": S,
@@ -310,7 +333,8 @@ PAYLOADS = {
                     {
                         "sender": S,
                         "content": TEXT,
-                        "visibility": field("string", enum=["private", "public"]),
+                        "recipient": NS,
+                        "visibility": field("string", enum=["private", "opponent", "public"]),
                     }
                 ),
             ),
@@ -337,8 +361,8 @@ TABLES["events"]["allOf"] = [
 def schema():
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/shaowuz/intentional-agent/schemas/visualization-v1",
-        "title": "Intentional Agent visualization bundle v1",
+        "$id": "https://github.com/shaowuz/intentional-agent/schemas/visualization-v4",
+        "title": "Intentional Agent visualization bundle v4",
         **obj(
             {
                 "schema_version": {"const": VERSION},
@@ -472,12 +496,17 @@ def event_rows(events):
             payload.setdefault("action", None)
         elif kind == "midpoint":
             payload.setdefault("vote", None)
+        elif kind == "discussion":
+            payload["posts"] = [{"recipient": None, **p} for p in payload["posts"]]
         result.append(
             {
                 **{k: event[k] for k in AXES if k != "run_id"},
                 "event_id": f"{ep}:{counts[ep]:06d}",
                 "sequence": counts[ep],
-                "round": event.get("round", event.get("after_round")),
+                "round": (
+                    event["after_round"] + 1 if phase == "pre_round" else
+                    event.get("round", event.get("after_round"))
+                ),
                 "phase": phase,
                 "type": kind,
                 "payload": payload,
@@ -498,6 +527,7 @@ def publish(
     elections,
     usage,
     events,
+    leader_assignments,
 ):
     """Publish a validated atomic bundle plus deterministic CSV/JSONL mirrors."""
     output = Path(output)
@@ -527,8 +557,12 @@ def publish(
                         )
                     },
                     **{k: s.get(k) for k in METRICS},
+                    "belief_format": (
+                        "marginal" if config["protocol_version"] in ("rotating-v3", "rotating-v4")
+                        else "categorical"
+                    ),
                     "leader": s.get("leader"),
-                    "selfish_player": s.get("selfish_player"),
+                    "selfish_players": s.get("selfish_players"),
                     **{k: status[k] for k in USAGE_TOTALS},
                 }
             )
@@ -574,6 +608,7 @@ def publish(
             "beliefs": beliefs,
             "messages": messages,
             "elections": elections,
+            "leader_assignments": leader_assignments,
             "usage": usage,
             "events": event_rows(events),
         }

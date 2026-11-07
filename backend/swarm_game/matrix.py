@@ -5,7 +5,7 @@ import shutil
 from dataclasses import replace
 from pathlib import Path
 
-from .config import COMMUNICATION_MODES, MODELS, Config
+from .config import COMMUNICATION_MODES, LEGACY_COMMUNICATION_MODES, MODELS, SELFISH_COUNTS, Config
 from .game import derived_seed
 from .providers import OpenRouterProvider, ScriptedProvider
 from .runner import run_episode
@@ -23,17 +23,24 @@ def normalize_spec(raw):
         "game",
     }:
         raise ValueError("Unknown matrix fields")
+    game = raw.get("game", {})
+    if not isinstance(game, dict):
+        raise ValueError("game must be an object")
+    legacy = game.get("protocol_version") == "rotating-v2"
+    protocol = game.get("protocol_version", "rotating-v4")
+    modes = COMMUNICATION_MODES if protocol == "rotating-v4" else LEGACY_COMMUNICATION_MODES
+    counts = (0, 1) if legacy else SELFISH_COUNTS
     spec = {
         "models": raw.get("models", ["openai/gpt-6-luna", "anthropic/claude-haiku-5.5"]),
-        "communication_modes": raw.get("communication_modes", list(COMMUNICATION_MODES)),
-        "selfish_counts": raw.get("selfish_counts", [0, 1]),
+        "communication_modes": raw.get("communication_modes", list(modes)),
+        "selfish_counts": raw.get("selfish_counts", list(counts)),
         "seeds": raw.get("seeds", list(range(12))),
-        "game": raw.get("game", {}),
+        "game": game,
     }
     for field, allowed in (
         ("models", MODELS),
-        ("communication_modes", COMMUNICATION_MODES),
-        ("selfish_counts", (0, 1)),
+        ("communication_modes", modes),
+        ("selfish_counts", counts),
     ):
         values = spec[field]
         if not isinstance(values, list) or not values or any(v not in allowed for v in values):
@@ -55,11 +62,17 @@ def normalize_spec(raw):
     }:
         raise ValueError("Set model, communication, roles and seeds through the matrix axes")
     try:
-        config = Config(**{"protocol_version": "rotating-v2", **spec["game"]})
+        defaults = (
+            {"protocol_version": "rotating-v2"} if legacy else
+            {"protocol_version": "rotating-v4", "players": 10, "rounds": 10}
+        )
+        config = Config(**{
+            **defaults, **spec["game"], "selfish_count": spec["selfish_counts"][0]
+        })
     except TypeError as exc:
         raise ValueError(f"Invalid game settings: {exc}") from None
-    if config.protocol_version != "rotating-v2" or config.selfish_persona != "neutral":
-        raise ValueError("This matrix fixes rotating-v2 and neutral personalities")
+    if config.protocol_version not in ("rotating-v2", "rotating-v3", "rotating-v4") or config.selfish_persona != "neutral":
+        raise ValueError("This matrix requires rotating-v2/v3/v4 and neutral personalities")
     spec["game"] = {
         k: v
         for k, v in config.to_dict().items()
@@ -70,7 +83,7 @@ def normalize_spec(raw):
 
 def episode_plan(spec):
     spec = normalize_spec(spec)
-    base = Config(**spec["game"])
+    base = Config(**spec["game"], selfish_count=spec["selfish_counts"][0])
     plan = []
     for seed in spec["seeds"]:
         cells = [
@@ -90,16 +103,21 @@ def episode_plan(spec):
 def preview(raw):
     spec = normalize_spec(raw)
     plan = episode_plan(spec)
-    config = Config(**spec["game"])
+    config = Config(**spec["game"], selfish_count=spec["selfish_counts"][0])
     return {
         "status": "preview",
         "schema_version": SCHEMA_VERSION,
         "spec": spec,
         "episodes": len(plan),
         "encounters": len(plan) * config.rounds * config.players // 2,
-        "requests_before_retries": len(plan) * config.expected_requests,
-        "midpoint_after_round": config.midpoint_round,
-        "requests_per_episode": config.expected_requests,
+        "requests_before_retries": sum(
+            Config(**entry["config"]).expected_requests for entry in plan
+        ),
+        "midpoint_after_round": config.midpoint_round if config.has_midpoint else None,
+        "requests_per_episode": {
+            mode: replace(config, communication=mode).expected_requests
+            for mode in spec["communication_modes"]
+        },
         "launch": "Add --execute to run this matrix; --backend scripted uses no hosted model.",
     }
 
@@ -147,7 +165,9 @@ def run_matrix(raw, output, *, resume=False, provider_factory=make_provider, pro
             if spec["game"]["backend"] == "openrouter":
                 catalog = []
                 for model in spec["models"]:
-                    provider = provider_factory(Config(**spec["game"], model=model))
+                    provider = provider_factory(Config(
+                        **spec["game"], model=model, selfish_count=spec["selfish_counts"][0]
+                    ))
                     try:
                         catalog.append(provider.catalog_entry())
                     finally:

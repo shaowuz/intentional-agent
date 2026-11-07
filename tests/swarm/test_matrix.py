@@ -5,7 +5,7 @@ from dataclasses import replace
 import httpx
 import pytest
 from swarm_game.cli import main
-from swarm_game.config import Config
+from swarm_game.config import COMMUNICATION_MODES, Config
 from swarm_game.game import commit_phase, initial_state, player_view
 from swarm_game.matrix import episode_plan, normalize_spec, preview, run_matrix
 from swarm_game.matrix_analysis import analyze_matrix
@@ -31,30 +31,36 @@ def reach_midpoint(config):
 
 
 def tiny_spec():
-    return {"game": {"players": 2, "rounds": 2, "backend": "scripted"}, "seeds": [7]}
+    return {
+        "game": {"protocol_version": "rotating-v2", "players": 2, "rounds": 2, "backend": "scripted"},
+        "seeds": [7],
+    }
 
 
 def test_design_counts_models_and_matching():
     spec = normalize_spec({})
     plan = episode_plan(spec)
     info = preview(spec)
-    assert info["episodes"] == 144
-    assert info["encounters"] == 8640
-    assert info["requests_before_retries"] == 35424
-    assert info["requests_per_episode"] == 246
-    assert info["midpoint_after_round"] == 10
+    assert info["episodes"] == 360
+    assert info["encounters"] == 18000
+    assert info["requests_before_retries"] == 75600
+    assert info["requests_per_episode"] == dict.fromkeys(COMMUNICATION_MODES, 210)
+    assert info["midpoint_after_round"] is None
+    assert spec["game"]["protocol_version"] == "rotating-v4"
+    assert spec["selfish_counts"] == [1, 3, 5]
     assert spec["models"] == ["openai/gpt-6-luna", "anthropic/claude-haiku-5.5"]
     assert spec["game"]["selfish_persona"] == "neutral"
     for seed in spec["seeds"]:
         states = [initial_state(Config(**p["config"])) for p in plan if p["config"]["seed"] == seed]
         assert all(s["schedule"] == states[0]["schedule"] for s in states)
-        for k in (0, 1):
+        for k in (1, 3, 5):
             roles = [
                 initial_state(Config(**p["config"]))["roles"]
                 for p in plan
                 if p["config"]["seed"] == seed and p["config"]["selfish_count"] == k
             ]
             assert all(r == roles[0] for r in roles)
+            assert sum(role == "selfish" for role in roles[0].values()) == k
     assert plan == episode_plan(spec)
 
 
@@ -71,13 +77,70 @@ def test_design_counts_models_and_matching():
         {"game": {"model": "openai/gpt-6-luna"}},
         {"game": {"selfish_persona": "trump_like"}},
         {"game": {"protocol_version": "rotating-v1"}},
-        {"game": {"rounds": 1}},
+        {"game": {"rounds": 0}},
+        {"communication_modes": ["leader"]},
         {"unknown": 1},
     ],
 )
 def test_invalid_matrix(change):
     with pytest.raises(ValueError):
         normalize_spec(change)
+
+
+@pytest.mark.parametrize("rounds", [2, 5, 10])
+@pytest.mark.parametrize("protocol_version,selfish_count", [
+    ("rotating-v2", 1), ("rotating-v3", 5),
+])
+def test_opponent_messages_precede_every_pre_election_round(rounds, protocol_version, selfish_count):
+    config = Config(
+        protocol_version=protocol_version, communication="leader",
+        players=10, rounds=rounds, selfish_count=selfish_count, backend="scripted",
+    )
+    state = initial_state(config)
+    for round_number in range(1, config.midpoint_round + 1):
+        assert (state["round"], state["phase"]) == (round_number, "pre_round")
+        requests = {p: make_request(state, config, p) for p in state["players"]}
+        for player, request in requests.items():
+            pair = next(p for p in state["schedule"][round_number - 1] if player in p)
+            assert request.view["opponent"] == next(p for p in pair if p != player)
+            assert len(request.view["encounters"]) == round_number - 1
+            assert not {"roles", "schedule", "pending"} & request.view.keys()
+            assert "private message to your current opponent" in request.messages[0]["content"]
+            with pytest.raises(ValueError):
+                validate_response({"content": "", "recipient": player}, request, config)
+            with pytest.raises(ValueError, match="96"):
+                validate_response({"content": "x " * 100}, request, config)
+            state["pending"][player] = {"content": f"message-{round_number}-{player}"}
+            assert all(
+                make_request(state, config, p) == req for p, req in requests.items()
+            )
+        commit_phase(state, config)
+        assert (state["round"], state["phase"]) == (round_number, "action")
+        for player in state["players"]:
+            request = make_request(state, config, player)
+            opponent = request.view["opponent"]
+            posts = request.view["discussion_history"][-1]["posts"]
+            assert {p["sender"] for p in posts} == {player, opponent}
+            assert all(p["visibility"] == "opponent" for p in posts)
+            assert all(
+                p["recipient"] == (opponent if p["sender"] == player else player)
+                for p in posts
+            )
+            for outsider in set(state["players"]) - {player, opponent}:
+                assert json.dumps(f"message-{round_number}-{outsider}") not in json.dumps(
+                    request.view
+                )
+        advance(state, config)
+    assert state["phase"] == "midpoint"
+    advance(state, config)
+    assert state["phase"] == "discussion"
+    advance(state, config)
+    assert state["round"] == config.midpoint_round + 1
+    while not state["completed"]:
+        assert state["phase"] != "pre_round"
+        advance(state, config)
+    assert len(state["discussions"]) == rounds
+    assert sum(d["phase"] == "pre_round" for d in state["discussions"]) == rounds // 2
 
 
 def test_secret_simultaneous_ballots_and_selfish_leader():
@@ -93,7 +156,10 @@ def test_secret_simultaneous_ballots_and_selfish_leader():
     assert len(state["encounters"]) == 6
     for player in state["players"]:
         for d in player_view(state, config, player)["discussion_history"]:
-            assert {p["sender"] for p in d["posts"]} == {player}
+            pair = next(
+                pair for pair in state["schedule"][d["after_round"]] if player in pair
+            )
+            assert {p["sender"] for p in d["posts"]} == set(pair)
     selfish = next(p for p, role in state["roles"].items() if role == "selfish")
     before = make_request(state, config, "P2")
     state["pending"]["P1"] = {"vote": selfish, "content": "private ballot sentinel"}
@@ -166,7 +232,7 @@ def test_matrix_preview_never_constructs_provider(tmp_path, monkeypatch, capsys)
     write_json(config, {})
     output = tmp_path / "unused"
     assert main(["matrix", "--config", str(config), "--output", str(output)]) == 0
-    assert json.loads(capsys.readouterr().out)["episodes"] == 144
+    assert json.loads(capsys.readouterr().out)["episodes"] == 360
     assert not output.exists()
 
 
@@ -174,7 +240,7 @@ def test_matrix_tables_pairing_and_resume(tmp_path):
     output = tmp_path / "suite"
     result = run_matrix(tiny_spec(), output, progress=lambda _: None)
     assert result["status"] == "complete" and result["completed_episodes"] == 12
-    assert result["usage_including_incomplete"]["completed_model_responses"] == 120
+    assert result["usage_including_incomplete"]["completed_model_responses"] == 128
     assert all(c["return_per_good_encounter"] == 3 for c in result["cells"])
     assert all(c["mean_total_return_difference"] == 0 for c in result["contrasts"])
     assert all(c["normalized_bootstrap_95pct_interval"] is None for c in result["contrasts"])
