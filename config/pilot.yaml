@@ -1,0 +1,45 @@
+# Real-LLM PILOT configuration.
+#
+# 2 agents per prior group = 10 agents per condition, 2 games per agent,
+# both horizon conditions.  Run this first with a real model before scaling up.
+#
+# To use a real model either edit `llm` below or override on the command line:
+#   export OPENAI_API_KEY=...
+#   python -m ipd.cli run --config config/pilot.yaml \
+#       --provider openai --model gpt-4o-mini --output-dir results/pilot_openai
+#
+# `provider: mock` lets you validate the pilot plumbing with zero cost.
+name: pilot
+seed: 20240501
+output_dir: results/pilot
+conditions: [fixed, random]
+games_per_agent: 2
+fixed_rounds: 20
+continue_prob: 0.95
+max_rounds_random: 200
+pairing_strategy: round_robin
+
+population:
+  priors: [0.1, 0.3, 0.5, 0.7, 0.9]
+  agents_per_prior: 2
+
+llm:
+  provider: mock          # <-- set to openai / anthropic for a real pilot
+  model: mock-strategic
+  temperature: 0.7
+  top_p: 1.0
+  max_tokens: 300
+  seed: null
+  api_key_env: OPENAI_API_KEY
+  base_url: null
+  timeout: 60
+  max_retries: 4
+  pricing:
+    # Set current prices for your model to get cost estimates (USD per 1k tokens).
+    input_per_1k_tokens: 0.0
+    output_per_1k_tokens: 0.0
+
+memory:
+  # 0 = render everything (lossless prompt view)
+  recent_rounds_in_prompt: 0
+  max_completed_game_lines: 0

@@ -1,0 +1,44 @@
+# FULL experiment configuration (do NOT launch without explicit approval).
+#
+# 5 prior groups x 10 agents = 50 agents per condition, 50 games per agent,
+# both horizon conditions.  This is the scientific configuration; it is large
+# and (with a real model) expensive.  Estimate cost from the pilot first.
+#
+# Launch examples:
+#   export OPENAI_API_KEY=...
+#   python -m ipd.cli run --config config/full.yaml \
+#       --provider openai --model <model> --output-dir results/full_openai
+#   python -m ipd.cli analyze --results results/full_openai
+name: full
+seed: 20240501
+output_dir: results/full
+conditions: [fixed, random]
+games_per_agent: 50
+fixed_rounds: 20
+continue_prob: 0.95
+max_rounds_random: 200
+pairing_strategy: round_robin
+
+population:
+  priors: [0.1, 0.3, 0.5, 0.7, 0.9]
+  agents_per_prior: 10
+
+llm:
+  provider: mock          # <-- set to openai / anthropic for the real experiment
+  model: mock-strategic
+  temperature: 0.7
+  top_p: 1.0
+  max_tokens: 300
+  seed: null
+  api_key_env: OPENAI_API_KEY
+  base_url: null
+  timeout: 60
+  max_retries: 4
+  pricing:
+    input_per_1k_tokens: 0.0
+    output_per_1k_tokens: 0.0
+
+memory:
+  # 0 = render everything (lossless prompt view)
+  recent_rounds_in_prompt: 0
+  max_completed_game_lines: 0
