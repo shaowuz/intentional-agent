@@ -1,6 +1,6 @@
 # Intentional Agent — collaborator guide
 
-Compare **Luna and Haiku** across **no communication, full communication, opponent-only communication, a predetermined good leader, and a predetermined selfish leader** in a rotating Prisoner's Dilemma. This repository provides one runner, reproducible configurations, and a versioned output contract for the visualization team.
+Study **Luna** across **no communication, full communication, opponent-only communication, a predetermined good leader, and a predetermined selfish leader** in a rotating Prisoner's Dilemma. This repository provides one runner, reproducible configurations, and a versioned output contract for the visualization team.
 
 ## Start here
 
@@ -32,9 +32,9 @@ The default [experiment configuration](configs/experiment_matrix.json) specifies
 
 | Models | Communication modes | Selfish-player groups | Seeds | Total episodes |
 |---|---|---|---|---:|
-| Luna, Haiku 5.5; medium reasoning | `none`, `public`, `opponent`, `good_leader`, `selfish_leader` | 1, 3, and 5, reported separately | 0–11 | 360 |
+| Luna; medium reasoning | `none`, `public`, `opponent`, `good_leader`, `selfish_leader` | 1, 3, and 5, reported separately | 0–11 | 180 |
 
-Each episode has **10 players, 10 rounds, and neutral personalities**. The design crosses **2 models × 5 communication modes × 3 selfish-player counts × 12 seeds**, for **360 episodes, 18,000 encounters, and 75,600 generation requests before retries**. Every episode uses **210 requests**: 10 players each provide 10 messages or private notes, 10 actions, and one final private report. Histories and reasoning tokens also contribute to API usage.
+Each episode has **10 players, 10 rounds, and neutral personalities**. The design crosses **1 model × 5 communication modes × 3 selfish-player counts × 12 seeds**, for **180 episodes, 9,000 encounters, and 37,800 generation requests before retries**. Every episode uses **210 requests**: 10 players each provide 10 messages or private notes, 10 actions, and one final private report. Histories and reasoning tokens also contribute to API usage.
 
 For additional CLI options:
 
@@ -53,11 +53,11 @@ For hosted runs, set `OPENROUTER_API_KEY` in your shell or a root `.env` file. F
 OPENROUTER_API_KEY=your-key-here
 ```
 
-Keep your real key out of Git and shared output archives. The CLI reads `.env`, and existing shell values take precedence. The runner sends Luna requests to OpenAI and Haiku requests to Anthropic through OpenRouter, disables fallbacks, and checks model capabilities before generation.
+Keep your real key out of Git and shared output archives. The CLI reads `.env`, and existing shell values take precedence. The runner sends Luna requests to OpenAI through OpenRouter, disables fallbacks, and checks model capabilities before generation. Optional Haiku ablations route to Anthropic.
 
 ### Preview a smaller cohort
 
-One seed includes both models, all five communication modes, and all three selfish-player counts: **30 episodes and 6,300 generation requests before retries**.
+One seed includes Luna, all five communication modes, and all three selfish-player counts: **15 episodes and 3,150 generation requests before retries**.
 
 ```bash
 uv run --frozen --no-editable intentional-experiments matrix --seeds 0
@@ -72,7 +72,7 @@ One matched seed:
 ```bash
 uv run --frozen --no-editable intentional-experiments matrix \
   --seeds 0 \
-  --output results/luna-haiku-seed-0 --execute
+  --output results/luna-seed-0 --execute
 ```
 
 Full 12-seed matrix:
@@ -80,7 +80,7 @@ Full 12-seed matrix:
 ```bash
 uv run --frozen --no-editable intentional-experiments matrix \
   --config configs/experiment_matrix.json \
-  --output results/luna-haiku-full --execute
+  --output results/luna-full --execute
 ```
 
 Episodes execute sequentially. Coordinate seed assignments with the team and give each independent cohort its own output directory. One process owns each output directory. Keep every model/communication cell for a seed together so the analyzer can form matched comparisons.
@@ -106,14 +106,29 @@ uv run --frozen --no-editable intentional-experiments matrix \
 
 The config lists model IDs, communication modes, selfish-player counts, seeds, and shared game settings. This study fixes medium reasoning and neutral personalities. Change the configuration before starting a new cohort; an interrupted run requires its original settings.
 
+### Optional model ablations
+
+The main study uses Luna alone. [configs/model_ablation.json](configs/model_ablation.json) preserves the matched Luna–Haiku comparison as an opt-in ablation: 360 episodes and 75,600 requests before retries. Preview it with:
+
+```bash
+uv run --frozen --no-editable intentional-experiments matrix \
+  --config configs/model_ablation.json
+```
+
+An explicitly launched ablation needs its own output directory. The model registry also supports `openai/gpt-6.1-terra` and `openai/gpt-6-astra`; add them to a separate ablation configuration when required. Keep Luna as the baseline when using within-run model contrasts. The default main-study launch selects only Luna.
+
+### Split the main study across three computers
+
+Use the [three computer launch prompts](docs/launch-prompts.md). Assign selfish counts 1, 3, and 5 to computers 1, 2, and 3 respectively. Each computer runs Luna across all five conditions and seeds 0–11: **60 episodes, 3,000 encounters, and 12,600 requests before retries**. The selfish identities and encounter schedules remain matched across conditions within each seed; identities may change between seeds. Keep each computer's config, logs, and output directory separate.
+
 ### Resume an interrupted run
 
 Use the run's saved `spec.json` so seed and backend overrides carry forward:
 
 ```bash
 uv run --frozen --no-editable intentional-experiments matrix \
-  --config results/luna-haiku-seed-0/spec.json \
-  --output results/luna-haiku-seed-0 --execute --resume
+  --config results/luna-seed-0/spec.json \
+  --output results/luna-seed-0 --execute --resume
 ```
 
 The runner checkpoints accepted responses and completed phases. Resumption reuses them, including completed episodes. It stops on configuration or source drift. Invalid outputs receive one correction attempt; persistent failures leave checkpoints and a partial report. Transport retries are bounded; a response lost before durable recording can require another billed request.
@@ -121,17 +136,17 @@ The runner checkpoints accepted responses and completed phases. Resumption reuse
 If the application source has changed, use the saved runtime with the original dependency environment:
 
 ```bash
-PYTHONPATH=results/luna-haiku-seed-0/runtime \
+PYTHONPATH=results/luna-seed-0/runtime \
   .venv/bin/python -m swarm_game.cli matrix \
-  --config results/luna-haiku-seed-0/spec.json \
-  --output results/luna-haiku-seed-0 --execute --resume
+  --config results/luna-seed-0/spec.json \
+  --output results/luna-seed-0 --execute --resume
 ```
 
 ## Visualization quickstart
 
 Start developing immediately with the committed fixtures:
 
-- [Complete synthetic bundle](docs/visualization/examples/complete.json): both model labels and all communication conditions.
+- [Complete synthetic bundle](docs/visualization/examples/complete.json): Luna and the optional Haiku ablation label, with all communication conditions.
 - [Incomplete synthetic bundle](docs/visualization/examples/incomplete.json): missing final scores and empty tables.
 - [Generated TypeScript types](docs/visualization/types.ts).
 - [JSON Schema](docs/visualization/visualization.schema.json).
@@ -163,10 +178,10 @@ These commands operate on saved files and make no model calls:
 
 ```bash
 uv run --frozen --no-editable intentional-experiments analyze \
-  results/luna-haiku-seed-0
+  results/luna-seed-0
 
 uv run --frozen --no-editable intentional-experiments validate-output \
-  results/luna-haiku-seed-0
+  results/luna-seed-0
 ```
 
 Open the run's `report.html` or `report.md` for a summary. Use `visualization.json` for the stable machine interface. The validator checks schema, identifiers, field types, and agreement among the JSON, CSV, and timeline exports.
@@ -215,8 +230,9 @@ Open a pull request describing the behavior change and checks you ran. Keep hist
 
 | Setting | Values |
 |---|---|
-| Model axis | `openai/gpt-6-luna`, `anthropic/claude-haiku-5.5` |
-| Reasoning | `medium` for both models |
+| Main model | `openai/gpt-6-luna` |
+| Optional model ablations | Haiku 5.5, Terra, or Astra; configure explicitly in a separate cohort |
+| Reasoning | `medium` for the main study and model ablations |
 | Communication axis | `none`, `public`, `opponent`, `good_leader`, `selfish_leader` |
 | Selfish-player count axis | 1, 3, or 5 selfish players; analyze separately |
 | Population / horizon | 10 players, 10 rounds |

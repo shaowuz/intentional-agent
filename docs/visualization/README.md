@@ -8,7 +8,7 @@ schema_version = "intentional-agent.visualization/4"
 
 - [JSON Schema](visualization.schema.json): types, nullability, enums, required fields, primary keys, and table descriptions.
 - [TypeScript types](types.ts): generated from the same source as the exporter.
-- [Complete synthetic fixture](examples/complete.json): both model labels, all five communication modes, and 1-, 3-, and 5-selfish-player groups.
+- [Complete synthetic fixture](examples/complete.json): Luna and the optional Haiku ablation label, all five communication modes, and 1-, 3-, and 5-selfish-player groups.
 - [Incomplete synthetic fixture](examples/incomplete.json): null final scores and empty trace tables with the same shapes.
 
 Both fixtures come from unit tests using scripted policies. They contain **no hosted-model results**. Their small populations/horizons keep them convenient for frontend development.

@@ -31,7 +31,10 @@ def normalize_spec(raw):
     modes = COMMUNICATION_MODES if protocol == "rotating-v4" else LEGACY_COMMUNICATION_MODES
     counts = (0, 1) if legacy else SELFISH_COUNTS
     spec = {
-        "models": raw.get("models", ["openai/gpt-6-luna", "anthropic/claude-haiku-5.5"]),
+        "models": raw.get("models", (
+            ["openai/gpt-6-luna"] if protocol == "rotating-v4" else
+            ["openai/gpt-6-luna", "anthropic/claude-haiku-5.5"]
+        )),
         "communication_modes": raw.get("communication_modes", list(modes)),
         "selfish_counts": raw.get("selfish_counts", list(counts)),
         "seeds": raw.get("seeds", list(range(12))),

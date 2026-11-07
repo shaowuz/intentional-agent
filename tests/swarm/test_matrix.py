@@ -1,6 +1,7 @@
 import csv
 import json
 from dataclasses import replace
+from pathlib import Path
 
 import httpx
 import pytest
@@ -37,18 +38,24 @@ def tiny_spec():
     }
 
 
-def test_design_counts_models_and_matching():
-    spec = normalize_spec({})
+@pytest.mark.parametrize("config_name,models", [
+    (None, ["openai/gpt-6-luna"]),
+    ("experiment_matrix.json", ["openai/gpt-6-luna"]),
+    ("model_ablation.json", ["openai/gpt-6-luna", "anthropic/claude-haiku-5.5"]),
+])
+def test_design_counts_models_and_matching(config_name, models):
+    raw = read_json(Path(__file__).resolve().parents[2] / "configs" / config_name) if config_name else {}
+    spec = normalize_spec(raw)
     plan = episode_plan(spec)
     info = preview(spec)
-    assert info["episodes"] == 360
-    assert info["encounters"] == 18000
-    assert info["requests_before_retries"] == 75600
+    assert info["episodes"] == 180 * len(models)
+    assert info["encounters"] == 9000 * len(models)
+    assert info["requests_before_retries"] == 37800 * len(models)
     assert info["requests_per_episode"] == dict.fromkeys(COMMUNICATION_MODES, 210)
     assert info["midpoint_after_round"] is None
     assert spec["game"]["protocol_version"] == "rotating-v4"
     assert spec["selfish_counts"] == [1, 3, 5]
-    assert spec["models"] == ["openai/gpt-6-luna", "anthropic/claude-haiku-5.5"]
+    assert spec["models"] == models
     assert spec["game"]["selfish_persona"] == "neutral"
     for seed in spec["seeds"]:
         states = [initial_state(Config(**p["config"])) for p in plan if p["config"]["seed"] == seed]
@@ -232,7 +239,7 @@ def test_matrix_preview_never_constructs_provider(tmp_path, monkeypatch, capsys)
     write_json(config, {})
     output = tmp_path / "unused"
     assert main(["matrix", "--config", str(config), "--output", str(output)]) == 0
-    assert json.loads(capsys.readouterr().out)["episodes"] == 360
+    assert json.loads(capsys.readouterr().out)["episodes"] == 180
     assert not output.exists()
 
 
