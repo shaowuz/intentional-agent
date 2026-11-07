@@ -154,6 +154,8 @@ For a saved matrix, [scripts/run_concurrent_matrix.py](scripts/run_concurrent_ma
 
 This command executes remaining hosted requests when the saved backend is OpenRouter. It starts five episodes and increases to ten after a three-minute stable window: every active episode accepts at least ten new responses, records no new transport or format retries, and has a checkpoint less than 60 seconds old. Each episode keeps sequential player requests, simultaneous phase delivery, its own provider connection, and separate checkpoints. The matrix lock permits one scheduler to own the cohort.
 
+The scheduler supports up to 60 concurrent episodes. Use `--workers 60` to start every remaining episode of a 60-episode cohort immediately. To change an active scheduler's limit, send SIGTERM to its PID, wait for `execution.json` to report `paused`, and rerun with the new worker count. Its phase-boundary drain preserves accepted responses; the new invocation records its own worker limit and scheduler provenance.
+
 The scheduler validates the saved specification and source hashes, reuses accepted responses, and preserves original manifests and runtime files. It records scheduler provenance, live progress, and ramp evidence in `execution.json` and retains each invocation under `executions/`. SIGINT or SIGTERM stops new scheduling and lets active episodes finish their current phase before checkpointing and exiting. A worker failure triggers the same drain. Shared analysis and validated exports update after all workers stop; inspect `execution.json` for live progress. Use the same command to resume a drained run.
 
 ## Visualization quickstart

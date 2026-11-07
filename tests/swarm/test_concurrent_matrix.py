@@ -40,11 +40,12 @@ def test_stability_requires_all_workers_progress_without_retries_or_stalls():
     assert not gate.ready(changed, 700)
 
 
-def test_pool_runs_five_then_ten_without_duplicate_jobs():
+@pytest.mark.parametrize('initial,maximum', [(5, 10), (10, 60)])
+def test_pool_increases_concurrency_without_duplicate_jobs(initial, maximum):
     stop = threading.Event()
     lock = threading.Lock()
-    first_five = threading.Event()
-    ten_running = threading.Event()
+    initial_running = threading.Event()
+    maximum_running = threading.Event()
     release = threading.Event()
     active = 0
     peak = 0
@@ -56,24 +57,24 @@ def test_pool_runs_five_then_ten_without_duplicate_jobs():
             seen.append(entry)
             active += 1
             peak = max(peak, active)
-            if active == 5:
-                first_five.set()
-            if active == 10:
-                ten_running.set()
+            if active == initial:
+                initial_running.set()
+            if active == maximum:
+                maximum_running.set()
         assert release.wait(5)
         with lock:
             active -= 1
 
     def poll(entries, limit):
-        if first_five.is_set():
-            return 10
+        if initial_running.is_set():
+            return maximum
         return limit
 
     errors = []
 
     def run():
         try:
-            scheduler.run_pool(range(10), job, workers=5, maximum_workers=10,
+            scheduler.run_pool(range(maximum), job, workers=initial, maximum_workers=maximum,
                                stop=stop, poll=poll, poll_seconds=0.01)
         except BaseException as exc:
             errors.append(exc)
@@ -81,13 +82,13 @@ def test_pool_runs_five_then_ten_without_duplicate_jobs():
     thread = threading.Thread(target=run)
     thread.start()
     try:
-        assert first_five.wait(5)
-        assert ten_running.wait(5)
+        assert initial_running.wait(5)
+        assert maximum_running.wait(5)
     finally:
         release.set()
         thread.join(5)
     assert not thread.is_alive() and not errors
-    assert peak == 10 and sorted(seen) == list(range(10))
+    assert peak == maximum and sorted(seen) == list(range(maximum))
 
 
 def test_pool_stops_scheduling_and_drains_after_worker_failure():
@@ -141,7 +142,8 @@ def test_poll_failure_also_drains_workers():
     assert stop.is_set()
 
 
-def test_frozen_runtime_resume_preserves_accepted_responses_and_exports(tmp_path):
+@pytest.mark.parametrize('workers', [5, 60])
+def test_frozen_runtime_resume_preserves_accepted_responses_and_exports(tmp_path, workers):
     raw = {'models': ['openai/gpt-6-luna'], 'seeds': [0, 1], 'selfish_counts': [5],
            'game': {'protocol_version': 'rotating-v4', 'players': 6, 'rounds': 2,
                     'backend': 'scripted'}}
@@ -163,11 +165,11 @@ def test_frozen_runtime_resume_preserves_accepted_responses_and_exports(tmp_path
     manifest = (output / 'matrix_manifest.json').read_bytes()
     runtime_hashes = {p: hashlib.sha256(p.read_bytes()).hexdigest()
                       for p in (output / 'runtime').rglob('*') if p.is_file()}
-    command = [sys.executable, str(SCRIPT), '--output', str(output), '--workers', '5']
+    command = [sys.executable, str(SCRIPT), '--output', str(output), '--workers', str(workers)]
     run = subprocess.run(command, capture_output=True, text=True, timeout=60)
     assert run.returncode == 0, run.stderr
     assert read_json(output / 'analysis.json')['completed_episodes'] == 10
-    assert read_json(output / 'execution.json')['peak_active_episodes'] == 5
+    assert read_json(output / 'execution.json')['peak_active_episodes'] == min(workers, 10)
     assert validate_output(output)['status'] == 'valid'
     assert all(p.read_bytes() == data for p, data in accepted.items())
     assert (output / 'matrix_manifest.json').read_bytes() == manifest

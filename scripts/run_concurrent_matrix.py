@@ -93,9 +93,9 @@ def main(argv=None):
     parser.add_argument('--stable-seconds', type=float, default=180)
     parser.add_argument('--minimum-responses', type=int, default=10)
     args = parser.parse_args(argv)
-    maximum = args.ramp_to or args.workers
-    if not 1 <= args.workers <= maximum <= 10:
-        parser.error('Require 1 <= workers <= ramp-to <= 10')
+    maximum = args.workers if args.ramp_to is None else args.ramp_to
+    if not 1 <= args.workers <= maximum <= 60:
+        parser.error('Require 1 <= workers <= ramp-to <= 60')
     if args.stable_seconds < 0 or args.minimum_responses < 1:
         parser.error('Stability duration must be nonnegative and minimum-responses positive')
     output = args.output.resolve()
