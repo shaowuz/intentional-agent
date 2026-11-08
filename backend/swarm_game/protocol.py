@@ -132,6 +132,7 @@ def make_request(state, config, player):
         players=config.players,
         rounds=config.rounds,
         cycle=config.players - 1,
+        message_tokens=config.message_tokens,
         objective=objective,
         role_prior=(
             "Before roles are assigned, 1, 3, and 5 selfish players each have probability 1/3. "
@@ -176,6 +177,7 @@ def make_request(state, config, player):
         "public message" if can_broadcast(state, config, player) else "private note"
     )
     instruction = Template(prompt_text(state["phase"])).substitute(
+        message_tokens=config.message_tokens,
         message_kind=message_kind,
         delivery_rule=(
             "Only you and that opponent will see it. The engine fixes the recipient to "
@@ -192,7 +194,9 @@ def make_request(state, config, player):
         ),
     )
     if view["objective"] == "selfish" and config.selfish_persona == "trump_like":
-        rules += "\n" + prompt_text("selfish_trump_like")
+        rules += "\n" + Template(prompt_text("selfish_trump_like")).substitute(
+            message_tokens=config.message_tokens,
+        )
     messages = [
         {"role": "system", "content": rules + "\n" + instruction},
         {"role": "user", "content": json.dumps(view, ensure_ascii=False)},
@@ -220,7 +224,7 @@ def validate_response(data, request, config):
         ) from None
     if request.phase in ("pre_round", "discussion", "midpoint"):
         if token_count(data["content"]) > config.message_tokens:
-            raise ValueError("content exceeds 96 o200k_base tokens")
+            raise ValueError(f"content exceeds {config.message_tokens} o200k_base tokens")
     else:
         beliefs = data["beliefs"]
         if not all(math.isfinite(v) for v in beliefs.values()):

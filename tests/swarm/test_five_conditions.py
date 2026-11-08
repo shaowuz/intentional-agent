@@ -11,7 +11,7 @@ from swarm_game.export_contract import load_bundle, validate_output
 from swarm_game.game import commit_phase, initial_state
 from swarm_game.matrix import run_matrix
 from swarm_game.matrix_analysis import analyze_matrix
-from swarm_game.protocol import make_request, validate_response
+from swarm_game.protocol import make_request, token_count, validate_response
 from swarm_game.providers import OpenRouterProvider, ProviderError, ScriptedProvider
 from swarm_game.storage import read_json, write_json
 
@@ -206,18 +206,29 @@ def test_interrupted_exchange_and_assignment_exports_resume(tmp_path, mode):
 
 
 @pytest.mark.parametrize("mode", COMMUNICATION_MODES)
-def test_one_round_episode_and_message_budget(mode):
-    config = config_for(mode, rounds=1)
+@pytest.mark.parametrize("message_tokens", [96, 960])
+def test_one_round_episode_and_message_budget(mode, message_tokens):
+    config = config_for(mode, rounds=1, message_tokens=message_tokens)
     state = initial_state(config)
+    assert state == initial_state(replace(config, message_tokens=96))
     provider = ScriptedProvider(config)
     req = make_request(state, config, "P1")
-    with pytest.raises(ValueError, match="96"):
-        validate_response({"content": "x " * 100}, req, config)
+    content = " x" * message_tokens
+    assert token_count(content) == message_tokens
+    validate_response({"content": content}, req, config)
+    validate_response({"content": ""}, req, config)
+    with pytest.raises(ValueError, match=f"exceeds {message_tokens} o200k_base tokens"):
+        validate_response({"content": content + " x"}, req, config)
     with pytest.raises(ValueError):
         validate_response({"content": "", "recipient": "P2"}, req, config)
     phases = []
     while not state["completed"]:
         phases.append(state["phase"])
+        for player in state["players"]:
+            prompt = make_request(state, config, player).messages[0]["content"]
+            assert f"at most {message_tokens} content tokens" in prompt
+            if message_tokens == 960:
+                assert "96 content tokens" not in prompt
         state["pending"] = {
             p: json.loads(provider.complete(make_request(state, config, p)).content)
             for p in state["players"]
@@ -225,6 +236,27 @@ def test_one_round_episode_and_message_budget(mode):
         commit_phase(state, config)
     assert phases == ["pre_round", "action", "final"]
     assert config.expected_requests == 30
+
+
+@pytest.mark.parametrize("message_tokens", [0, -1, 97, 961, True, 960.0])
+def test_invalid_message_budget(message_tokens):
+    with pytest.raises(ValueError, match="message_tokens"):
+        config_for(message_tokens=message_tokens)
+
+
+@pytest.mark.parametrize("protocol_version", ["rotating-v1", "rotating-v2", "rotating-v3"])
+def test_legacy_protocol_keeps_96_token_budget(protocol_version):
+    with pytest.raises(ValueError, match="message_tokens"):
+        Config(protocol_version=protocol_version, selfish_count=1, message_tokens=960)
+
+
+def test_persona_uses_configured_message_budget():
+    config = config_for("public", message_tokens=960, selfish_persona="trump_like")
+    state = initial_state(config)
+    selfish = next(p for p, role in state["roles"].items() if role == "selfish")
+    prompt = make_request(state, config, selfish).messages[0]["content"]
+    assert "960-token content limit" in prompt
+    assert "96-token content limit" not in prompt
 
 
 def test_cli_uses_final_protocol_and_predetermined_leader(tmp_path, capsys):

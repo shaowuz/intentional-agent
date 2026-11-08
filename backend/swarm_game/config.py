@@ -71,8 +71,11 @@ class Config:
             raise ValueError(f"Unsupported model; choose from {list(MODELS)}")
         if self.reasoning_effort != "medium":
             raise ValueError("v1 fixes medium reasoning")
-        if self.message_tokens != 96 or self.tokenizer != "o200k_base":
-            raise ValueError("v1 fixes the message budget at 96 o200k_base tokens")
+        message_budgets = (96, 960) if self.protocol_version == "rotating-v4" else (96,)
+        if self.message_tokens not in message_budgets:
+            raise ValueError(f"message_tokens must be one of {message_budgets}")
+        if self.tokenizer != "o200k_base":
+            raise ValueError("message budgets use the fixed o200k_base tokenizer")
         if self.max_completion_tokens < 512:
             raise ValueError("max_completion_tokens must be at least 512")
         if {self.policy, self.selfish_policy} - {"cooperate", "defect", "tit_for_tat"}:
