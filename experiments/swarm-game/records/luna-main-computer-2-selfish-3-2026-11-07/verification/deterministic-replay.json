@@ -1,0 +1,794 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-08T00:53:19.423861+00:00",
+  "source_commit": "e75a825d12fb8b0e77f45f1e486fb02483455ea5",
+  "method": "frozen initial_state, exact make_request comparison, validate_response, commit_phase, complete checkpoint equality",
+  "hosted_requests": 0,
+  "runtime_provenance_verified": true,
+  "episodes": {
+    "seed-0__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "2bf8a9a8f8ba7a634e6b8e365c4da86ce97970e6f13041cfa2e048b3483424a8"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "885037fe4badaca693a3d9c9ab59520b227f4ce810a2b8a19ca234ae690a390d"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "853d053466dadaf6e04e79e486770cdd410036359139d2d7b8b44caab37e62cb"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "7c4e72a6dd9dbaef0e70f32e49d9d005961d349939af5890345236895048e5fc"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "7044610300b3cbcc9270cf59540fad3cabf03da8697b41b208b1295c8382fc04"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "415979b684e22631b1a57a4086d786f1e2b0866738c98bb1ae1031ade9ff0738"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "903b1ba6e777b6c712c8149b57a24bfe7c741cea3f15238376745259097d42c9"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "7066335946d37a7872435a4232b3911e3f1928c285945b704387d90954a8e72c"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "3568113c522f5cf533d89b4bfc86a51deb185f3c3ebe3c7c11ec52ee097ade0c"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "a63c40a011226d40db2aaf99b7d8c78a394a1336c5ae53fc9b7dc22e15844f21"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "27eae0c69fbc93fb79d029d810247e4a0cfd1150e596723a9368d12ff62ff08b"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "dd417e5e46d76db9c356f026f498f4b0cf13cd1c9b1e84548405e6783a6f04c5"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "c90a91209fcfa32a00ce363ead0ccbcb0c73732f7685853a89d4bfa7b1a90a61"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "a9ce486fd9a1080682056a9a6e055fb5910599045c6830f769015ec657e2c8ff"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "5ba5f2a0cec1b0bc0dbf90e1f3f061de86a1ccc1dba6ae1eea2456e9e5c3e301"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "b4f137ea5ac483f4567b78fd323db3d9f92fe5d0d700740c0df0990c43b40b11"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "731eba873d4b67f01b902a545e36bcb6d296388647610ef3dfd59aa110636bf5"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "dedb3e9f46bfa3f7386847435b89083c43b5a6581ad41b265cd44a6a01815ca8"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "54277b78a433b4503de007d34ba1366045f888ae1c65981a97a6b56eda269d85"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "cdda2016dccb40b53929695b0121eab42d980e415c5514a01f9d09e638fa59cd"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "861671d3c6e3bd7a4109e4ce81edd6d87b52bab699bdc50dcc8660375fe3a58d"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "32941eff7ad9203bbccdba38b52d3198317a5648cb0211b9831bad0204d10c1f"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "5119b2da4a80d87687e5cf87fd27031a6478bb266c67bb0722784d25bc9fb593"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "2116f3d450cae337fba7c2a2ba88b07c9b232a0944c7328fc9fbda85684b5c9f"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "d0c310e81c25ef9a580902a8f545dba45c5440fbf7be91bc3cc25dfd9377bc8d"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "d4ca814ca5c647863d5f4f6ff239025765c1168b17e4e59d9a7a2b102a802b30"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "ae2044582380a91212411849d3589fcee177082761189745cdbf4745f8f6e122"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "e66d404387996c75cf6052a2a30d070abd5028e46614480f327d84a4d0daea0e"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "6fbbf5808c2f489db4d1243cdb2b88533227cb6916ad4759de0592bc9af63dba"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "cb0f4b6c0fe765f41973d89279a29b93ea895546c976460f148afae64c335036"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "032d8c19a34fd8437ece31da8baa928198cbe0d0bc1a644f8c9945c47d6c3bc4"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "69d31c7759554283572014f5514b8f542c7dbcc3dc6f05004b375d8c11498d7e"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "ca2fca960decbf1ca1a8c73d325fb085f9a9b96c9dc0ac17476e86296786738e"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "a6ef328acc45e0ad60bb71ac9ebe8e303d8453c41d41ed3c6c0b183bec7431a3"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "6e160121b2991a7e2c593e1da4031dc1868681936aa168307ccffa42cbdd1833"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "e77c3346dd0d5d260d5909c0921557bcfc1a1a6bd0ab87aa331caa0c5fc056e1"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "3dacd7df487561a906395681ca2f6d5616d1483e886b4bed632d36c48826577a"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "e381a06690001d09db728b296a7bb1ab99433cd6e138df85662bc8377b716f4a"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "14f1408b3e2ef1ef0967e7bb7d0d57d46812fc1bdb71c0c163a802fe3d7ec6e1"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "f69fe6892fcbead0f12d13abd0b077116da3a17b4c9434dad1a1931bace01a45"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "8c9c49904d42a71dfaeec37d856c7be1d614e03e95726f3ae97cbbc4fb987831"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "b546548827f9ad26919471cdb164219fb80975e3d349649ef27d600f19acfac4"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "effc2aec59a16ccd6bbd6d91d747974623599849e82a5a69ef451a9e50ea62ef"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "85ccd5d7d9a7bb5edaf3deb4f082db5dbe5c666cee9644990fdfc59d81c4d0f5"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "982f2962e06cd0f82d6d7eaaf0de39f6d2867b8ae2cfe0206647998f2da5275a"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "b460c42ffee5d40d743e6d6d84200378c6996e4ebdb6fda56b1549c60844695f"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "dbe8139eb16ff4c2033f70fe51b107339d8c1b00a0efaf1b5d05822c4e256534"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "548c44ec636063f2389a04f905a98c6ec7a55b83d9bc67a6b6771cbae3ee19a5"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "f6fb970342972850fe7fc588afee5ff8726259b30ce9c2f6bac6a5d8d70f8d81"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "2da657da31e6f35f8c0843e69d05d3f0d0f07045c213ce5367b7db84a20abeb3"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "a9805aada62fc811d8762075c24aac3c6a06b0699882221f7e93aefe3da6f58f"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "c22b8b8d102088370e37363031c7ad209e21af0a5b9d58ec02e20f8b5d8c4bc8"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "a28d25830772d8fc85910f51bebda2b9e1d31b91e47419d63dfce9b142283f54"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__none": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "0b5ad5e45a51bb513a5f912be3d0634a7e2dc150124696d75e34bff8026649bb"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "5c7ee23b6b53b9df24ec3b058a77cbad6682a0ffebe123b994ccf02fe7a969ec"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "26b9806066e2f716fcee47b259b1468b751616cdee3a7f8c1d86f0f6aec82f11"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "bb00b315a27600b33d6c8bb1a0e07a5746afbd6a669ef34fb568887c98aff589"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__public": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "23d379868f002bee5f30b1277d151496d964614799d74e3b20987e07b610df05"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "d0b6047f235fb8cf164855c1a523becb48e1b7934ac177967214e9d7d8fad09b"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "passed",
+      "accepted_requests": 210,
+      "request_phase_counts": {
+        "pre_round": 100,
+        "action": 100,
+        "final": 10
+      },
+      "full_checkpoint_equal": true,
+      "all_saved_requests_exactly_match_reconstructed_views_prompts_and_schemas": true,
+      "all_accepted_responses_validate": true,
+      "checkpoint_sha256": "3cd5e88404095ceba49dbbf5acc72b8871f97f0915cc9a55afdcf189aad8828f"
+    }
+  },
+  "replayed_episodes": 60,
+  "replayed_accepted_requests": 12600,
+  "waiting_episodes": [],
+  "matched_seed_roles_schedules": true
+}

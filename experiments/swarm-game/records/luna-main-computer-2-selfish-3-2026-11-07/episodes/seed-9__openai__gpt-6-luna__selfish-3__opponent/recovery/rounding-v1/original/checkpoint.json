@@ -1,0 +1,1402 @@
+{
+  "players": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10"
+  ],
+  "roles": {
+    "P1": "selfish",
+    "P2": "good",
+    "P3": "good",
+    "P4": "good",
+    "P5": "selfish",
+    "P6": "selfish",
+    "P7": "good",
+    "P8": "good",
+    "P9": "good",
+    "P10": "good"
+  },
+  "schedule": [
+    [
+      [
+        "P9",
+        "P2"
+      ],
+      [
+        "P6",
+        "P4"
+      ],
+      [
+        "P5",
+        "P8"
+      ],
+      [
+        "P10",
+        "P7"
+      ],
+      [
+        "P3",
+        "P1"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P6"
+      ],
+      [
+        "P5",
+        "P2"
+      ],
+      [
+        "P10",
+        "P4"
+      ],
+      [
+        "P3",
+        "P8"
+      ],
+      [
+        "P1",
+        "P7"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P8"
+      ],
+      [
+        "P4",
+        "P7"
+      ],
+      [
+        "P2",
+        "P1"
+      ],
+      [
+        "P6",
+        "P3"
+      ],
+      [
+        "P5",
+        "P10"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P7"
+      ],
+      [
+        "P8",
+        "P1"
+      ],
+      [
+        "P4",
+        "P3"
+      ],
+      [
+        "P2",
+        "P10"
+      ],
+      [
+        "P6",
+        "P5"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P1"
+      ],
+      [
+        "P7",
+        "P3"
+      ],
+      [
+        "P8",
+        "P10"
+      ],
+      [
+        "P4",
+        "P5"
+      ],
+      [
+        "P2",
+        "P6"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P3"
+      ],
+      [
+        "P1",
+        "P10"
+      ],
+      [
+        "P7",
+        "P5"
+      ],
+      [
+        "P8",
+        "P6"
+      ],
+      [
+        "P4",
+        "P2"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P4"
+      ],
+      [
+        "P2",
+        "P8"
+      ],
+      [
+        "P6",
+        "P7"
+      ],
+      [
+        "P5",
+        "P1"
+      ],
+      [
+        "P10",
+        "P3"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P10"
+      ],
+      [
+        "P3",
+        "P5"
+      ],
+      [
+        "P1",
+        "P6"
+      ],
+      [
+        "P7",
+        "P2"
+      ],
+      [
+        "P8",
+        "P4"
+      ]
+    ],
+    [
+      [
+        "P9",
+        "P5"
+      ],
+      [
+        "P10",
+        "P6"
+      ],
+      [
+        "P3",
+        "P2"
+      ],
+      [
+        "P1",
+        "P4"
+      ],
+      [
+        "P7",
+        "P8"
+      ]
+    ],
+    [
+      [
+        "P10",
+        "P5"
+      ],
+      [
+        "P1",
+        "P9"
+      ],
+      [
+        "P7",
+        "P3"
+      ],
+      [
+        "P4",
+        "P8"
+      ],
+      [
+        "P6",
+        "P2"
+      ]
+    ]
+  ],
+  "round": 4,
+  "phase": "action",
+  "pending": {
+    "P1": {
+      "action": "D",
+      "beliefs": {
+        "P1": 1,
+        "P2": 1,
+        "P3": 0,
+        "P4": 0.329268,
+        "P5": 0.329268,
+        "P6": 0.329268,
+        "P7": 0,
+        "P8": 0.329268,
+        "P9": 0.329268,
+        "P10": 0.329268
+      },
+      "strategy": "Defect to maximize my payoff against either action. Update beliefs from observed actions: P2 defected while P3 and P7 cooperated; treat messages as unverified."
+    },
+    "P2": {
+      "action": "C",
+      "beliefs": {
+        "P1": 0.65,
+        "P2": 0,
+        "P3": 0.25,
+        "P4": 0.25,
+        "P5": 0.85,
+        "P6": 0.25,
+        "P7": 0.25,
+        "P8": 0.25,
+        "P9": 0,
+        "P10": 0.18
+      },
+      "strategy": "Cooperate with likely-good opponents to maximize good players’ total payoff; update identity beliefs from observed actions and treat promises as uncertain."
+    },
+    "P3": {
+      "action": "D",
+      "beliefs": {
+        "P1": 0.8,
+        "P2": 0.26,
+        "P3": 0,
+        "P4": 0.26,
+        "P5": 0.26,
+        "P6": 0.8,
+        "P7": 0.26,
+        "P8": 0.02,
+        "P9": 0.26,
+        "P10": 0.26
+      },
+      "strategy": "Defect when the opponent is more likely selfish, since this protects my good-player payoff against their defection; cooperate when evidence supports mutual cooperation."
+    },
+    "P4": {
+      "action": "C",
+      "beliefs": {
+        "P1": 0.22,
+        "P2": 0.22,
+        "P3": 0.22,
+        "P4": 0,
+        "P5": 0.22,
+        "P6": 0.8,
+        "P7": 0.18,
+        "P8": 0.22,
+        "P9": 0.22,
+        "P10": 0.8
+      },
+      "strategy": "Cooperate with likely-good players to increase good players’ total payoff; weigh observed defections strongly and treat promises as uncertain."
+    }
+  },
+  "completed": false,
+  "encounters": [
+    {
+      "round": 1,
+      "players": [
+        "P9",
+        "P2"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 1,
+      "players": [
+        "P6",
+        "P4"
+      ],
+      "actions": [
+        "D",
+        "C"
+      ],
+      "payoffs": [
+        5,
+        0
+      ]
+    },
+    {
+      "round": 1,
+      "players": [
+        "P5",
+        "P8"
+      ],
+      "actions": [
+        "D",
+        "C"
+      ],
+      "payoffs": [
+        5,
+        0
+      ]
+    },
+    {
+      "round": 1,
+      "players": [
+        "P10",
+        "P7"
+      ],
+      "actions": [
+        "C",
+        "D"
+      ],
+      "payoffs": [
+        0,
+        5
+      ]
+    },
+    {
+      "round": 1,
+      "players": [
+        "P3",
+        "P1"
+      ],
+      "actions": [
+        "C",
+        "D"
+      ],
+      "payoffs": [
+        0,
+        5
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P9",
+        "P6"
+      ],
+      "actions": [
+        "C",
+        "D"
+      ],
+      "payoffs": [
+        0,
+        5
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P5",
+        "P2"
+      ],
+      "actions": [
+        "D",
+        "C"
+      ],
+      "payoffs": [
+        5,
+        0
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P10",
+        "P4"
+      ],
+      "actions": [
+        "D",
+        "C"
+      ],
+      "payoffs": [
+        5,
+        0
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P3",
+        "P8"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 2,
+      "players": [
+        "P1",
+        "P7"
+      ],
+      "actions": [
+        "D",
+        "C"
+      ],
+      "payoffs": [
+        5,
+        0
+      ]
+    },
+    {
+      "round": 3,
+      "players": [
+        "P9",
+        "P8"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 3,
+      "players": [
+        "P4",
+        "P7"
+      ],
+      "actions": [
+        "C",
+        "C"
+      ],
+      "payoffs": [
+        3,
+        3
+      ]
+    },
+    {
+      "round": 3,
+      "players": [
+        "P2",
+        "P1"
+      ],
+      "actions": [
+        "D",
+        "D"
+      ],
+      "payoffs": [
+        1,
+        1
+      ]
+    },
+    {
+      "round": 3,
+      "players": [
+        "P6",
+        "P3"
+      ],
+      "actions": [
+        "D",
+        "C"
+      ],
+      "payoffs": [
+        5,
+        0
+      ]
+    },
+    {
+      "round": 3,
+      "players": [
+        "P5",
+        "P10"
+      ],
+      "actions": [
+        "D",
+        "C"
+      ],
+      "payoffs": [
+        5,
+        0
+      ]
+    }
+  ],
+  "discussions": [
+    {
+      "after_round": 0,
+      "phase": "pre_round",
+      "visibility": "opponent",
+      "posts": [
+        {
+          "sender": "P1",
+          "content": "I’ll cooperate this round; let’s both choose C.",
+          "recipient": "P3",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P2",
+          "content": "I’m a good player. I’ll cooperate; mutual cooperation benefits us both. Please cooperate too.",
+          "recipient": "P9",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P3",
+          "content": "I’m good and will cooperate. If you’re also good, let’s both choose C for the best shared outcome.",
+          "recipient": "P1",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P4",
+          "content": "I'm a good player. I plan to cooperate; let's both choose C for the benefit of good players.",
+          "recipient": "P6",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P5",
+          "content": "I plan to cooperate this round. Please do likewise.",
+          "recipient": "P8",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P6",
+          "content": "I plan to cooperate this round; I hope we can both earn 3.",
+          "recipient": "P4",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P7",
+          "content": "I’m good and will cooperate. If we both do, we each get 3; I’ll remember your action for future encounters.",
+          "recipient": "P10",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P8",
+          "content": "I’m playing for the good players’ total payoff. I’ll choose C with you; mutual C benefits good players most. I can’t verify your role, but please reciprocate if you share this objective.",
+          "recipient": "P5",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P9",
+          "content": "I'm good and aim to maximize good players' total. I propose we both cooperate this round.",
+          "recipient": "P2",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P10",
+          "content": "I'm good and aim to maximize total good-player payoffs. I propose mutual C; if you're good, let's cooperate. My actions will reflect what I learn from our encounter.",
+          "recipient": "P7",
+          "visibility": "opponent"
+        }
+      ]
+    },
+    {
+      "after_round": 1,
+      "phase": "pre_round",
+      "visibility": "opponent",
+      "posts": [
+        {
+          "sender": "P1",
+          "content": "I’ll cooperate; C gets us both 3. Let’s both choose C.",
+          "recipient": "P7",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P2",
+          "content": "I’m a good player aiming to maximize good players’ total payoff. I propose we both cooperate this round.",
+          "recipient": "P5",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P3",
+          "content": "I’m good and aim to maximize good players’ combined payoff. I plan to cooperate; if you’re good too, let’s choose C.",
+          "recipient": "P8",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P4",
+          "content": "I'm good and aim for C-C with other good players. If you share that objective, let's cooperate.",
+          "recipient": "P10",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P5",
+          "content": "I’ll choose C if you do; mutual cooperation is best for both of us. Please reciprocate.",
+          "recipient": "P2",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P6",
+          "content": "I intend to cooperate; choosing C together gives us both 3.",
+          "recipient": "P9",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P7",
+          "content": "I’m good and will cooperate with you. Last round I defected despite my message; that was a mistake—I’ll choose C here if you do.",
+          "recipient": "P1",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P8",
+          "content": "I’m playing for the good players’ combined payoff. I’ll choose C; mutual C is best for us if you share that objective. Please reciprocate.",
+          "recipient": "P3",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P9",
+          "content": "I'm a good player aiming to maximize good players' total payoff. If you're good, I propose we both cooperate this round.",
+          "recipient": "P6",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P10",
+          "content": "I’m good and aim to maximize total payoffs of good players. I propose mutual C if you’re good; I’ll use our encounter to inform future choices.",
+          "recipient": "P4",
+          "visibility": "opponent"
+        }
+      ]
+    },
+    {
+      "after_round": 2,
+      "phase": "pre_round",
+      "visibility": "opponent",
+      "posts": [
+        {
+          "sender": "P1",
+          "content": "I’ll choose C this round. If you do too, we each earn 3; let’s cooperate.",
+          "recipient": "P2",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P2",
+          "content": "I’m good and will cooperate. Mutual cooperation maximizes our combined payoff if you’re good too; please choose C.",
+          "recipient": "P1",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P3",
+          "content": "I’m good and will cooperate. If you share the good-player objective, let’s both choose C for the best shared payoff.",
+          "recipient": "P6",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P4",
+          "content": "I'm good and aim to maximize good players' total payoff. If you're also good, let's both choose C.",
+          "recipient": "P7",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P5",
+          "content": "I’m happy to cooperate this round; mutual C benefits us both. Please reciprocate.",
+          "recipient": "P10",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P6",
+          "content": "I intend to cooperate; choosing C together gives us both 3.",
+          "recipient": "P3",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P7",
+          "content": "I’m good and aim to maximize total payoffs of good players. I’ll choose C; please cooperate too so we each earn 3.",
+          "recipient": "P4",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P8",
+          "content": "I’m good and aim to maximize good players’ combined payoff. I’ll cooperate if you do; mutual cooperation benefits good players most. Please reciprocate if you share this objective.",
+          "recipient": "P9",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P9",
+          "content": "I’m good and aim to maximize total good-player payoff. If you’re good too, let’s cooperate; if selfish, I’ll defect.",
+          "recipient": "P8",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P10",
+          "content": "I'm good and aim to maximize total payoffs of good players. I propose mutual C; I'll cooperate if you do.",
+          "recipient": "P5",
+          "visibility": "opponent"
+        }
+      ]
+    },
+    {
+      "after_round": 3,
+      "phase": "pre_round",
+      "visibility": "opponent",
+      "posts": [
+        {
+          "sender": "P1",
+          "content": "I’ll cooperate this round; please choose C.",
+          "recipient": "P8",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P2",
+          "content": "I’m a good player aiming to maximize the total payoff of good players. Let’s both choose C this round; mutual cooperation gives good players the best joint outcome.",
+          "recipient": "P10",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P3",
+          "content": "I’m good and aim to maximize the total payoff of good players. I plan to choose C; if you’re good too, mutual C gives us both 3. Let’s cooperate.",
+          "recipient": "P4",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P4",
+          "content": "I'm good and aim to maximize total payoffs of good players. If you share that goal, let's both choose C; mutual cooperation benefits us both.",
+          "recipient": "P3",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P5",
+          "content": "I’ll cooperate this round; mutual C is best for both of us. Please reciprocate.",
+          "recipient": "P6",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P6",
+          "content": "I'm a good player and will cooperate. Let's both choose C for 3 each.",
+          "recipient": "P5",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P7",
+          "content": "I’m good and aim to maximize total payoffs of good players. I’ll cooperate; if you’re good too, let’s both choose C.",
+          "recipient": "P9",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P8",
+          "content": "I’m good and aim to maximize good players’ combined payoff. I’ll cooperate with you; please choose C too if you share this objective.",
+          "recipient": "P1",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P9",
+          "content": "I’m good and aim to maximize good players’ total payoff. If you share that objective, let’s both cooperate; if you’re selfish, I’ll defect.",
+          "recipient": "P7",
+          "visibility": "opponent"
+        },
+        {
+          "sender": "P10",
+          "content": "I'm good and aim to maximize good players' total payoffs. I'll cooperate; if you're good too, mutual C is best for us both.",
+          "recipient": "P2",
+          "visibility": "opponent"
+        }
+      ]
+    }
+  ],
+  "belief_records": [
+    {
+      "player": "P1",
+      "round": 1,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 1,
+        "P2": 0.222222,
+        "P3": 0.222222,
+        "P4": 0.222222,
+        "P5": 0.222222,
+        "P6": 0.222222,
+        "P7": 0.222222,
+        "P8": 0.222222,
+        "P9": 0.222222,
+        "P10": 0.222222
+      },
+      "strategy": "Defect to maximize my payoff; keep prior marginal identity beliefs because messages are unverified."
+    },
+    {
+      "player": "P2",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.333333,
+        "P2": 0,
+        "P3": 0.333333,
+        "P4": 0.333333,
+        "P5": 0.333333,
+        "P6": 0.333333,
+        "P7": 0.333333,
+        "P8": 0.333333,
+        "P9": 0.333333,
+        "P10": 0.333333
+      },
+      "strategy": "Cooperate when the opponent is more likely good; update beliefs from encounters and messages, while treating claims as uncertain."
+    },
+    {
+      "player": "P3",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.291005,
+        "P2": 0.291005,
+        "P3": 0,
+        "P4": 0.291005,
+        "P5": 0.291005,
+        "P6": 0.291005,
+        "P7": 0.291005,
+        "P8": 0.291005,
+        "P9": 0.291005,
+        "P10": 0.291005
+      },
+      "strategy": "Cooperate to coordinate with a likely good opponent; update beliefs from observed play and choose actions to maximize expected total payoffs of good players."
+    },
+    {
+      "player": "P4",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.291,
+        "P2": 0.291,
+        "P3": 0.291,
+        "P4": 0,
+        "P5": 0.291,
+        "P6": 0.291,
+        "P7": 0.291,
+        "P8": 0.291,
+        "P9": 0.291,
+        "P10": 0.291
+      },
+      "strategy": "Cooperate when it best supports good players’ total payoff; update beliefs from observed actions and messages, treating claims as uncertain."
+    },
+    {
+      "player": "P5",
+      "round": 1,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.320988,
+        "P2": 0.320988,
+        "P3": 0.320988,
+        "P4": 0.320988,
+        "P5": 1,
+        "P6": 0.320988,
+        "P7": 0.320988,
+        "P8": 0.320988,
+        "P9": 0.320988,
+        "P10": 0.320988
+      },
+      "strategy": "As a selfish player, choose the payoff-maximizing action in each one-time encounter; D strictly dominates C."
+    },
+    {
+      "player": "P6",
+      "round": 1,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.320988,
+        "P2": 0.320988,
+        "P3": 0.320988,
+        "P4": 0.320988,
+        "P5": 0.320988,
+        "P6": 1,
+        "P7": 0.320988,
+        "P8": 0.320988,
+        "P9": 0.320988,
+        "P10": 0.320988
+      },
+      "strategy": "Choose D to maximize my payoff in each encounter; maintain prior identity probabilities absent reliable evidence."
+    },
+    {
+      "player": "P7",
+      "round": 1,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.333333,
+        "P2": 0.333333,
+        "P3": 0.333333,
+        "P4": 0.333333,
+        "P5": 0.333333,
+        "P6": 0.333333,
+        "P7": 0,
+        "P8": 0.333333,
+        "P9": 0.333333,
+        "P10": 0.333333
+      },
+      "strategy": "Cooperate when confident the opponent is good; otherwise defect to protect good-player payoffs. Treat claims as unverified and update from actions."
+    },
+    {
+      "player": "P8",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.333333,
+        "P2": 0.333333,
+        "P3": 0.333333,
+        "P4": 0.333333,
+        "P5": 0.333333,
+        "P6": 0.333333,
+        "P7": 0.333333,
+        "P8": 0,
+        "P9": 0.333333,
+        "P10": 0.333333
+      },
+      "strategy": "Cooperate when it best supports good players’ combined payoff; update beliefs from observed actions, while treating messages as unverified."
+    },
+    {
+      "player": "P9",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.333333,
+        "P2": 0.333333,
+        "P3": 0.333333,
+        "P4": 0.333333,
+        "P5": 0.333333,
+        "P6": 0.333333,
+        "P7": 0.333333,
+        "P8": 0.333333,
+        "P9": 0,
+        "P10": 0.333333
+      },
+      "strategy": "Cooperate with likely good players to maximize good-player payoffs; use observed actions and encounters to update beliefs and adjust future choices."
+    },
+    {
+      "player": "P10",
+      "round": 1,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.291,
+        "P2": 0.291,
+        "P3": 0.291,
+        "P4": 0.291,
+        "P5": 0.291,
+        "P6": 0.291,
+        "P7": 0.291,
+        "P8": 0.291,
+        "P9": 0.291,
+        "P10": 0
+      },
+      "strategy": "Cooperate with good players to maximize their combined payoffs; update beliefs and actions based on observed behavior."
+    },
+    {
+      "player": "P1",
+      "round": 2,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 1,
+        "P2": 0.222222,
+        "P3": 0.222222,
+        "P4": 0.222222,
+        "P5": 0.222222,
+        "P6": 0.222222,
+        "P7": 0.222222,
+        "P8": 0.222222,
+        "P9": 0.222222,
+        "P10": 0.222222
+      },
+      "strategy": "Defect to maximize my payoff against either opponent action; keep prior marginal identity beliefs because messages and unverified claims provide no reliable role evidence."
+    },
+    {
+      "player": "P2",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.272727,
+        "P2": 0,
+        "P3": 0.272727,
+        "P4": 0.272727,
+        "P5": 0.272727,
+        "P6": 0.272727,
+        "P7": 0.272727,
+        "P8": 0.272727,
+        "P9": 0,
+        "P10": 0.272727
+      },
+      "strategy": "Cooperate with likely-good opponents to maximize good players’ total payoff; treat messages as weak evidence and update from observed actions."
+    },
+    {
+      "player": "P3",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.8,
+        "P2": 0.31,
+        "P3": 0,
+        "P4": 0.31,
+        "P5": 0.31,
+        "P6": 0.31,
+        "P7": 0.31,
+        "P8": 0.31,
+        "P9": 0.31,
+        "P10": 0.31
+      },
+      "strategy": "Cooperate with a likely good opponent to maximize good players’ combined payoff; update identity beliefs from observed actions and treat promises as uncertain evidence."
+    },
+    {
+      "player": "P4",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.303,
+        "P2": 0.303,
+        "P3": 0.303,
+        "P4": 0,
+        "P5": 0.303,
+        "P6": 0.9,
+        "P7": 0.303,
+        "P8": 0.303,
+        "P9": 0.303,
+        "P10": 0.303
+      },
+      "strategy": "Cooperate with opponents likely to be good; update beliefs from observed play, treating messages as uncertain."
+    },
+    {
+      "player": "P5",
+      "round": 2,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.315217,
+        "P2": 0.315217,
+        "P3": 0.315217,
+        "P4": 0.315217,
+        "P5": 1,
+        "P6": 0.315217,
+        "P7": 0.315217,
+        "P8": 0,
+        "P9": 0.315217,
+        "P10": 0.315217
+      },
+      "strategy": "Choose D in every encounter: it strictly dominates C for my payoff, regardless of the opponent’s action."
+    },
+    {
+      "player": "P6",
+      "round": 2,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.322727,
+        "P2": 0.322727,
+        "P3": 0.322727,
+        "P4": 0,
+        "P5": 0.322727,
+        "P6": 1,
+        "P7": 0.322727,
+        "P8": 0.322727,
+        "P9": 0.322727,
+        "P10": 0.322727
+      },
+      "strategy": "Choose D to maximize my payoff in each encounter; update beliefs using observed actions and treat unverified claims cautiously."
+    },
+    {
+      "player": "P7",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.333333,
+        "P2": 0.333333,
+        "P3": 0.333333,
+        "P4": 0.333333,
+        "P5": 0.333333,
+        "P6": 0.333333,
+        "P7": 0,
+        "P8": 0.333333,
+        "P9": 0.333333,
+        "P10": 0.333333
+      },
+      "strategy": "Cooperate to support mutual gains among good players; update beliefs from observed actions, treating messages as unverified."
+    },
+    {
+      "player": "P8",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.333333,
+        "P2": 0.333333,
+        "P3": 0.333333,
+        "P4": 0.333333,
+        "P5": 0.65,
+        "P6": 0.333333,
+        "P7": 0.333333,
+        "P8": 0,
+        "P9": 0.333333,
+        "P10": 0.333333
+      },
+      "strategy": "Cooperate to maximize good players’ combined payoff with a likely good opponent; update identity beliefs from observed actions, treating messages as unverified."
+    },
+    {
+      "player": "P9",
+      "round": 2,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.277985,
+        "P2": 0,
+        "P3": 0.277985,
+        "P4": 0.277985,
+        "P5": 0.277985,
+        "P6": 0.277985,
+        "P7": 0.277985,
+        "P8": 0.277985,
+        "P9": 0,
+        "P10": 0.277985
+      },
+      "strategy": "Cooperate when the opponent is more likely good than selfish; defect against likely selfish players. Update beliefs from observed actions, since selfish players strictly prefer D."
+    },
+    {
+      "player": "P10",
+      "round": 2,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.298,
+        "P2": 0.298,
+        "P3": 0.298,
+        "P4": 0.298,
+        "P5": 0.298,
+        "P6": 0.298,
+        "P7": 0.451,
+        "P8": 0.298,
+        "P9": 0.298,
+        "P10": 0
+      },
+      "strategy": "Choose actions to maximize expected payoffs of good players: cooperate when the opponent is likely good, and defect when the chance they are selfish outweighs the team-payoff cost."
+    },
+    {
+      "player": "P1",
+      "round": 3,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 1,
+        "P2": 0.31256,
+        "P3": 0,
+        "P4": 0.31256,
+        "P5": 0.31256,
+        "P6": 0.31256,
+        "P7": 0,
+        "P8": 0.31256,
+        "P9": 0.31256,
+        "P10": 0.31256
+      },
+      "strategy": "Defect because it maximizes my payoff against either action. Treat P3 and P7’s observed cooperation as evidence they are not selfish; keep equal conditional marginals for the remaining players."
+    },
+    {
+      "player": "P2",
+      "round": 3,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.27,
+        "P2": 0,
+        "P3": 0.29,
+        "P4": 0.29,
+        "P5": 0.82,
+        "P6": 0.29,
+        "P7": 0.29,
+        "P8": 0.29,
+        "P9": 0.02,
+        "P10": 0.29
+      },
+      "strategy": "Defect when the opponent seems more likely selfish; update beliefs from observed play, treating promises as weak evidence."
+    },
+    {
+      "player": "P3",
+      "round": 3,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.8,
+        "P2": 0.26,
+        "P3": 0,
+        "P4": 0.26,
+        "P5": 0.26,
+        "P6": 0.26,
+        "P7": 0.26,
+        "P8": 0.02,
+        "P9": 0.26,
+        "P10": 0.26
+      },
+      "strategy": "Cooperate with a likely good opponent to support the higher joint payoff; update beliefs from observed actions and treat promises as uncertain evidence."
+    },
+    {
+      "player": "P4",
+      "round": 3,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.32,
+        "P2": 0.32,
+        "P3": 0.32,
+        "P4": 0,
+        "P5": 0.32,
+        "P6": 0.85,
+        "P7": 0.38,
+        "P8": 0.32,
+        "P9": 0.32,
+        "P10": 0.85
+      },
+      "strategy": "Cooperate when it best supports good players’ total payoff; weigh observed defections heavily and treat promises as uncertain."
+    },
+    {
+      "player": "P5",
+      "round": 3,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.17484,
+        "P2": 0,
+        "P3": 0.17484,
+        "P4": 0.17484,
+        "P5": 1,
+        "P6": 0.17484,
+        "P7": 0.17484,
+        "P8": 0,
+        "P9": 0.17484,
+        "P10": 0.17484
+      },
+      "strategy": "Defect: D strictly dominates C for my payoff in every encounter, regardless of the opponent’s action."
+    },
+    {
+      "player": "P6",
+      "round": 3,
+      "phase": "action",
+      "action": "D",
+      "beliefs": {
+        "P1": 0.31256,
+        "P2": 0.31256,
+        "P3": 0.31256,
+        "P4": 0,
+        "P5": 0.31256,
+        "P6": 1,
+        "P7": 0.31256,
+        "P8": 0.31256,
+        "P9": 0,
+        "P10": 0.31256
+      },
+      "strategy": "Choose D, which maximizes my payoff against either opponent action. Treat P4 and P9’s observed cooperation as evidence they are good; otherwise use the conditioned prior."
+    },
+    {
+      "player": "P7",
+      "round": 3,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.38,
+        "P2": 0.168,
+        "P3": 0.168,
+        "P4": 0.13,
+        "P5": 0.168,
+        "P6": 0.168,
+        "P7": 0,
+        "P8": 0.168,
+        "P9": 0.168,
+        "P10": 0.1
+      },
+      "strategy": "Cooperate with likely good players to maximize their combined payoff; update beliefs from actions, treating messages as weak evidence."
+    },
+    {
+      "player": "P8",
+      "round": 3,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.3,
+        "P2": 0.3,
+        "P3": 0.1,
+        "P4": 0.3,
+        "P5": 0.7,
+        "P6": 0.3,
+        "P7": 0.3,
+        "P8": 0,
+        "P9": 0.25,
+        "P10": 0.3
+      },
+      "strategy": "Cooperate when it best supports good players’ combined payoff; update identity beliefs from actions and treat messages as unverified."
+    },
+    {
+      "player": "P9",
+      "round": 3,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.28,
+        "P2": 0,
+        "P3": 0.28,
+        "P4": 0.28,
+        "P5": 0.28,
+        "P6": 0.45,
+        "P7": 0.28,
+        "P8": 0.28,
+        "P9": 0,
+        "P10": 0.28
+      },
+      "strategy": "Cooperate with P8, who is more likely good; update identity beliefs from actions and continue to defect when the opponent is likely selfish."
+    },
+    {
+      "player": "P10",
+      "round": 3,
+      "phase": "action",
+      "action": "C",
+      "beliefs": {
+        "P1": 0.298,
+        "P2": 0.298,
+        "P3": 0.298,
+        "P4": 0.27,
+        "P5": 0.298,
+        "P6": 0.298,
+        "P7": 0.451,
+        "P8": 0.298,
+        "P9": 0.298,
+        "P10": 0
+      },
+      "strategy": "Cooperate when the opponent is likely good to maximize combined good-player payoffs; update identity beliefs from observed actions, treating messages as weak evidence."
+    }
+  ],
+  "final_reports": {},
+  "midpoint_reports": {},
+  "election": null,
+  "leader_assignment": null,
+  "payoffs": {
+    "P1": 11,
+    "P2": 4,
+    "P3": 3,
+    "P4": 3,
+    "P5": 15,
+    "P6": 15,
+    "P7": 8,
+    "P8": 6,
+    "P9": 6,
+    "P10": 5
+  }
+}

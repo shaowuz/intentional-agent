@@ -1,9 +1,12 @@
 # Recorded OpenRouter experiments
 
+Browse the [results grouped by selfish-agent count](../results-by-selfish-count/README.md): `selfish-1`, `3 selfish agents results`, and `5 selfish agents results`. The one-selfish-agent result remains unavailable.
+
 ## Final five-condition study
 
 | Run | Episodes | Design | Results |
 |---|---:|---|---|
+| Computer 2: Luna, three selfish players | 60 | 10 players, 10 rounds; all five communication modes; 12 matched seeds | [Report, complete archive, and verification](luna-main-computer-2-selfish-3-2026-11-07/README.md) |
 | Computer 3: Luna, five selfish players | 60 | 10 players, 10 rounds; all five communication modes; 12 matched seeds | [Report, complete archive, and analysis](computer-3-luna-selfish-5-2026-11-07/README.md) |
 
 The [complete main-study archive](computer-3-luna-selfish-5-2026-11-07/complete-run.tar.xz)
@@ -27,7 +30,7 @@ stopped on a persistent probability-format failure. Its outcomes are excluded.
 The completed repeat used the documented, user-authorized extra arithmetic-only
 repair once. Each run retains its frozen configuration and runtime.
 
-## Raw request archives
+## Earlier pilot request archives
 
 The `.tar.xz` archives contain the exact `seed-*/requests/*.json` files, including
 initial prompts, correction messages, accepted responses, and provider/cost

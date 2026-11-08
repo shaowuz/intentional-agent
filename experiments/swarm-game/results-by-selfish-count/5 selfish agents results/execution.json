@@ -1,0 +1,62 @@
+{
+  "status": "complete",
+  "started_at": "2026-11-08T00:16:51.456812+00:00",
+  "pid": 51141,
+  "scheduler_source_sha256": "f33062a3bed3fa1107254043af6ae2e4c151155b94399a81b1c01cd7ba51ccc8",
+  "matrix_manifest_sha256": "65dcd2f8a7d31dea22b0d6abe596206efb9d497b880c8da3e028548a876ea9ed",
+  "runtime_provenance": {
+    "version": "0.2.0",
+    "code_sha256": "26a07568fecebaed94b6be856694af77d26156ca5e44afc8ada27397571e0284",
+    "prompt_sha256": "b6cb54d1a3f5ad3ba48beadfdf50dd266b6762c7598eb62fada138ca9a1c1a7b",
+    "python": "3.13.5",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0",
+      "python-dotenv": "1.2.4"
+    }
+  },
+  "initial_workers": 60,
+  "worker_limit": 60,
+  "maximum_workers": 60,
+  "peak_active_episodes": 59,
+  "stable_seconds": 180,
+  "minimum_responses_per_episode": 10,
+  "ramp_events": [],
+  "active": [],
+  "planned_episodes": 60,
+  "validation_override": {
+    "name": "six-decimal-marginal-rounding",
+    "original_validator_sha256": "b2c23cded30299dbbb01eda398fc738a4b6cf1abc34b701585fb466d1891f407",
+    "replacement_wrapper_sha256": "7bbb65ab6ca88f0422b943f2bdb283a58cd393d2922c51ed36a9af838366c9cc",
+    "tolerance_per_marginal": 5e-07,
+    "minimum_tolerance": 1e-06
+  },
+  "recovery": {
+    "receipt": "/Users/rworzger/Library/Mobile Documents/com~apple~CloudDocs/AI_Swarm_Hackathon/results/computer-3-luna-selfish-5/recoveries/1998562e-f7e1-451e-b751-4fec2d40066c/receipt.json",
+    "recovered_requests": 3,
+    "new_model_calls": 0
+  },
+  "updated_at": "2026-11-08T00:45:43.042236+00:00",
+  "completed_episodes": 60,
+  "finished_at": "2026-11-08T00:45:37.046525+00:00",
+  "validation": {
+    "status": "valid",
+    "schema_version": "intentional-agent.visualization/4",
+    "run_id": "33edab7c-9408-4129-9d56-40082628ec8c",
+    "snapshot_id": "8cec2091b7dd6ec3d5002d713ccc92effbffcded99d9aba376bc3744c464b2ed",
+    "row_counts": {
+      "episodes": 60,
+      "cells": 5,
+      "contrasts": 10,
+      "status": 60,
+      "actions": 6000,
+      "beliefs": 66000,
+      "messages": 6000,
+      "elections": 0,
+      "leader_assignments": 24,
+      "usage": 12630,
+      "events": 10224
+    }
+  }
+}
