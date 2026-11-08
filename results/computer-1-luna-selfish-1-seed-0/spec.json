@@ -1,0 +1,31 @@
+{
+  "models": [
+    "openai/gpt-6-luna"
+  ],
+  "communication_modes": [
+    "none",
+    "public",
+    "opponent",
+    "good_leader",
+    "selfish_leader"
+  ],
+  "selfish_counts": [
+    1
+  ],
+  "seeds": [
+    0
+  ],
+  "game": {
+    "protocol_version": "rotating-v4",
+    "players": 10,
+    "rounds": 10,
+    "backend": "openrouter",
+    "reasoning_effort": "medium",
+    "message_tokens": 96,
+    "tokenizer": "o200k_base",
+    "max_completion_tokens": 4096,
+    "policy": "cooperate",
+    "selfish_policy": "cooperate",
+    "selfish_persona": "neutral"
+  }
+}

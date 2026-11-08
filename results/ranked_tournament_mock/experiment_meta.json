@@ -1,0 +1,46 @@
+{
+  "experiment": "ranked_tournament_mock",
+  "seed": 20240501,
+  "config_fingerprint": "eb74b1a739609ed8",
+  "n_rounds": 15,
+  "agents": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "continue_prob": 0.95,
+  "max_stages": 500,
+  "ranking_points": [
+    3,
+    2,
+    1,
+    0
+  ],
+  "max_decision_retries": 3,
+  "max_reflection_retries": 3,
+  "llm_provider": "mock",
+  "llm_model": "mock-ranked",
+  "llm_base_url": null,
+  "api_key_env": "OPENAI_API_KEY",
+  "temperature": 0.7,
+  "top_p": 1.0,
+  "max_tokens": 300,
+  "pricing": {
+    "input_per_1k_tokens": 0.0,
+    "output_per_1k_tokens": 0.0
+  },
+  "mode": "mock",
+  "status": "completed",
+  "started_at": "2026-11-07T23:02:27.246161+00:00",
+  "finished_at": "2026-11-07T23:02:27.620225+00:00",
+  "usage_summary": {
+    "n_calls": 1132,
+    "total_input_tokens": 1951424,
+    "total_output_tokens": 27960,
+    "total_tokens": 1979384,
+    "estimated_cost_usd": 0.0,
+    "pricing_configured": false,
+    "cost_note": "pricing not configured: estimated_cost_usd=0 is NOT a true cost. Set llm.pricing.* or pass --price-in/--price-out, or compute afterwards with scripts/report_usage.py."
+  }
+}

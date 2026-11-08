@@ -1,0 +1,53 @@
+{
+  "schema_version": "intentional-experiments/1",
+  "protocol_version": "rotating-v4",
+  "model": "openai/gpt-6-luna",
+  "reasoning_effort": "medium",
+  "selfish_persona": "neutral",
+  "communication": "public",
+  "selfish_count": 1,
+  "seed": 8,
+  "players": 10,
+  "rounds": 10,
+  "backend": "openrouter",
+  "good_total_return": 244,
+  "return_per_good_encounter": 2.7111111111111112,
+  "good_good_return": 235,
+  "good_selfish_return": 9,
+  "good_cooperation_rate": 0.8666666666666667,
+  "all_cooperation_rate": 0.78,
+  "mean_brier_score": 0.04848576086975533,
+  "final_mean_brier_score": 0.037545061728395064,
+  "belief_observations": 99,
+  "false_accusation_observations": 3,
+  "false_accusation_rate": 0.030303030303030304,
+  "good_agents_ever_identifying_selfish": 9,
+  "good_agents_identifying_before_personal_encounter": 6,
+  "final_identification_rate": 1.0,
+  "final_correct_none_rate": null,
+  "good_payoff_range": 3,
+  "payoffs": {
+    "P1": 14,
+    "P2": 26,
+    "P3": 25,
+    "P4": 28,
+    "P5": 27,
+    "P6": 28,
+    "P7": 28,
+    "P8": 26,
+    "P9": 28,
+    "P10": 28
+  },
+  "selfish_players": [
+    "P1"
+  ],
+  "leader": null,
+  "leader_is_selfish": null,
+  "usage": {
+    "completed_model_responses": 210,
+    "prompt_tokens": 1024627,
+    "completion_tokens": 204517,
+    "reported_cost_usd": 0.22967172,
+    "responses_missing_cost": 0
+  }
+}

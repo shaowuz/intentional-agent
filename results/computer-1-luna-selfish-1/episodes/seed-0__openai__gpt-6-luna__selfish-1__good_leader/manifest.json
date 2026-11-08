@@ -1,0 +1,31 @@
+{
+  "config": {
+    "protocol_version": "rotating-v4",
+    "communication": "good_leader",
+    "selfish_count": 1,
+    "players": 10,
+    "rounds": 10,
+    "seed": 0,
+    "backend": "openrouter",
+    "model": "openai/gpt-6-luna",
+    "reasoning_effort": "medium",
+    "message_tokens": 96,
+    "tokenizer": "o200k_base",
+    "max_completion_tokens": 4096,
+    "policy": "cooperate",
+    "selfish_policy": "cooperate",
+    "selfish_persona": "neutral"
+  },
+  "provenance": {
+    "version": "0.2.0",
+    "code_sha256": "26a07568fecebaed94b6be856694af77d26156ca5e44afc8ada27397571e0284",
+    "prompt_sha256": "b6cb54d1a3f5ad3ba48beadfdf50dd266b6762c7598eb62fada138ca9a1c1a7b",
+    "python": "3.13.12",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0",
+      "python-dotenv": "1.2.4"
+    }
+  }
+}
