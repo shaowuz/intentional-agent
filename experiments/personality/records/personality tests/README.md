@@ -10,6 +10,17 @@ style, social influence, motivation, values, emotions). Over 6,000 agent-games i
 
 ## The results
 
+### Payoffs at a glance
+
+Every game across all experiments. One dot = one game; bar = mean. 3.0 means everyone cooperates,
+1.0 means everyone betrays.
+
+![Payoffs by condition](charts/17_payoffs_by_condition.png)
+
+- **Whole swarm:** personality lifts Luna from 1.07 to 1.75; real conversation lowers it to 1.55; the smarter Terra reaches 2.86.
+- **Dishonest vs honest:** dishonesty pays big with short messages (2.02 vs 1.35), barely in conversation (1.61 vs 1.47), and still pays under Terra (2.94 vs 2.79), mostly from betraying in the final round.
+- **Evolution:** only the monitor that reads private reasoning keeps the swarm cooperative (2.80 vs 1.11 with no oversight).
+
 ### 1. Personality steers the whole swarm
 
 Same model, same goal. Personality alone moved cooperation from **3% to 28%** and points per agent
