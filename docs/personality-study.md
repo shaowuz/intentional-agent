@@ -42,7 +42,7 @@ with personalities, every message, action, trust rating, final report and per-re
 ## Results
 
 Full run (300 games, 3,000 agents, plus 24-game neutral control):
-[experiments/personality/records/run-2026-11-07](../experiments/personality/records/run-2026-11-07/README.md).
+[personality tests](../experiments/personality/records/personality%20tests/README.md).
 Analyze a run with `python -m personality.analyze <run> --control <neutral run>`.
 A clean stop for a running cohort: create an empty `STOP` file in its output folder, or launch with `--max-games N`.
 
