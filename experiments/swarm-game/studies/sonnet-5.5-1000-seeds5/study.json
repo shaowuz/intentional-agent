@@ -1,0 +1,112 @@
+{
+  "model": "anthropic/claude-sonnet-5.5",
+  "common_spec": {
+    "models": [
+      "anthropic/claude-sonnet-5.5"
+    ],
+    "communication_modes": [
+      "none",
+      "public",
+      "opponent",
+      "good_leader",
+      "selfish_leader"
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "game": {
+      "protocol_version": "rotating-v4",
+      "players": 10,
+      "rounds": 10,
+      "backend": "openrouter",
+      "reasoning_effort": "medium",
+      "message_tokens": 1000,
+      "tokenizer": "o200k_base",
+      "max_completion_tokens": 4096,
+      "policy": "cooperate",
+      "selfish_policy": "cooperate",
+      "selfish_persona": "neutral"
+    }
+  },
+  "cohorts": [
+    {
+      "selfish_count": 1,
+      "computer": 1,
+      "status": "complete",
+      "run_id": "5a800c92-2eb9-4780-abc1-af0f5e908fe1",
+      "episodes": 25,
+      "accepted_requests": 5250,
+      "response_attempts": 5260,
+      "reported_cost_usd": "62.404194",
+      "python": "3.15.2",
+      "code_sha256": "dc76aa859467ab22a773775613229050563a64d2eee7e5e1dcfde70f3d6ab402",
+      "prompt_sha256": "2fbe24289b1dcc8d67474e544d33de743c1f9511522052bac85ee4bca856ce0d",
+      "source_commit_recorded": null,
+      "source_note": "Git commit not recorded in supplied cohort; code and prompt hashes match other two cohorts.",
+      "retry_correction_limit": 1,
+      "retry_policy_note": "Original scheduler; no retry-policy override recorded.",
+      "archive": "complete-output.tar.xz",
+      "archive_manifest": "archive-manifest.json"
+    },
+    {
+      "selfish_count": 3,
+      "computer": 2,
+      "status": "complete",
+      "run_id": "82b20be5-cebb-47da-ac9e-ccdc0ef72f5f",
+      "episodes": 25,
+      "accepted_requests": 5250,
+      "response_attempts": 5259,
+      "reported_cost_usd": "60.831290",
+      "python": "3.14.0",
+      "code_sha256": "dc76aa859467ab22a773775613229050563a64d2eee7e5e1dcfde70f3d6ab402",
+      "prompt_sha256": "2fbe24289b1dcc8d67474e544d33de743c1f9511522052bac85ee4bca856ce0d",
+      "source_commit_recorded": "e4e1ac41ee41fcea7fcf96e78dead2b853c59014",
+      "source_note": "Recorded collection commit; later main prompt edits do not apply.",
+      "retry_correction_limit": 5,
+      "retry_policy_note": "User-authorized extension after exhausted corrections; unchanged validation.",
+      "archive": "complete-output.tar.xz",
+      "archive_manifest": "archive-manifest.json"
+    },
+    {
+      "selfish_count": 5,
+      "computer": 3,
+      "status": "complete",
+      "run_id": "75e744e1-e283-4751-95eb-c5391477a1d7",
+      "episodes": 25,
+      "accepted_requests": 5250,
+      "response_attempts": 5254,
+      "reported_cost_usd": "60.655462",
+      "python": "3.13.5",
+      "code_sha256": "dc76aa859467ab22a773775613229050563a64d2eee7e5e1dcfde70f3d6ab402",
+      "prompt_sha256": "2fbe24289b1dcc8d67474e544d33de743c1f9511522052bac85ee4bca856ce0d",
+      "source_commit_recorded": "e4e1ac41ee41fcea7fcf96e78dead2b853c59014",
+      "source_note": "Recorded collection commit; later main prompt edits do not apply.",
+      "retry_correction_limit": 1,
+      "retry_policy_note": "Original scheduler; no retry-policy override recorded.",
+      "archive": "complete-output.tar.xz",
+      "archive_manifest": "archive-manifest.json"
+    }
+  ],
+  "episodes": 75,
+  "encounters": 3750,
+  "accepted_requests": 15750,
+  "reported_cost_usd": "183.890946",
+  "tables": {
+    "episodes": 75,
+    "cells": 15,
+    "contrasts": 30,
+    "usage": 15773
+  },
+  "analysis_notes": [
+    "Use (run_id, episode_id) as episode key.",
+    "Within each selfish count, compare conditions using paired seeds; seeds are the sampling units.",
+    "Do not treat 75 episodes or 15,750 requests as independent experimental replicates.",
+    "Different selfish counts have different role rosters; do not assume identical roles across counts.",
+    "Python versions differ; selfish-3 has a documented retry-policy extension.",
+    "Original messages include Keep them brief; later main removed this only for future runs."
+  ]
+}

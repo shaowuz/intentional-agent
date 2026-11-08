@@ -1,0 +1,137 @@
+{
+  "cohorts": {
+    "1": {
+      "archive": {
+        "status": "valid",
+        "archive_sha256": "47f4d69c1c008139c0077b1ffac035deaeac43aed1aaea1cb468d09d620455aa",
+        "files_verified": 5447,
+        "uncompressed_file_bytes": 280858568,
+        "expanded_files_verified": 36,
+        "extracted_output": "/private/tmp/sonnet-study-selfish-1/computer-1-sonnet-5.5-1000-seeds5-selfish-1"
+      },
+      "replay": {
+        "status": "passed",
+        "episodes": 25,
+        "accepted_requests": 5250,
+        "hosted_calls": 0,
+        "recorded_python": "3.15.2",
+        "replay_python": "3.14.0",
+        "python_version_difference_allowed": true,
+        "output_contract": {
+          "status": "valid",
+          "schema_version": "intentional-agent.visualization/4",
+          "run_id": "5a800c92-2eb9-4780-abc1-af0f5e908fe1",
+          "snapshot_id": "64f74288f1b7e101c64e8da17bd888782eb56c1b3a6fa96050e12903e65d59bd",
+          "row_counts": {
+            "episodes": 25,
+            "cells": 5,
+            "contrasts": 10,
+            "status": 25,
+            "actions": 2500,
+            "beliefs": 27500,
+            "messages": 2500,
+            "elections": 0,
+            "leader_assignments": 10,
+            "usage": 5260,
+            "events": 4260
+          }
+        }
+      }
+    },
+    "5": {
+      "archive": {
+        "status": "valid",
+        "archive_sha256": "72c3270af815f9ce85e309be2b5d1fc07bdacec2e15f2bb7e4d332fdf3604c98",
+        "files_verified": 5438,
+        "uncompressed_file_bytes": 273023782,
+        "expanded_files_verified": 143,
+        "extracted_output": "/private/tmp/sonnet-study-selfish-5/computer-3-sonnet-5.5-1000-seeds5-selfish-5"
+      },
+      "replay": {
+        "status": "passed",
+        "episodes": 25,
+        "accepted_requests": 5250,
+        "hosted_calls": 0,
+        "recorded_python": "3.13.5",
+        "replay_python": "3.14.0",
+        "python_version_difference_allowed": true,
+        "output_contract": {
+          "status": "valid",
+          "schema_version": "intentional-agent.visualization/4",
+          "run_id": "75e744e1-e283-4751-95eb-c5391477a1d7",
+          "snapshot_id": "22ca4c5d49471736ea67e971c13bd10ce3baf383a025eb9ab31389207a967bd3",
+          "row_counts": {
+            "episodes": 25,
+            "cells": 5,
+            "contrasts": 10,
+            "status": 25,
+            "actions": 2500,
+            "beliefs": 27500,
+            "messages": 2500,
+            "elections": 0,
+            "leader_assignments": 10,
+            "usage": 5254,
+            "events": 4260
+          }
+        }
+      }
+    },
+    "3": {
+      "archive": {
+        "status": "valid",
+        "archive_sha256": "20b1599925a4ca78642bbe2f69adc5d2c1b74a6bf7e4fa09d105c92c583379c8",
+        "files_verified": 10429,
+        "uncompressed_file_bytes": 512915742,
+        "expanded_files_verified": 41,
+        "extracted_output": "/private/tmp/sonnet-computer-2-publication-restore/computer-2-sonnet-5.5-1000-seeds5-selfish-3"
+      },
+      "replay": {
+        "status": "passed",
+        "episodes": 25,
+        "accepted_requests": 5250,
+        "hosted_calls": 0,
+        "output_contract": {
+          "status": "valid",
+          "schema_version": "intentional-agent.visualization/4",
+          "run_id": "82b20be5-cebb-47da-ac9e-ccdc0ef72f5f",
+          "snapshot_id": "44ba578d216b756997d7b08fa1da6a5dd28a227a7a1c6c4fed76c8761479cd58",
+          "row_counts": {
+            "episodes": 25,
+            "cells": 5,
+            "contrasts": 10,
+            "status": 25,
+            "actions": 2500,
+            "beliefs": 27500,
+            "messages": 2500,
+            "elections": 0,
+            "leader_assignments": 10,
+            "usage": 5259,
+            "events": 4260
+          }
+        }
+      }
+    }
+  },
+  "path_only_edits": [
+    {
+      "file": "selfish-5/analysis/sonnet-5.5-vs-luna-selfish5-seeds0-4.json",
+      "original_copy": "selfish-5/provenance/original-analysis/sonnet-5.5-vs-luna-selfish5-seeds0-4.json",
+      "before_sha256": "13e16b41378a256521ed7f1db66c23310c95b1adacb73b2b8496abe323661f81",
+      "after_sha256": "3895940579b70526cd68c152c7b4a302d19f52fd303a0a93378984d732529125",
+      "change": "Relative Luna source links adjusted to new directory depth; numerical values unchanged."
+    },
+    {
+      "file": "selfish-5/analysis/sonnet-luna-communication-examples-seed0.json",
+      "original_copy": "selfish-5/provenance/original-analysis/sonnet-luna-communication-examples-seed0.json",
+      "before_sha256": "71af49e9ec32341655f3564f42543dcc7ae959d10e65fe783e47c4cd9a78fab9",
+      "after_sha256": "dbfcb404d66434dd8430ddaf608008b26536cbb66d849f88fcce45a8c36d0dc0",
+      "change": "Relative Luna source links adjusted to new directory depth; numerical values unchanged."
+    }
+  ],
+  "source_data_policy": "Raw records and archive bytes preserved; selfish-1 compressed losslessly, selfish-3 moved, selfish-5 archive renamed unchanged.",
+  "totals": {
+    "episodes_replayed": 75,
+    "accepted_requests_replayed": 15750,
+    "hosted_calls": 0
+  }
+}

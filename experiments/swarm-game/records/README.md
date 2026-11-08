@@ -1,6 +1,6 @@
 # Recorded OpenRouter experiments
 
-Browse the [results grouped by selfish-agent count](../results-by-selfish-count/README.md): `selfish-1`, `3 selfish agents results`, and `5 selfish agents results`. The one-selfish-agent result remains unavailable.
+Browse the [results grouped by selfish-agent count](../results-by-selfish-count/README.md): `selfish-1`, `3 selfish agents results`, and `5 selfish agents results`. That legacy grouped index concerns the earlier Luna study; the complete Sonnet 1/3/5 study is linked below.
 
 ## Final five-condition study
 
@@ -15,13 +15,9 @@ retains all raw requests, frozen runtime, exports, and recovery records. Its
 [publication manifest](computer-3-luna-selfish-5-2026-11-07/publication_manifest.json)
 records member hashes; the cohort's final export validation passed.
 
-## Sonnet 5.5: 1,000-token five-seed cohort
+## Sonnet 5.5: 1,000-token five-seed study
 
-| Run | Episodes | Design | Results |
-|---|---:|---|---|
-| Computer 2: Sonnet 5.5, three selfish players | 25/25 | 10 players, 10 rounds; five modes; seeds 0–4; 1,000-token message limit | [Report, raw archive, and retry-policy audit](computer-2-sonnet-5.5-1000-seeds5-selfish-3/README.md) |
-
-This cohort includes a user-authorized increase in correction attempts with unchanged validation. It remains separate from earlier cohorts and their configurations.
+The [unified Sonnet study](../studies/sonnet-5.5-1000-seeds5/README.md) contains complete [1](../studies/sonnet-5.5-1000-seeds5/selfish-1/README.md), [3](../studies/sonnet-5.5-1000-seeds5/selfish-3/README.md), and [5](../studies/sonnet-5.5-1000-seeds5/selfish-5/README.md) selfish-player cohorts, with consistent folders, complete raw archives, and source-linked analysis tables. Each has 25/25 episodes. The study documents the computer-2 correction-policy extension and other provenance differences.
 
 ## Earlier pilots
 

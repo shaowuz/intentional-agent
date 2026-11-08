@@ -196,6 +196,8 @@ The existing dashboard uses its original protocol. Build this study's visualizat
 
 ## Analyze and share results
 
+**Sonnet 5.5, 1/3/5 selfish players:** [unified study directory and analysis tables](experiments/swarm-game/studies/sonnet-5.5-1000-seeds5/README.md). All three five-seed cohorts are complete.
+
 Browse the completed main-study results in [3 selfish agents results](experiments/swarm-game/results-by-selfish-count/3%20selfish%20agents%20results/README.md) and [5 selfish agents results](experiments/swarm-game/results-by-selfish-count/5%20selfish%20agents%20results/README.md).
 
 The completed [computer-3 Sonnet 5.5 cohort](experiments/swarm-game/records/computer-3-sonnet-5.5-1000-seeds5-selfish-5-2026-11-07/README.md) contains 25 episodes across five modes, seeds 0–4, and a 1,000-token message limit. It includes the complete original run archive and comparisons with Luna. The run used the original brevity instruction; the shared prompt now removes that instruction for future cohorts.
