@@ -9,7 +9,7 @@ Each computer runs one fixed selfish-player count across all five conditions usi
 | 3 | 5 | 25 | 1,250 | 5,250 |
 | Total | 1, 3, 5 | 75 | 3,750 | 15,750 |
 
-For each seed, preserve the same selfish identities and encounter schedule across all five conditions. Different seeds can assign different identities. Each episode has 210 generation requests before retries. The 1,000-token limit is an upper bound; shorter messages and empty strings remain valid.
+For each seed, preserve the same selfish identities and encounter schedule across all five conditions. Different seeds can assign different identities. Each episode has 210 generation requests before retries. The 1,000-token limit is an upper bound; shorter messages and empty strings remain valid. Players choose their message and private-note length within that limit; the shared game prompt no longer asks them to keep these brief. Historical cohorts retain their original frozen prompts. Use a distinct output directory for a new cohort studying the revised prompt.
 
 Copy the assigned prompt to each computer's coding agent. The prompts authorize hosted execution on those computers. Use the same source commit containing this document, the Sonnet model registry entry, and 1,000-token support on all three computers. Each prompt creates a separate Sonnet config and output directory; keep the existing Luna configs and results intact.
 

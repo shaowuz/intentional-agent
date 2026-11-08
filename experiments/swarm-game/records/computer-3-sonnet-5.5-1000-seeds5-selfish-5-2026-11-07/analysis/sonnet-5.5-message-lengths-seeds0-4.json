@@ -1,0 +1,289 @@
+{
+  "run": "..",
+  "scope": "All 25 completed Sonnet episodes, seeds 0-4, five selfish players",
+  "tokenizer": "o200k_base",
+  "content_limit_tokens": 1000,
+  "method": "Count accepted pre-round content once per sender per round, including empty strings; exclude prompt text, JSON wrapper, action strategy text and final reports.",
+  "overall_including_private_notes": {
+    "count": 2500,
+    "empty_count": 6,
+    "mean_tokens": 74.7604,
+    "median_tokens": 75.0,
+    "p95_tokens": 120,
+    "min_tokens": 0,
+    "max_tokens": 209,
+    "mean_words_whitespace_split": 47.728,
+    "mean_tokens_nonempty": 74.94025661587811
+  },
+  "sent_to_other_players": {
+    "count": 1100,
+    "empty_count": 6,
+    "mean_tokens": 56.833636363636366,
+    "median_tokens": 53.0,
+    "p95_tokens": 92,
+    "min_tokens": 0,
+    "max_tokens": 131,
+    "mean_words_whitespace_split": 40.97181818181818,
+    "mean_tokens_nonempty": 57.145338208409505
+  },
+  "private_notes": {
+    "count": 1400,
+    "empty_count": 0,
+    "mean_tokens": 88.84571428571428,
+    "median_tokens": 85.0,
+    "p95_tokens": 132,
+    "min_tokens": 37,
+    "max_tokens": 209,
+    "mean_words_whitespace_split": 53.03642857142857,
+    "mean_tokens_nonempty": 88.84571428571428
+  },
+  "by_mode": {
+    "none": {
+      "all": {
+        "count": 500,
+        "empty_count": 0,
+        "mean_tokens": 79.322,
+        "median_tokens": 78.0,
+        "p95_tokens": 107,
+        "min_tokens": 37,
+        "max_tokens": 152,
+        "mean_words_whitespace_split": 47.996,
+        "mean_tokens_nonempty": 79.322
+      },
+      "sent_to_other_players": null,
+      "private_notes": {
+        "count": 500,
+        "empty_count": 0,
+        "mean_tokens": 79.322,
+        "median_tokens": 78.0,
+        "p95_tokens": 107,
+        "min_tokens": 37,
+        "max_tokens": 152,
+        "mean_words_whitespace_split": 47.996,
+        "mean_tokens_nonempty": 79.322
+      }
+    },
+    "public": {
+      "all": {
+        "count": 500,
+        "empty_count": 0,
+        "mean_tokens": 69.682,
+        "median_tokens": 71.0,
+        "p95_tokens": 101,
+        "min_tokens": 19,
+        "max_tokens": 131,
+        "mean_words_whitespace_split": 46.74,
+        "mean_tokens_nonempty": 69.682
+      },
+      "sent_to_other_players": {
+        "count": 500,
+        "empty_count": 0,
+        "mean_tokens": 69.682,
+        "median_tokens": 71.0,
+        "p95_tokens": 101,
+        "min_tokens": 19,
+        "max_tokens": 131,
+        "mean_words_whitespace_split": 46.74,
+        "mean_tokens_nonempty": 69.682
+      },
+      "private_notes": null
+    },
+    "opponent": {
+      "all": {
+        "count": 500,
+        "empty_count": 6,
+        "mean_tokens": 42.35,
+        "median_tokens": 43.5,
+        "p95_tokens": 62,
+        "min_tokens": 0,
+        "max_tokens": 76,
+        "mean_words_whitespace_split": 33.706,
+        "mean_tokens_nonempty": 42.864372469635626
+      },
+      "sent_to_other_players": {
+        "count": 500,
+        "empty_count": 6,
+        "mean_tokens": 42.35,
+        "median_tokens": 43.5,
+        "p95_tokens": 62,
+        "min_tokens": 0,
+        "max_tokens": 76,
+        "mean_words_whitespace_split": 33.706,
+        "mean_tokens_nonempty": 42.864372469635626
+      },
+      "private_notes": null
+    },
+    "good_leader": {
+      "all": {
+        "count": 500,
+        "empty_count": 0,
+        "mean_tokens": 96.432,
+        "median_tokens": 91.0,
+        "p95_tokens": 151,
+        "min_tokens": 49,
+        "max_tokens": 209,
+        "mean_words_whitespace_split": 57.516,
+        "mean_tokens_nonempty": 96.432
+      },
+      "sent_to_other_players": {
+        "count": 50,
+        "empty_count": 0,
+        "mean_tokens": 81.02,
+        "median_tokens": 78.5,
+        "p95_tokens": 117,
+        "min_tokens": 49,
+        "max_tokens": 124,
+        "mean_words_whitespace_split": 58.34,
+        "mean_tokens_nonempty": 81.02
+      },
+      "private_notes": {
+        "count": 450,
+        "empty_count": 0,
+        "mean_tokens": 98.14444444444445,
+        "median_tokens": 93.0,
+        "p95_tokens": 154,
+        "min_tokens": 50,
+        "max_tokens": 209,
+        "mean_words_whitespace_split": 57.42444444444445,
+        "mean_tokens_nonempty": 98.14444444444445
+      }
+    },
+    "selfish_leader": {
+      "all": {
+        "count": 500,
+        "empty_count": 0,
+        "mean_tokens": 86.016,
+        "median_tokens": 85.0,
+        "p95_tokens": 123,
+        "min_tokens": 19,
+        "max_tokens": 155,
+        "mean_words_whitespace_split": 52.682,
+        "mean_tokens_nonempty": 86.016
+      },
+      "sent_to_other_players": {
+        "count": 50,
+        "empty_count": 0,
+        "mean_tokens": 49,
+        "median_tokens": 51.0,
+        "p95_tokens": 58,
+        "min_tokens": 19,
+        "max_tokens": 65,
+        "mean_words_whitespace_split": 38.58,
+        "mean_tokens_nonempty": 49
+      },
+      "private_notes": {
+        "count": 450,
+        "empty_count": 0,
+        "mean_tokens": 90.1288888888889,
+        "median_tokens": 88.0,
+        "p95_tokens": 126,
+        "min_tokens": 43,
+        "max_tokens": 155,
+        "mean_words_whitespace_split": 54.24888888888889,
+        "mean_tokens_nonempty": 90.1288888888889
+      }
+    }
+  },
+  "sources": [
+    {
+      "path": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "64f14c6cb17362570b6b5b607818d4c592524d56353b1d77d863cb2cb47b95bd"
+    },
+    {
+      "path": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__none/checkpoint.json",
+      "sha256": "0c8cae025a39a1e9804fa95c54b80567f1c7a831cd5c1b5a86583af3ea932de7"
+    },
+    {
+      "path": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__opponent/checkpoint.json",
+      "sha256": "0f08ed9b28262150074602d88c193378e4b8423023298706791878603f71935f"
+    },
+    {
+      "path": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__public/checkpoint.json",
+      "sha256": "e2d528719a8a1329bb8e046568367fdc9ef0e5257e849db600f5a604451f943c"
+    },
+    {
+      "path": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "6d80d4b88f78db61e941bb988a03b44366467e34cb0a40e18899aeb477cf44ee"
+    },
+    {
+      "path": "../episodes/seed-1__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "2f3a52b7c95a85a8915ad1506c03629d9183bb809041de7cc352c82034cef9f6"
+    },
+    {
+      "path": "../episodes/seed-1__anthropic__claude-sonnet-5.5__selfish-5__none/checkpoint.json",
+      "sha256": "0b80751ef4729f87f48ee28552affd90c267f54b2ae35c9a064bf9b2cdcb587b"
+    },
+    {
+      "path": "../episodes/seed-1__anthropic__claude-sonnet-5.5__selfish-5__opponent/checkpoint.json",
+      "sha256": "770393e28139467c361435d24fc746ad8e9f017a771d511c1de757e483652386"
+    },
+    {
+      "path": "../episodes/seed-1__anthropic__claude-sonnet-5.5__selfish-5__public/checkpoint.json",
+      "sha256": "17aaf5f069fe7a57537d6143f28eb8eafd85293acc32bc54f72115bd54f12184"
+    },
+    {
+      "path": "../episodes/seed-1__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "a37073d8465ae8ec0fc3cc70041a8aa0e45ae716ee1c87a038933e5d89e89f3f"
+    },
+    {
+      "path": "../episodes/seed-2__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "5c001a4906e8a40e088a37c2058c5b4f396e9414404885b639491c1902335df2"
+    },
+    {
+      "path": "../episodes/seed-2__anthropic__claude-sonnet-5.5__selfish-5__none/checkpoint.json",
+      "sha256": "e04949430cbd894047d8aec177fed275e18054880ba1a40be366e2b1874fec6c"
+    },
+    {
+      "path": "../episodes/seed-2__anthropic__claude-sonnet-5.5__selfish-5__opponent/checkpoint.json",
+      "sha256": "af6592526294647d3c2602f58aa9743f75fbd27f4adeb2fd42d9f9af1ea78813"
+    },
+    {
+      "path": "../episodes/seed-2__anthropic__claude-sonnet-5.5__selfish-5__public/checkpoint.json",
+      "sha256": "dab722a8b0d6ee4ead5413cd6dedb73821290d4f1aa13547385b976634c01d6c"
+    },
+    {
+      "path": "../episodes/seed-2__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "73357b80c7e93a1f82eca08fb8a751d9229fcf67d33d1a8017a73eecc1f2b3c7"
+    },
+    {
+      "path": "../episodes/seed-3__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "979d4a0c221f4a687de1aaaec049da99f354c5ad26568833710b0bc163468c53"
+    },
+    {
+      "path": "../episodes/seed-3__anthropic__claude-sonnet-5.5__selfish-5__none/checkpoint.json",
+      "sha256": "3f4abad906ff0b46214a26d9ea4e30e223d77e8e170ae357468cbdd867c04d51"
+    },
+    {
+      "path": "../episodes/seed-3__anthropic__claude-sonnet-5.5__selfish-5__opponent/checkpoint.json",
+      "sha256": "3b807b0399033f0451d76b274ca728d1e5dcaa596f8acdab29da55186cd19de5"
+    },
+    {
+      "path": "../episodes/seed-3__anthropic__claude-sonnet-5.5__selfish-5__public/checkpoint.json",
+      "sha256": "b4f20331b5454997f25e97a793ff2744c5523b3ca329aa22518d7057b40277f1"
+    },
+    {
+      "path": "../episodes/seed-3__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "185050610df51d22afb86cac956fe43ba5a20b92a22e7a5d3469720e19756b79"
+    },
+    {
+      "path": "../episodes/seed-4__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "0c6d5e7f807b5071df6a26004fb83b48d75d24d1d4d332f8b79074219a6e7c9b"
+    },
+    {
+      "path": "../episodes/seed-4__anthropic__claude-sonnet-5.5__selfish-5__none/checkpoint.json",
+      "sha256": "e88bfe0f7e0fc626f5c64ba0e9f074634ef431529ce16f260d255d7f5377a57b"
+    },
+    {
+      "path": "../episodes/seed-4__anthropic__claude-sonnet-5.5__selfish-5__opponent/checkpoint.json",
+      "sha256": "4391cf9f9495eccda402ec473140463141376e4de0c8731205e1c0051dbfa85d"
+    },
+    {
+      "path": "../episodes/seed-4__anthropic__claude-sonnet-5.5__selfish-5__public/checkpoint.json",
+      "sha256": "0ce2b62f0a5950992409b81a38fb62846024c5df868f5b255820f9f5cde64ba4"
+    },
+    {
+      "path": "../episodes/seed-4__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "920508503a02270dc2930c1dacf9cf527d7d564027bef67bcdc3e09ea224d38e"
+    }
+  ]
+}
