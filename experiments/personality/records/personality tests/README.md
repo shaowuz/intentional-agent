@@ -129,6 +129,7 @@ keyword pattern. Trait effects use 1,533 tests corrected with Benjamini-Hochberg
 | File | Contents |
 |---|---|
 | [FINDINGS.md](FINDINGS.md) | Full write-up with every chart, table and method detail |
+| [conversations/REPORT.md](conversations/REPORT.md) | Experiment 3 report: which traits win in conversations, surprises, private messages |
 | `charts/` | All charts (1-16) and the tables behind them (CSV) |
 | [analysis/report.md](analysis/report.md) | Experiment 1 metrics and strongest trait effects |
 | [analysis/quotes.md](analysis/quotes.md) | More quotes from experiment 1 |
