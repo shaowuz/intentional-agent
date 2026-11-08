@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "collection_source_commit": "e75a825d12fb8b0e77f45f1e486fb02483455ea5",
+  "publication_base_commit": "3edf7531f3922440541a24cfdc832d9a485d1ed7",
+  "archive": {
+    "sha256": "7021831a9f6e229736ab2e4f092cce8b7d88909f748e86885ba82c99c3b66ae3",
+    "files_verified": 13504,
+    "bytes_verified": 574635359,
+    "expanded_files_verified": 335,
+    "restore_to_new_directory": "passed"
+  },
+  "restored_frozen_runtime_replay": {
+    "status": "passed",
+    "episodes": 60,
+    "accepted_requests": 12600,
+    "hosted_calls": 0,
+    "full_checkpoint_equality": true,
+    "python": "3.14.0",
+    "recorded_dependency_provenance": "matched"
+  },
+  "restored_output_contract": {
+    "status": "valid",
+    "schema_version": "intentional-agent.visualization/4",
+    "run_id": "307ec2b3-493a-4680-9fcb-f64ad289b6f2",
+    "snapshot_id": "f3be899afa877c855c0ae71eef36df7aef864ceaa66182f7f00272ad4d0029e5",
+    "row_counts": {
+      "episodes": 60,
+      "cells": 5,
+      "contrasts": 10,
+      "status": 60,
+      "actions": 6000,
+      "beliefs": 66000,
+      "messages": 6000,
+      "elections": 0,
+      "leader_assignments": 24,
+      "usage": 12630,
+      "events": 10224
+    }
+  },
+  "source_fix_tests": {
+    "status": "passed",
+    "swarm_tests": 166,
+    "new_rounding_tests": 19,
+    "commands": [
+      "PYTHONPATH=backend python -m pytest -q tests/swarm/test_belief_rounding.py tests/swarm/test_multi_selfish.py tests/swarm/test_concurrent_matrix.py",
+      "PYTHONPATH=backend python -m pytest -q tests/swarm --ignore=tests/swarm/test_belief_rounding.py --ignore=tests/swarm/test_multi_selfish.py --ignore=tests/swarm/test_concurrent_matrix.py"
+    ],
+    "environment": "Pinned collection environment; source imports from PR backend via PYTHONPATH",
+    "tests_not_run_locally": "Unrelated non-swarm backend, Docker integration and frontend CI"
+  },
+  "credential_scan": {
+    "status": "passed",
+    "source_files_scanned": 13504,
+    "method": "Exact locally configured key and common credential patterns; no secret values recorded"
+  },
+  "note": "Publication verification of an unchanged original archive; this file is not part of the collected experiment output."
+}
