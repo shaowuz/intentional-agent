@@ -206,7 +206,7 @@ def test_interrupted_exchange_and_assignment_exports_resume(tmp_path, mode):
 
 
 @pytest.mark.parametrize("mode", COMMUNICATION_MODES)
-@pytest.mark.parametrize("message_tokens", [96, 960])
+@pytest.mark.parametrize("message_tokens", [96, 960, 1000])
 def test_one_round_episode_and_message_budget(mode, message_tokens):
     config = config_for(mode, rounds=1, message_tokens=message_tokens)
     state = initial_state(config)
@@ -227,7 +227,7 @@ def test_one_round_episode_and_message_budget(mode, message_tokens):
         for player in state["players"]:
             prompt = make_request(state, config, player).messages[0]["content"]
             assert f"at most {message_tokens} content tokens" in prompt
-            if message_tokens == 960:
+            if message_tokens != 96:
                 assert "96 content tokens" not in prompt
         state["pending"] = {
             p: json.loads(provider.complete(make_request(state, config, p)).content)
@@ -238,24 +238,26 @@ def test_one_round_episode_and_message_budget(mode, message_tokens):
     assert config.expected_requests == 30
 
 
-@pytest.mark.parametrize("message_tokens", [0, -1, 97, 961, True, 960.0])
+@pytest.mark.parametrize("message_tokens", [0, -1, 97, 961, 1001, True, 960.0, 1000.0])
 def test_invalid_message_budget(message_tokens):
     with pytest.raises(ValueError, match="message_tokens"):
         config_for(message_tokens=message_tokens)
 
 
 @pytest.mark.parametrize("protocol_version", ["rotating-v1", "rotating-v2", "rotating-v3"])
-def test_legacy_protocol_keeps_96_token_budget(protocol_version):
+@pytest.mark.parametrize("message_tokens", [960, 1000])
+def test_legacy_protocol_keeps_96_token_budget(protocol_version, message_tokens):
     with pytest.raises(ValueError, match="message_tokens"):
-        Config(protocol_version=protocol_version, selfish_count=1, message_tokens=960)
+        Config(protocol_version=protocol_version, selfish_count=1, message_tokens=message_tokens)
 
 
-def test_persona_uses_configured_message_budget():
-    config = config_for("public", message_tokens=960, selfish_persona="trump_like")
+@pytest.mark.parametrize("message_tokens", [960, 1000])
+def test_persona_uses_configured_message_budget(message_tokens):
+    config = config_for("public", message_tokens=message_tokens, selfish_persona="trump_like")
     state = initial_state(config)
     selfish = next(p for p, role in state["roles"].items() if role == "selfish")
     prompt = make_request(state, config, selfish).messages[0]["content"]
-    assert "960-token content limit" in prompt
+    assert f"{message_tokens}-token content limit" in prompt
     assert "96-token content limit" not in prompt
 
 

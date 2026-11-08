@@ -121,6 +121,8 @@ An explicitly launched ablation needs its own output directory. The model regist
 
 Use the [three computer launch prompts](docs/launch-prompts.md). Assign selfish counts 1, 3, and 5 to computers 1, 2, and 3 respectively. Each computer runs Luna across all five conditions and seeds 0–11: **60 episodes, 3,000 encounters, and 12,600 requests before retries**. The selfish identities and encounter schedules remain matched across conditions within each seed; identities may change between seeds. Keep each computer's config, logs, and output directory separate.
 
+For a Claude Sonnet 5.5 cohort with up to 1,000 content tokens per message or private note and 10 seeds (0–9) per computer, use the [Sonnet three computer launch prompts](docs/launch-prompts-sonnet.md). Each computer runs 50 episodes and 10,500 generation requests before retries.
+
 For a Luna cohort with up to 960 content tokens per message or private note, use the [960-token three computer launch prompts](docs/launch-prompts-luna-960.md). These prompts set `game.message_tokens` to `960` and use separate configs and output directories.
 
 ### Resume an interrupted run
@@ -287,7 +289,7 @@ Communication rules:
 - Both leader conditions appear to agents as **leader communication**. Agents see the leader's identity; only observer records identify the good/selfish condition and leader's role. Each player continues to know its own objective.
 - The audience judges the leader using its own encounters and permitted messages. Each player sees only its own playing history. Leadership grants speaking permission; everyone still chooses their own actions and pursues their own objective.
 - Before every round, all players submit one message or private note. The engine delivers permitted messages together before anyone chooses an action. Opponent messages reach only the sender and that round's opponent; private notes remain visible only to their author.
-- Each message or note permits up to 96 `o200k_base` content tokens by default. The `rotating-v4` protocol also supports `game.message_tokens: 960` for a separate cohort. Apply the same limit across all five conditions. Every condition has the same deliberation opportunities and request count. A final private belief report follows round 10.
+- Each message or note permits up to 96 `o200k_base` content tokens by default. The `rotating-v4` protocol also supports `game.message_tokens` values of `960` or `1000` for separate cohorts. Apply the same limit across all five conditions. Every condition has the same deliberation opportunities and request count. A final private belief report follows round 10.
 - Sender IDs are authentic. Message claims remain unverified, and every player may lie. Leader roles describe objectives rather than a prescribed action or speaking style.
 
 Within each selfish-count/seed combination, every condition and model uses identical schedules, roles, and player identities. Good-leader and selfish-leader conditions can designate different players; each designation stays fixed across models for the same condition and seed. The runner randomizes execution order within each seed block. Seeds control the design, not hosted-model responses. The shared `medium` setting does not guarantee identical reasoning-token expenditure across providers.

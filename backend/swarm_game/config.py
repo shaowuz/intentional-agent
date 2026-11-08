@@ -5,6 +5,7 @@ MODELS = {
     "openai/gpt-6.1-terra": "openai",
     "openai/gpt-6-astra": "openai",
     "anthropic/claude-haiku-5.5": "anthropic",
+    "anthropic/claude-sonnet-5.5": "anthropic",
 }
 COMMUNICATION_MODES = ("none", "public", "opponent", "good_leader", "selfish_leader")
 LEGACY_COMMUNICATION_MODES = ("none", "public", "leader")
@@ -71,7 +72,7 @@ class Config:
             raise ValueError(f"Unsupported model; choose from {list(MODELS)}")
         if self.reasoning_effort != "medium":
             raise ValueError("v1 fixes medium reasoning")
-        message_budgets = (96, 960) if self.protocol_version == "rotating-v4" else (96,)
+        message_budgets = (96, 960, 1000) if self.protocol_version == "rotating-v4" else (96,)
         if self.message_tokens not in message_budgets:
             raise ValueError(f"message_tokens must be one of {message_budgets}")
         if self.tokenizer != "o200k_base":
