@@ -158,6 +158,8 @@ The scheduler supports up to 60 concurrent episodes. Use `--workers 60` to start
 
 The scheduler validates the saved specification and source hashes, reuses accepted responses, and preserves original manifests and runtime files. It records scheduler provenance, live progress, and ramp evidence in `execution.json` and retains each invocation under `executions/`. SIGINT or SIGTERM stops new scheduling and lets active episodes finish their current phase before checkpointing and exiting. A worker failure triggers the same drain. Shared analysis and validated exports update after all workers stop; inspect `execution.json` for live progress. Use the same command to resume a drained run.
 
+Six-decimal marginal probabilities can accumulate up to half a decimal unit of rounding error per value. Current validation accounts for that precision. For older frozen runtimes that stopped on a rounded sum such as `5.000002`, add `--allow-marginal-rounding` to the concurrent resume command. This records a validation-only override, keeps the frozen source intact, and revalidates the last saved response. Recovery archives the original request records and retains all raw attempts and supplied probabilities; it makes no new model calls for those recovered responses. Other validation rules still apply. Continue using this flag on later resumes of a recovered cohort. Audit `validation_override.json`, `recoveries/`, and the invocation's `execution.json`.
+
 ## Visualization quickstart
 
 Start developing immediately with the committed fixtures:

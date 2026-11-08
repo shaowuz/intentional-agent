@@ -1,5 +1,6 @@
 import hashlib
 import importlib.util
+import json
 from pathlib import Path
 import subprocess
 import sys
@@ -8,7 +9,7 @@ import threading
 import pytest
 from swarm_game.export_contract import validate_output
 from swarm_game.matrix import run_matrix
-from swarm_game.providers import ProviderError, ScriptedProvider
+from swarm_game.providers import Completion, ProviderError, ScriptedProvider
 from swarm_game.storage import read_json
 
 SCRIPT = Path(__file__).resolve().parents[2] / 'scripts/run_concurrent_matrix.py'
@@ -194,3 +195,61 @@ def test_scheduler_refuses_modified_frozen_runtime(tmp_path):
                          capture_output=True, text=True, timeout=30)
     assert run.returncode != 0 and 'provenance differs' in run.stderr
     assert not (output / 'execution.json').exists()
+
+
+@pytest.mark.parametrize('probability,recovers', [(0.166667, True), (0.2, False)])
+def test_rounding_recovery_archives_raw_attempts_and_preserves_accepted_records(tmp_path, monkeypatch, probability, recovers):
+    from swarm_game import runner
+    from swarm_game.protocol import validate_response
+
+    def legacy_validation(data, request, config):
+        result = validate_response(data, request, config)
+        if request.phase in ('action', 'final') and not 1 - 1e-6 <= sum(data['beliefs'].values()) <= 5 + 1e-6:
+            raise ValueError(scheduler.MARGINAL_BOUNDS_ERROR)
+        return result
+
+    class Rounded(ScriptedProvider):
+        def complete(self, request, *args, **kwargs):
+            if request.phase == 'action' and request.view['objective'] == 'selfish':
+                players = request.view['players']
+                certain = [request.player, *[p for p in players if p != request.player][:3]]
+                data = {'action': 'D', 'strategy': 'Defect.',
+                        'beliefs': {p: 1 if p in certain else probability for p in players}}
+                return Completion(json.dumps(data), {'provider': 'scripted', 'finish_reason': 'stop'})
+            return super().complete(request, *args, **kwargs)
+
+    output = tmp_path / 'rounding'
+    raw = {'models': ['openai/gpt-6-luna'], 'communication_modes': ['none'],
+           'seeds': [0], 'selfish_counts': [5],
+           'game': {'protocol_version': 'rotating-v4', 'players': 10, 'rounds': 1, 'backend': 'scripted'}}
+    with monkeypatch.context() as patch:
+        patch.setattr(runner, 'validate_response', legacy_validation)
+        with pytest.raises(runner.EpisodeError):
+            run_matrix(raw, output, provider_factory=Rounded, progress=lambda _: None)
+    records = list(output.glob('episodes/*/requests/*.json'))
+    accepted = {p: p.read_bytes() for p in records if read_json(p).get('complete')}
+    failed = next(p for p in records if not read_json(p).get('complete'))
+    before = failed.read_bytes()
+    manifest = (output / 'matrix_manifest.json').read_bytes()
+    command = [sys.executable, str(SCRIPT), '--output', str(output), '--workers', '60', '--allow-marginal-rounding']
+    result = subprocess.run(command, capture_output=True, text=True, timeout=60)
+    assert all(p.read_bytes() == data for p, data in accepted.items())
+    assert (output / 'matrix_manifest.json').read_bytes() == manifest
+    after = read_json(failed)
+    assert after['attempts'] == json.loads(before)['attempts']
+    if recovers:
+        assert result.returncode == 0, result.stderr
+        assert after['complete'] and after['data'] == json.loads(after['attempts'][-1]['response']['content'])
+        assert next((output / 'recoveries').glob('*/original_requests/episodes/*/requests/*.json')).read_bytes() == before
+        receipt = read_json(next((output / 'recoveries').glob('*/receipt.json')))
+        assert receipt['new_model_calls'] == 0 and len(receipt['records']) == 1
+        assert validate_output(output)['status'] == 'valid'
+        saved = {p: p.read_bytes() for p in output.glob('episodes/*/requests/*.json')}
+        again = subprocess.run(command, capture_output=True, text=True, timeout=60)
+        assert again.returncode == 0, again.stderr
+        assert all(p.read_bytes() == data for p, data in saved.items())
+        missing_flag = subprocess.run(command[:-1], capture_output=True, text=True, timeout=60)
+        assert missing_flag.returncode != 0 and '--allow-marginal-rounding' in missing_flag.stderr
+    else:
+        assert result.returncode != 0 and not after['complete']
+        assert failed.read_bytes() == before

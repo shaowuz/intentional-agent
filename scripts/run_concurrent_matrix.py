@@ -4,7 +4,9 @@ import argparse
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from datetime import datetime, timezone
 import hashlib
+import inspect
 import json
+import math
 import os
 from pathlib import Path
 import signal
@@ -16,6 +18,83 @@ import uuid
 
 class DrainRequested(BaseException):
     """Stop at a phase boundary after accepted responses have been checkpointed."""
+
+
+MARGINAL_BOUNDS_ERROR = 'marginal beliefs must imply between 1 and 5 selfish players'
+
+
+def rounding_validator(original):
+    """Apply only the six-decimal sum tolerance to a frozen legacy validator."""
+    def validate(data, request, config):
+        try:
+            return original(data, request, config)
+        except ValueError as exc:
+            if str(exc) != MARGINAL_BOUNDS_ERROR or not config.marginal_beliefs:
+                raise
+            beliefs = data['beliefs']
+            tolerance = max(1e-6, len(beliefs) * 0.5e-6)
+            if not 1 - tolerance <= math.fsum(beliefs.values()) <= 5 + tolerance:
+                raise
+            expected = 1 if request.view['objective'] == 'selfish' else 0
+            if beliefs[request.player] != expected:
+                raise ValueError('self probability must match the known own objective') from None
+            return data
+    return validate
+
+
+def recover_rounded_records(output, manifest, validate):
+    """Revalidate the last saved response; archive original records without new calls."""
+    from swarm_game.config import Config
+    from swarm_game.protocol import make_request
+    from swarm_game.storage import read_json, write_json
+
+    recovery = output / 'recoveries' / str(uuid.uuid4())
+    changes = []
+    for entry in manifest['plan']:
+        episode = output / 'episodes' / entry['episode_id']
+        cp = episode / 'checkpoint.json'
+        if not cp.exists():
+            continue
+        state = read_json(cp)
+        config = Config(**entry['config'])
+        for path in sorted((episode / 'requests').glob('*.json')):
+            raw = path.read_bytes()
+            record = json.loads(raw)
+            if record.get('complete') or not record.get('attempts'):
+                continue
+            last = record['attempts'][-1]
+            if last.get('validation_error') != MARGINAL_BOUNDS_ERROR:
+                continue
+            if last['response']['metadata'].get('finish_reason') not in (None, 'stop'):
+                continue
+            request = make_request(state, config, record['request']['player'])
+            if request.to_dict() != record['request']:
+                raise ValueError('Recovery request differs from the saved player view')
+            data = json.loads(last['response']['content'])
+            try:
+                validate(data, request, config)
+            except ValueError:
+                continue
+            relative = path.relative_to(output)
+            backup = recovery / 'original_requests' / relative
+            backup.parent.mkdir(parents=True, exist_ok=True)
+            with backup.open('xb') as file:
+                file.write(raw)
+                file.flush()
+                os.fsync(file.fileno())
+            record.update(complete=True, status='complete', data=data,
+                          validation_recovery={'id': recovery.name, 'reason': 'six-decimal marginal rounding'})
+            record.pop('error', None)
+            write_json(path, record)
+            changes.append({'request': str(relative), 'original_sha256': hashlib.sha256(raw).hexdigest(),
+                            'recovered_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                            'accepted_attempt': len(record['attempts']),
+                            'belief_sum': math.fsum(data['beliefs'].values())})
+    if changes:
+        write_json(recovery / 'receipt.json', {'at': datetime.now(timezone.utc).isoformat(),
+                                             'new_model_calls': 0, 'records': changes})
+    return {'receipt': str(recovery / 'receipt.json') if changes else None,
+            'recovered_requests': len(changes), 'new_model_calls': 0}
 
 
 class StabilityGate:
@@ -92,6 +171,8 @@ def main(argv=None):
     parser.add_argument('--ramp-to', type=int)
     parser.add_argument('--stable-seconds', type=float, default=180)
     parser.add_argument('--minimum-responses', type=int, default=10)
+    parser.add_argument('--allow-marginal-rounding', action='store_true',
+                        help='Record a validation-only six-decimal rounding fix for the frozen runtime')
     args = parser.parse_args(argv)
     maximum = args.workers if args.ramp_to is None else args.ramp_to
     if not 1 <= args.workers <= maximum <= 60:
@@ -138,8 +219,30 @@ def main(argv=None):
                 or manifest['provenance'] != provenance()
                 or read_json(runtime / 'provenance.json') != provenance()):
             raise ValueError('Saved matrix specification or frozen runtime provenance differs')
-        # Validate every existing episode before any additional hosted request.
+        # Validate manifests and game states before changing recovery metadata.
         analyze_matrix(output)
+        override = None
+        recovery = None
+        override_path = output / 'validation_override.json'
+        if override_path.exists() and not args.allow_marginal_rounding:
+            raise ValueError('Resume this recovered run with --allow-marginal-rounding')
+        if args.allow_marginal_rounding:
+            from swarm_game import protocol, runner
+            override = {'name': 'six-decimal-marginal-rounding',
+                        'original_validator_sha256': hashlib.sha256(
+                            inspect.getsource(protocol.validate_response).encode()).hexdigest(),
+                        'replacement_wrapper_sha256': hashlib.sha256(
+                            inspect.getsource(rounding_validator).encode()).hexdigest(),
+                        'tolerance_per_marginal': 0.5e-6, 'minimum_tolerance': 1e-6}
+            if override_path.exists() and read_json(override_path) != override:
+                raise ValueError('Recorded validation override differs; inspect recovery provenance')
+            validate = rounding_validator(protocol.validate_response)
+            runner.validate_response = protocol.validate_response = validate
+            write_json(override_path, override)
+            recovery = recover_rounded_records(output, manifest, validate)
+            log(f"Rounding recovery: {recovery['recovered_requests']} saved responses accepted; no model calls")
+        if recovery and recovery['recovered_requests']:
+            analyze_matrix(output)
         if spec['game']['backend'] == 'openrouter':
             for model in spec['models']:
                 provider = make_provider(Config(**spec['game'], model=model,
@@ -162,6 +265,7 @@ def main(argv=None):
             'worker_limit': args.workers, 'maximum_workers': maximum, 'peak_active_episodes': 0,
             'stable_seconds': args.stable_seconds, 'minimum_responses_per_episode': args.minimum_responses,
             'ramp_events': [], 'active': [], 'planned_episodes': len(manifest['plan']),
+            'validation_override': override, 'recovery': recovery,
         }
         gate = StabilityGate(args.stable_seconds, args.minimum_responses)
 

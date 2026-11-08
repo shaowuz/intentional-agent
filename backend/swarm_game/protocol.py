@@ -225,7 +225,9 @@ def validate_response(data, request, config):
         if not all(math.isfinite(v) for v in beliefs.values()):
             raise ValueError("beliefs must be finite")
         if config.marginal_beliefs:
-            if not 1 - 1e-6 <= sum(beliefs.values()) <= 5 + 1e-6:
+            # Each of N six-decimal marginals can contribute half a unit of rounding.
+            tolerance = max(1e-6, len(beliefs) * 0.5e-6)
+            if not 1 - tolerance <= math.fsum(beliefs.values()) <= 5 + tolerance:
                 raise ValueError("marginal beliefs must imply between 1 and 5 selfish players")
         elif not math.isclose(sum(beliefs.values()), 1, abs_tol=1e-6):
             raise ValueError(
