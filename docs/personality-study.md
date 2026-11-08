@@ -39,6 +39,13 @@ Rerunning the same command resumes: finished games are skipped. `--max-cost` (de
 stops launching new games past that spend. Each game is saved to `episodes/seed-XXXX.json`
 with personalities, every message, action, trust rating, final report and per-request cost.
 
+## Results
+
+Full run (300 games, 3,000 agents, plus 24-game neutral control):
+[experiments/personality/records/run-2026-11-07](../experiments/personality/records/run-2026-11-07/README.md).
+Analyze a run with `python -m personality.analyze <run> --control <neutral run>`.
+A clean stop for a running cohort: create an empty `STOP` file in its output folder, or launch with `--max-games N`.
+
 ## Pilot (2 games, 2026-11-07)
 
 $0.14 per game, about 3 minutes per game, 1 invalid response in 420 (fixed by the retry).
