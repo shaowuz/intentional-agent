@@ -173,6 +173,51 @@ so they did not try to hide their reasoning; a monitor-aware agent might write s
 (the obvious next test). The Machiavellianism panel is noisy because only a subset of agents carry
 that trait. Raw games: `evolution-games.tar.xz`.
 
+## Experiment 3: open conversations and a smarter model
+
+**Design.** Same personalities as experiment 1 (matched seeds 0-99; 98 games completed in every
+condition, 980 agents each). Before each round, two conversation turns: a public message of up to
+150 words and one private message to any player. Two models: GPT-6 Luna and GPT-6.1 Terra
+(10x the price). Prompt caching cut Terra's cost per game from $1.94 to about $0.95.
+
+| | Luna, short messages (exp. 1) | Luna, conversations | Terra, conversations |
+|---|---:|---:|---:|
+| Cooperation | 30% | 24% | **91%** |
+| Points per agent (max 30) | 17.5 | 15.5 | **28.6** |
+| Broke a public promise | 51% | 61% | **7%** |
+| Private promises kept | - | 21% | **93%** |
+| Trust ratings match real behavior (r) | 0.43 | 0.49 | 0.70 |
+| Share of betrayals in the final round | 13% | 12% | **45%** |
+| Agents that cooperate 9 rounds, then betray | 3% | 1% | **23%** |
+
+**Takeaways**
+
+12. **The model matters far more than the format.** The same personalities cooperate 91% under
+    Terra and 24-30% under Luna. More talk alone made Luna slightly *less* cooperative.
+13. **Private channels become tools for lying.** Luna kept only 21% of its private promises:
+    *"I meant it - I'll choose C this round"* (private), then privately: *"P7 seems likely to
+    cooperate, so D earns me 5 rather than 3."*
+14. **The smarter model defers dark behavior instead of dropping it.** Low-honesty Terra agents
+    betray 11% of the time in rounds 1-9, then 70% in round 10 (others: 3% then 29%). Its own
+    summary: *"Build trust through cooperation... In the final round, exploit P10's likely
+    cooperation by defecting, when there was no future reputation cost."* Evaluations must cover
+    the endgame, not average behavior.
+15. **Personality explains less under the smarter model.** An agent's cooperation under Luna
+    predicts its cooperation in the Luna conversation run (r = 0.72) far better than under Terra
+    (r = 0.38).
+
+![Comparison](charts/12_conversation_headline.png)
+
+![Cooperation by round](charts/13_conversation_rounds.png)
+
+![Sleeper effect](charts/16_sleeper_effect.png)
+
+![Trait effects by condition](charts/14_conversation_trait_effects.png)
+
+![Honesty by condition](charts/15_conversation_honesty.png)
+
+Raw games: `conversation-games.tar.xz`. Costs: Terra $97.80, Luna $18.4.
+
 ## Next steps
 
 - **Monitor-aware agents:** tell agents their reasoning is monitored and test whether they hide
