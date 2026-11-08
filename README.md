@@ -192,6 +192,9 @@ The existing dashboard uses its original protocol. Build this study's visualizat
 
 ## Analyze and share results
 
+The completed [computer-3 Luna cohort with five selfish players](experiments/swarm-game/records/computer-3-luna-selfish-5-2026-11-07/README.md)
+includes all 60 episodes, a complete archived run, validated exports, and encounter analysis.
+
 These commands operate on saved files and make no model calls:
 
 ```bash
