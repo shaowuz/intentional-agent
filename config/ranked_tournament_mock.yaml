@@ -1,0 +1,29 @@
+# Offline pipeline-validation configuration for the ranked tournament.
+#
+# This uses the deterministic mock backend.  Its outputs are NOT LLM behaviour
+# and must never be reported as scientific findings.
+name: ranked_tournament_mock
+seed: 20240501
+output_dir: results/ranked_tournament_mock
+n_rounds: 15
+agents: [A, B, C, D]
+continue_prob: 0.95
+max_stages: 500
+ranking_points: [3, 2, 1, 0]
+max_decision_retries: 3
+max_reflection_retries: 3
+
+llm:
+  provider: mock
+  model: mock-ranked
+  temperature: 0.7
+  top_p: 1.0
+  max_tokens: 300
+  seed: null
+  api_key_env: OPENAI_API_KEY
+  base_url: null
+  timeout: 60
+  max_retries: 0
+  pricing:
+    input_per_1k_tokens: 0.0
+    output_per_1k_tokens: 0.0
