@@ -123,6 +123,23 @@ def sample_personality(seed, player, per_group=PER_GROUP):
     return traits
 
 
+def mutate(traits, rng, level_prob=0.3, swap_prob=0.1):
+    """Child personality: each level moves by +-1 or 2 with level_prob; with swap_prob one
+    random-group trait is replaced by another trait from the same group at a random level."""
+    child = {t: (min(10, max(1, v + rng.choice([-2, -1, 1, 2]))) if rng.random() < level_prob else v)
+             for t, v in traits.items()}
+    if rng.random() < swap_prob:
+        candidates = [t for t in child if TRAIT_GROUP[t] != "Core"]
+        old = rng.choice(candidates)
+        group = GROUPS[TRAIT_GROUP[old]]
+        options = [t for t in group if t not in child]
+        if options:
+            child = {(rng.choice(options) if t == old else t): v for t, v in child.items()}
+            new = next(t for t in child if t not in traits)
+            child[new] = rng.randint(1, 10)
+    return child
+
+
 def describe(traits):
     lines = []
     for name, level in traits.items():

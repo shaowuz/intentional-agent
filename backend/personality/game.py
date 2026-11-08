@@ -127,15 +127,18 @@ def schema(phase, player, players):
     }
 
 
-def new_episode(seed, settings: Settings):
+def new_episode(seed, settings: Settings, personalities=None):
+    """personalities: optional list of trait dicts, one per player (used by evolution)."""
     players = [f"P{i + 1}" for i in range(settings.players)]
+    if personalities is not None:
+        assigned = dict(zip(players, personalities))
+    else:
+        assigned = {p: ({} if settings.neutral else sample_personality(seed, p)) for p in players}
     return {
         "seed": seed,
         "settings": {k: v for k, v in settings.__dict__.items() if k != "extra"},
         "players": players,
-        "personalities": {
-            p: ({} if settings.neutral else sample_personality(seed, p)) for p in players
-        },
+        "personalities": assigned,
         "schedule": make_schedule(players, settings.rounds, seed),
         "messages": [],
         "actions": [],
@@ -209,7 +212,11 @@ class ScriptedProvider:
         traits_seed = derived_seed(request.round, request.player + request.phase)
         rng = random.Random(traits_seed)
         others = list(request.schema["properties"].get("trust", {}).get("properties", {}))
-        if request.phase == "message":
+        if request.phase == "monitor":
+            data = {"scores": {p: rng.randint(0, 100)
+                               for p in request.schema["properties"]["scores"]["properties"]},
+                    "notes": "scripted"}
+        elif request.phase == "message":
             data = {"message": "" if rng.random() < 0.3 else "I plan to cooperate."}
         elif request.phase == "action":
             data = {"action": rng.choice("CCD"), "trust": {p: rng.randint(0, 10) for p in others},
