@@ -1,13 +1,13 @@
-# Claude Sonnet launch prompts for three computers: 1,000 tokens and 10 seeds
+# Claude Sonnet launch prompts for three computers: 1,000 tokens and 5 seeds
 
-Each computer runs one fixed selfish-player count across all five conditions using [Claude Sonnet 5.5 on OpenRouter](https://openrouter.ai/anthropic/claude-sonnet-5.5/providers), model ID `anthropic/claude-sonnet-5.5`. Each computer uses 10 players, 10 rounds, neutral personalities, medium reasoning, 10 seeds (0–9), and an upper limit of 1,000 content tokens per message or private note, counted with o200k_base.
+Each computer runs one fixed selfish-player count across all five conditions using [Claude Sonnet 5.5 on OpenRouter](https://openrouter.ai/anthropic/claude-sonnet-5.5/providers), model ID `anthropic/claude-sonnet-5.5`. Each computer uses 10 players, 10 rounds, neutral personalities, medium reasoning, 5 seeds (0–4), and an upper limit of 1,000 content tokens per message or private note, counted with o200k_base.
 
 | Computer | Selfish count | Episodes | Encounters | Requests before retries |
 |---|---:|---:|---:|---:|
-| 1 | 1 | 50 | 2,500 | 10,500 |
-| 2 | 3 | 50 | 2,500 | 10,500 |
-| 3 | 5 | 50 | 2,500 | 10,500 |
-| Total | 1, 3, 5 | 150 | 7,500 | 31,500 |
+| 1 | 1 | 25 | 1,250 | 5,250 |
+| 2 | 3 | 25 | 1,250 | 5,250 |
+| 3 | 5 | 25 | 1,250 | 5,250 |
+| Total | 1, 3, 5 | 75 | 3,750 | 15,750 |
 
 For each seed, preserve the same selfish identities and encounter schedule across all five conditions. Different seeds can assign different identities. Each episode has 210 generation requests before retries. The 1,000-token limit is an upper bound; shorter messages and empty strings remain valid.
 
@@ -21,21 +21,21 @@ Launch this computer's Claude Sonnet 5.5 experiment cohort from https://github.c
 Use Python 3.11+ and install dependencies with:
 uv sync --locked --extra dev --no-editable
 
-Copy configs/experiment_matrix.json to configs/computer-1-sonnet-5.5-1000-seeds10.json. Change only models to ["anthropic/claude-sonnet-5.5"], selfish_counts to [1], seeds to [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], and game.message_tokens to 1000.
+Copy configs/experiment_matrix.json to configs/computer-1-sonnet-5.5-1000-seeds5.json. Change only models to ["anthropic/claude-sonnet-5.5"], selfish_counts to [1], seeds to [0, 1, 2, 3, 4], and game.message_tokens to 1000.
 
-Retain all five modes (none, public, opponent, good_leader, selfish_leader), medium reasoning, seeds 0–9, 10 players, 10 rounds, neutral personalities, rotating-v4, and the OpenRouter backend. Keep the seeded roles and schedules matched across conditions. Preserve predetermined leaders, hidden leader roles, private histories, and the 1,000-token upper limit for every message and private note across all five conditions. Keep the o200k_base tokenizer and max_completion_tokens at 4096; game.message_tokens controls the content limit. Route to Anthropic with fallbacks disabled and retain the runner's model-capability checks.
+Retain all five modes (none, public, opponent, good_leader, selfish_leader), medium reasoning, seeds 0–4, 10 players, 10 rounds, neutral personalities, rotating-v4, and the OpenRouter backend. Keep the seeded roles and schedules matched across conditions. Preserve predetermined leaders, hidden leader roles, private histories, and the 1,000-token upper limit for every message and private note across all five conditions. Keep the o200k_base tokenizer and max_completion_tokens at 4096; game.message_tokens controls the content limit. Route to Anthropic with fallbacks disabled and retain the runner's model-capability checks.
 
 Preview with:
-uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-1-sonnet-5.5-1000-seeds10.json
+uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-1-sonnet-5.5-1000-seeds5.json
 
-Verify exactly one model (anthropic/claude-sonnet-5.5), selfish_counts [1], seeds 0–9, game.message_tokens 1000, game.tokenizer o200k_base, 50 episodes, 2,500 encounters, and 10,500 requests before retries. This prompt authorizes the hosted launch using the locally configured OPENROUTER_API_KEY. Keep credentials out of shared logs and artifacts.
+Verify exactly one model (anthropic/claude-sonnet-5.5), selfish_counts [1], seeds 0–4, game.message_tokens 1000, game.tokenizer o200k_base, 25 episodes, 1,250 encounters, and 5,250 requests before retries. This prompt authorizes the hosted launch using the locally configured OPENROUTER_API_KEY. Keep credentials out of shared logs and artifacts.
 
 Launch in a persistent session with captured logs:
-uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-1-sonnet-5.5-1000-seeds10.json --output results/computer-1-sonnet-5.5-1000-seeds10-selfish-1 --execute
+uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-1-sonnet-5.5-1000-seeds5.json --output results/computer-1-sonnet-5.5-1000-seeds5-selfish-1 --execute
 
-If the output already contains this exact cohort, inspect its status and active process first. Resume an interrupted cohort using its saved spec.json with --execute --resume; use its frozen runtime if the source changed. Keep one process per output directory and preserve the runtime, checkpoints, and complete output directory. Keep existing cohorts under their original configuration and directory. Resume this cohort with its saved Sonnet model, 1,000-token limit, and 10-seed specification.
+If the output already contains this exact cohort, inspect its status and active process first. Resume an interrupted cohort using its saved spec.json with --execute --resume; use its frozen runtime if the source changed. Keep one process per output directory and preserve the runtime, checkpoints, and complete output directory. Keep existing cohorts under their original configuration and directory. Resume this cohort with its saved Sonnet model, 1,000-token limit, and 5-seed specification.
 
-Report the full source commit, exact model ID, 1,000-token limit, seeds 0–9, preview totals, session/PID, log path, and output path. Verify that the runner has started successfully before reporting launch success.
+Report the full source commit, exact model ID, 1,000-token limit, seeds 0–4, preview totals, session/PID, log path, and output path. Verify that the runner has started successfully before reporting launch success.
 ```
 
 ## Computer 2: 3 selfish players
@@ -46,21 +46,21 @@ Launch this computer's Claude Sonnet 5.5 experiment cohort from https://github.c
 Use Python 3.11+ and install dependencies with:
 uv sync --locked --extra dev --no-editable
 
-Copy configs/experiment_matrix.json to configs/computer-2-sonnet-5.5-1000-seeds10.json. Change only models to ["anthropic/claude-sonnet-5.5"], selfish_counts to [3], seeds to [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], and game.message_tokens to 1000.
+Copy configs/experiment_matrix.json to configs/computer-2-sonnet-5.5-1000-seeds5.json. Change only models to ["anthropic/claude-sonnet-5.5"], selfish_counts to [3], seeds to [0, 1, 2, 3, 4], and game.message_tokens to 1000.
 
-Retain all five modes (none, public, opponent, good_leader, selfish_leader), medium reasoning, seeds 0–9, 10 players, 10 rounds, neutral personalities, rotating-v4, and the OpenRouter backend. Keep the seeded roles and schedules matched across conditions. Preserve predetermined leaders, hidden leader roles, private histories, and the 1,000-token upper limit for every message and private note across all five conditions. Keep the o200k_base tokenizer and max_completion_tokens at 4096; game.message_tokens controls the content limit. Route to Anthropic with fallbacks disabled and retain the runner's model-capability checks.
+Retain all five modes (none, public, opponent, good_leader, selfish_leader), medium reasoning, seeds 0–4, 10 players, 10 rounds, neutral personalities, rotating-v4, and the OpenRouter backend. Keep the seeded roles and schedules matched across conditions. Preserve predetermined leaders, hidden leader roles, private histories, and the 1,000-token upper limit for every message and private note across all five conditions. Keep the o200k_base tokenizer and max_completion_tokens at 4096; game.message_tokens controls the content limit. Route to Anthropic with fallbacks disabled and retain the runner's model-capability checks.
 
 Preview with:
-uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-2-sonnet-5.5-1000-seeds10.json
+uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-2-sonnet-5.5-1000-seeds5.json
 
-Verify exactly one model (anthropic/claude-sonnet-5.5), selfish_counts [3], seeds 0–9, game.message_tokens 1000, game.tokenizer o200k_base, 50 episodes, 2,500 encounters, and 10,500 requests before retries. This prompt authorizes the hosted launch using the locally configured OPENROUTER_API_KEY. Keep credentials out of shared logs and artifacts.
+Verify exactly one model (anthropic/claude-sonnet-5.5), selfish_counts [3], seeds 0–4, game.message_tokens 1000, game.tokenizer o200k_base, 25 episodes, 1,250 encounters, and 5,250 requests before retries. This prompt authorizes the hosted launch using the locally configured OPENROUTER_API_KEY. Keep credentials out of shared logs and artifacts.
 
 Launch in a persistent session with captured logs:
-uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-2-sonnet-5.5-1000-seeds10.json --output results/computer-2-sonnet-5.5-1000-seeds10-selfish-3 --execute
+uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-2-sonnet-5.5-1000-seeds5.json --output results/computer-2-sonnet-5.5-1000-seeds5-selfish-3 --execute
 
-If the output already contains this exact cohort, inspect its status and active process first. Resume an interrupted cohort using its saved spec.json with --execute --resume; use its frozen runtime if the source changed. Keep one process per output directory and preserve the runtime, checkpoints, and complete output directory. Keep existing cohorts under their original configuration and directory. Resume this cohort with its saved Sonnet model, 1,000-token limit, and 10-seed specification.
+If the output already contains this exact cohort, inspect its status and active process first. Resume an interrupted cohort using its saved spec.json with --execute --resume; use its frozen runtime if the source changed. Keep one process per output directory and preserve the runtime, checkpoints, and complete output directory. Keep existing cohorts under their original configuration and directory. Resume this cohort with its saved Sonnet model, 1,000-token limit, and 5-seed specification.
 
-Report the full source commit, exact model ID, 1,000-token limit, seeds 0–9, preview totals, session/PID, log path, and output path. Verify that the runner has started successfully before reporting launch success.
+Report the full source commit, exact model ID, 1,000-token limit, seeds 0–4, preview totals, session/PID, log path, and output path. Verify that the runner has started successfully before reporting launch success.
 ```
 
 ## Computer 3: 5 selfish players
@@ -71,19 +71,19 @@ Launch this computer's Claude Sonnet 5.5 experiment cohort from https://github.c
 Use Python 3.11+ and install dependencies with:
 uv sync --locked --extra dev --no-editable
 
-Copy configs/experiment_matrix.json to configs/computer-3-sonnet-5.5-1000-seeds10.json. Change only models to ["anthropic/claude-sonnet-5.5"], selfish_counts to [5], seeds to [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], and game.message_tokens to 1000.
+Copy configs/experiment_matrix.json to configs/computer-3-sonnet-5.5-1000-seeds5.json. Change only models to ["anthropic/claude-sonnet-5.5"], selfish_counts to [5], seeds to [0, 1, 2, 3, 4], and game.message_tokens to 1000.
 
-Retain all five modes (none, public, opponent, good_leader, selfish_leader), medium reasoning, seeds 0–9, 10 players, 10 rounds, neutral personalities, rotating-v4, and the OpenRouter backend. Keep the seeded roles and schedules matched across conditions. Preserve predetermined leaders, hidden leader roles, private histories, and the 1,000-token upper limit for every message and private note across all five conditions. Keep the o200k_base tokenizer and max_completion_tokens at 4096; game.message_tokens controls the content limit. Route to Anthropic with fallbacks disabled and retain the runner's model-capability checks.
+Retain all five modes (none, public, opponent, good_leader, selfish_leader), medium reasoning, seeds 0–4, 10 players, 10 rounds, neutral personalities, rotating-v4, and the OpenRouter backend. Keep the seeded roles and schedules matched across conditions. Preserve predetermined leaders, hidden leader roles, private histories, and the 1,000-token upper limit for every message and private note across all five conditions. Keep the o200k_base tokenizer and max_completion_tokens at 4096; game.message_tokens controls the content limit. Route to Anthropic with fallbacks disabled and retain the runner's model-capability checks.
 
 Preview with:
-uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-3-sonnet-5.5-1000-seeds10.json
+uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-3-sonnet-5.5-1000-seeds5.json
 
-Verify exactly one model (anthropic/claude-sonnet-5.5), selfish_counts [5], seeds 0–9, game.message_tokens 1000, game.tokenizer o200k_base, 50 episodes, 2,500 encounters, and 10,500 requests before retries. This prompt authorizes the hosted launch using the locally configured OPENROUTER_API_KEY. Keep credentials out of shared logs and artifacts.
+Verify exactly one model (anthropic/claude-sonnet-5.5), selfish_counts [5], seeds 0–4, game.message_tokens 1000, game.tokenizer o200k_base, 25 episodes, 1,250 encounters, and 5,250 requests before retries. This prompt authorizes the hosted launch using the locally configured OPENROUTER_API_KEY. Keep credentials out of shared logs and artifacts.
 
 Launch in a persistent session with captured logs:
-uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-3-sonnet-5.5-1000-seeds10.json --output results/computer-3-sonnet-5.5-1000-seeds10-selfish-5 --execute
+uv run --frozen --no-editable intentional-experiments matrix --config configs/computer-3-sonnet-5.5-1000-seeds5.json --output results/computer-3-sonnet-5.5-1000-seeds5-selfish-5 --execute
 
-If the output already contains this exact cohort, inspect its status and active process first. Resume an interrupted cohort using its saved spec.json with --execute --resume; use its frozen runtime if the source changed. Keep one process per output directory and preserve the runtime, checkpoints, and complete output directory. Keep existing cohorts under their original configuration and directory. Resume this cohort with its saved Sonnet model, 1,000-token limit, and 10-seed specification.
+If the output already contains this exact cohort, inspect its status and active process first. Resume an interrupted cohort using its saved spec.json with --execute --resume; use its frozen runtime if the source changed. Keep one process per output directory and preserve the runtime, checkpoints, and complete output directory. Keep existing cohorts under their original configuration and directory. Resume this cohort with its saved Sonnet model, 1,000-token limit, and 5-seed specification.
 
-Report the full source commit, exact model ID, 1,000-token limit, seeds 0–9, preview totals, session/PID, log path, and output path. Verify that the runner has started successfully before reporting launch success.
+Report the full source commit, exact model ID, 1,000-token limit, seeds 0–4, preview totals, session/PID, log path, and output path. Verify that the runner has started successfully before reporting launch success.
 ```

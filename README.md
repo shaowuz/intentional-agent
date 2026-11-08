@@ -121,7 +121,7 @@ An explicitly launched ablation needs its own output directory. The model regist
 
 Use the [three computer launch prompts](docs/launch-prompts.md). Assign selfish counts 1, 3, and 5 to computers 1, 2, and 3 respectively. Each computer runs Luna across all five conditions and seeds 0–11: **60 episodes, 3,000 encounters, and 12,600 requests before retries**. The selfish identities and encounter schedules remain matched across conditions within each seed; identities may change between seeds. Keep each computer's config, logs, and output directory separate.
 
-For a Claude Sonnet 5.5 cohort with up to 1,000 content tokens per message or private note and 10 seeds (0–9) per computer, use the [Sonnet three computer launch prompts](docs/launch-prompts-sonnet.md). Each computer runs 50 episodes and 10,500 generation requests before retries.
+For a Claude Sonnet 5.5 cohort with up to 1,000 content tokens per message or private note and 5 seeds (0–4) per computer, use the [Sonnet three computer launch prompts](docs/launch-prompts-sonnet.md). Each computer runs 25 episodes and 5,250 generation requests before retries.
 
 For a Luna cohort with up to 960 content tokens per message or private note, use the [960-token three computer launch prompts](docs/launch-prompts-luna-960.md). These prompts set `game.message_tokens` to `960` and use separate configs and output directories.
 
