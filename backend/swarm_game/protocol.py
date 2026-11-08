@@ -2,6 +2,7 @@ import hashlib
 import json
 import math
 from dataclasses import asdict, dataclass
+from decimal import Decimal
 from functools import lru_cache
 from importlib.resources import files
 from string import Template
@@ -226,9 +227,19 @@ def validate_response(data, request, config):
             raise ValueError("beliefs must be finite")
         if config.marginal_beliefs:
             # Each of N six-decimal marginals can contribute half a unit of rounding.
-            tolerance = max(1e-6, len(beliefs) * 0.5e-6)
-            if not 1 - tolerance <= math.fsum(beliefs.values()) <= 5 + tolerance:
-                raise ValueError("marginal beliefs must imply between 1 and 5 selfish players")
+            # Decimal arithmetic also keeps the inclusive boundaries exact.
+            total = sum((Decimal(str(v)) for v in beliefs.values()), Decimal(0))
+            tolerance = max(Decimal("0.000001"), len(beliefs) * Decimal("0.0000005"))
+            lower, upper = Decimal(1) - tolerance, Decimal(5) + tolerance
+            if not lower <= total <= upper:
+                raise ValueError(
+                    "marginal beliefs must imply between 1 and 5 selfish players; "
+                    f"your entries total {total}. The six-decimal rounding tolerance "
+                    f"is {tolerance:f} (accepted total {lower:f} to {upper:f}). "
+                    "Recalculate the probabilities so their rounded total lies between "
+                    "1 and 5, keep your own probability fixed, and do not repeat "
+                    "the invalid vector"
+                )
         elif not math.isclose(sum(beliefs.values()), 1, abs_tol=1e-6):
             raise ValueError(
                 f"beliefs must sum to 1; your entries total {sum(beliefs.values()):.9g}. "

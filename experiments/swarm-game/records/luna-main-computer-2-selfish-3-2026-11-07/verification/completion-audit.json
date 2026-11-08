@@ -1,0 +1,224 @@
+{
+  "checked_at_local": "2026-11-07T16:53:01.876953-08:00",
+  "source_commit": "e75a825d12fb8b0e77f45f1e486fb02483455ea5",
+  "completed_episodes": 60,
+  "rounds_per_episode": 10,
+  "encounters": 3000,
+  "accepted_requests": 12600,
+  "raw_response_attempts": 12630,
+  "validation_error_attempts": {
+    "marginal beliefs must imply between 1 and 5 selfish players": 21,
+    "Unterminated string starting at: line 1 column 113 (char 112)": 1,
+    "Unterminated string starting at: line 1 column 133 (char 132)": 1,
+    "Expecting value: line 1 column 1 (char 0)": 7
+  },
+  "transport_error_events": {},
+  "reported_cost_usd": "10.116417055",
+  "responses_missing_cost": 0,
+  "recovery_receipts": [
+    {
+      "episode": "seed-0__openai__gpt-6-luna__selfish-3__selfish_leader",
+      "seed": 0,
+      "request": "0008-action-P10.json",
+      "status": "complete",
+      "original_attempts_preserved": true
+    },
+    {
+      "episode": "seed-0__openai__gpt-6-luna__selfish-3__selfish_leader",
+      "seed": 0,
+      "request": "0009-action-P10.json",
+      "status": "complete",
+      "original_attempts_preserved": true
+    },
+    {
+      "episode": "seed-0__openai__gpt-6-luna__selfish-3__selfish_leader",
+      "seed": 0,
+      "request": "0004-action-P10.json",
+      "status": "complete",
+      "original_attempts_preserved": true
+    },
+    {
+      "episode": "seed-2__openai__gpt-6-luna__selfish-3__none",
+      "seed": 2,
+      "request": "0010-action-P8.json",
+      "status": "complete",
+      "original_attempts_preserved": true
+    },
+    {
+      "episode": "seed-9__openai__gpt-6-luna__selfish-3__opponent",
+      "seed": 9,
+      "request": "0004-action-P5.json",
+      "status": "complete",
+      "original_attempts_preserved": true
+    }
+  ],
+  "repaired_seeds": [
+    0,
+    2,
+    9
+  ],
+  "all_checkpoints_and_saved_summaries_match": true,
+  "all_seed_roles_schedules_and_leaders_match": true,
+  "all_original_recovery_archive_hashes_pass": true,
+  "cells": [
+    {
+      "mode": "none",
+      "episodes": 12,
+      "good_payoff_per_encounter": 1.9964285714285714,
+      "selfish_payoff_per_encounter": 3.5888888888888886,
+      "good_cooperation_rate": 0.8892857142857142,
+      "selfish_cooperation_rate": 0.0,
+      "final_identification_rate": 0.4365079365079365,
+      "final_brier": 0.06991922819649339,
+      "false_accusation_rate": 0.08982683982683982,
+      "good_to_good_C_rate": 0.921146953405018,
+      "good_to_selfish_C_rate": 0.8262411347517731
+    },
+    {
+      "mode": "public",
+      "episodes": 12,
+      "good_payoff_per_encounter": 2.257142857142857,
+      "selfish_payoff_per_encounter": 1.6722222222222223,
+      "good_cooperation_rate": 0.7166666666666667,
+      "selfish_cooperation_rate": 0.027777777777777776,
+      "final_identification_rate": 0.6031746031746031,
+      "final_brier": 0.04121824245855556,
+      "false_accusation_rate": 0.008658008658008658,
+      "good_to_good_C_rate": 0.9695340501792115,
+      "good_to_selfish_C_rate": 0.21631205673758866
+    },
+    {
+      "mode": "opponent",
+      "episodes": 12,
+      "good_payoff_per_encounter": 1.969047619047619,
+      "selfish_payoff_per_encounter": 3.4,
+      "good_cooperation_rate": 0.8380952380952381,
+      "selfish_cooperation_rate": 0.0,
+      "final_identification_rate": 0.4801587301587301,
+      "final_brier": 0.08062745795370503,
+      "false_accusation_rate": 0.12987012987012986,
+      "good_to_good_C_rate": 0.8745519713261649,
+      "good_to_selfish_C_rate": 0.7659574468085106
+    },
+    {
+      "mode": "good_leader",
+      "episodes": 12,
+      "good_payoff_per_encounter": 2.107142857142857,
+      "selfish_payoff_per_encounter": 2.7111111111111112,
+      "good_cooperation_rate": 0.8095238095238095,
+      "selfish_cooperation_rate": 0.0,
+      "final_identification_rate": 0.4365079365079365,
+      "final_brier": 0.06636246168280423,
+      "false_accusation_rate": 0.06493506493506493,
+      "good_to_good_C_rate": 0.942652329749104,
+      "good_to_selfish_C_rate": 0.5460992907801419
+    },
+    {
+      "mode": "selfish_leader",
+      "episodes": 12,
+      "good_payoff_per_encounter": 2.0285714285714285,
+      "selfish_payoff_per_encounter": 3.444444444444444,
+      "good_cooperation_rate": 0.8904761904761904,
+      "selfish_cooperation_rate": 0.0,
+      "final_identification_rate": 0.44047619047619047,
+      "final_brier": 0.07805010632888756,
+      "false_accusation_rate": 0.025974025974025976,
+      "good_to_good_C_rate": 0.946236559139785,
+      "good_to_selfish_C_rate": 0.7801418439716312
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "contrast": "public minus none",
+      "mean_delta": 0.2607142857142858,
+      "positive_seeds": 12,
+      "negative_seeds": 0,
+      "tied_seeds": 0,
+      "differences": [
+        0.35714285714285743,
+        0.24285714285714288,
+        0.12857142857142856,
+        0.24285714285714288,
+        0.3285714285714285,
+        0.15714285714285703,
+        0.2714285714285718,
+        0.4285714285714286,
+        0.22857142857142865,
+        0.22857142857142865,
+        0.27142857142857135,
+        0.24285714285714288
+      ],
+      "excluding_repaired_seeds_n": 9,
+      "excluding_repaired_seeds_mean_delta": 0.2682539682539683
+    },
+    {
+      "contrast": "opponent minus none",
+      "mean_delta": -0.027380952380952395,
+      "positive_seeds": 3,
+      "negative_seeds": 9,
+      "tied_seeds": 0,
+      "differences": [
+        -0.18571428571428572,
+        0.02857142857142847,
+        -0.057142857142857384,
+        -0.05714285714285694,
+        -0.02857142857142847,
+        -0.028571428571428692,
+        -0.02857142857142847,
+        0.10000000000000009,
+        -0.014285714285714235,
+        0.042857142857142705,
+        -0.05714285714285716,
+        -0.04285714285714293
+      ],
+      "excluding_repaired_seeds_n": 9,
+      "excluding_repaired_seeds_mean_delta": -0.01428571428571426
+    },
+    {
+      "contrast": "good_leader minus none",
+      "mean_delta": 0.11071428571428575,
+      "positive_seeds": 12,
+      "negative_seeds": 0,
+      "tied_seeds": 0,
+      "differences": [
+        0.14285714285714302,
+        0.014285714285714235,
+        0.11428571428571432,
+        0.057142857142857384,
+        0.15714285714285725,
+        0.10000000000000009,
+        0.057142857142857384,
+        0.2142857142857142,
+        0.07142857142857117,
+        0.11428571428571432,
+        0.10000000000000009,
+        0.1857142857142855
+      ],
+      "excluding_repaired_seeds_n": 9,
+      "excluding_repaired_seeds_mean_delta": 0.10634920634920636
+    },
+    {
+      "contrast": "selfish_leader minus none",
+      "mean_delta": 0.03214285714285714,
+      "positive_seeds": 6,
+      "negative_seeds": 4,
+      "tied_seeds": 2,
+      "differences": [
+        0.12857142857142878,
+        -0.02857142857142847,
+        -0.028571428571428914,
+        0.0,
+        0.0,
+        0.042857142857142705,
+        0.04285714285714315,
+        0.15714285714285725,
+        -0.014285714285714235,
+        0.07142857142857117,
+        0.02857142857142847,
+        -0.014285714285714235
+      ],
+      "excluding_repaired_seeds_n": 9,
+      "excluding_repaired_seeds_mean_delta": 0.02380952380952385
+    }
+  ]
+}

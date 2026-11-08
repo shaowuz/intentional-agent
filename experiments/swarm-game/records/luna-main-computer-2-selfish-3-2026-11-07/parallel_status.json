@@ -1,0 +1,272 @@
+{
+  "status": "finished_with_errors",
+  "pid": 65390,
+  "workers": 60,
+  "started_at": "2026-11-08T00:01:42.192404+00:00",
+  "runtime_provenance": {
+    "version": "0.2.0",
+    "code_sha256": "26a07568fecebaed94b6be856694af77d26156ca5e44afc8ada27397571e0284",
+    "prompt_sha256": "b6cb54d1a3f5ad3ba48beadfdf50dd266b6762c7598eb62fada138ca9a1c1a7b",
+    "python": "3.14.0",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0",
+      "python-dotenv": "1.2.4"
+    }
+  },
+  "episodes": {
+    "seed-0__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:19:53.020458+00:00"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:50.683694+00:00"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "failed",
+      "updated_at": "2026-11-08T00:14:56.409047+00:00",
+      "type": "EpisodeError",
+      "error": "Invalid response after 2 attempts: P10 round 4 action",
+      "at": "2026-11-08T00:14:56.408047+00:00"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:36:42.928045+00:00"
+    },
+    "seed-0__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:31:53.093433+00:00"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:31:46.811833+00:00"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:25.667902+00:00"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:06.581984+00:00"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:02.315225+00:00"
+    },
+    "seed-1__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:05.057859+00:00"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:20.885367+00:00"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__none": {
+      "status": "failed",
+      "updated_at": "2026-11-08T00:35:51.989973+00:00",
+      "type": "EpisodeError",
+      "error": "Invalid response after 2 attempts: P8 round 10 action",
+      "at": "2026-11-08T00:35:51.989309+00:00"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:36:46.259865+00:00"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:46.197518+00:00"
+    },
+    "seed-2__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:11.039723+00:00"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:48.457456+00:00"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:17.378818+00:00"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:06.039989+00:00"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:19.037677+00:00"
+    },
+    "seed-3__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:33:46.597023+00:00"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:18.891119+00:00"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:36:19.085342+00:00"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:45.025406+00:00"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:35:55.638050+00:00"
+    },
+    "seed-4__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:19.606666+00:00"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:12.054258+00:00"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:23.224322+00:00"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:11.775840+00:00"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:36:45.743543+00:00"
+    },
+    "seed-5__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:35:58.713115+00:00"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:28.272868+00:00"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:11.213956+00:00"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:40:36.677556+00:00"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:39.794001+00:00"
+    },
+    "seed-6__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:34:01.521850+00:00"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:41.581924+00:00"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:41:13.795260+00:00"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:40:53.768450+00:00"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:32:49.735067+00:00"
+    },
+    "seed-7__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:47.286533+00:00"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:33:14.511946+00:00"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:35:57.407116+00:00"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:17.740699+00:00"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:05.854045+00:00"
+    },
+    "seed-8__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:48.859686+00:00"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:14.613752+00:00"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:10.425808+00:00"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:58.048857+00:00"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "failed",
+      "updated_at": "2026-11-08T00:14:16.641212+00:00",
+      "type": "EpisodeError",
+      "error": "Invalid response after 2 attempts: P5 round 4 action",
+      "at": "2026-11-08T00:14:16.640445+00:00"
+    },
+    "seed-9__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:32:29.992677+00:00"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:41.136792+00:00"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:48.800603+00:00"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:47.977202+00:00"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:35:18.900984+00:00"
+    },
+    "seed-10__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:38:47.895597+00:00"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__none": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:30.102234+00:00"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__opponent": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:39:20.143673+00:00"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__good_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:05.529136+00:00"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__selfish_leader": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:37:18.154300+00:00"
+    },
+    "seed-11__openai__gpt-6-luna__selfish-3__public": {
+      "status": "completed",
+      "updated_at": "2026-11-08T00:34:50.892044+00:00"
+    }
+  },
+  "orchestration_sha256": "2186c858881a61b88399f2db8a342e3e0c1984d1bb18ccc5fecb9ed3f0c7a9ff",
+  "execution_order": "concurrent episode dispatch in saved manifest order",
+  "finished_at": "2026-11-08T00:41:33.507474+00:00"
+}
