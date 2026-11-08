@@ -28,10 +28,13 @@ intervals. Same 98 games and personalities in every panel.
 
 ![Trait effects on payoff](charts/18_trait_effects_on_payoff.png)
 
-- **Short messages:** dark traits pay (dark personality, Machiavellianism, selfishness: blue right of orange); honesty, altruism and conformity cost.
-- **Conversations (Luna):** the dark-trait advantage disappears; deliberation and fairness now pay.
-- **Terra:** cognitive reflection and Machiavellianism pay again, and honesty costs, because dark agents betray in the final round.
-- **Cognitive reflection is the only trait that pays in all three settings.**
+- **Short messages:** dark traits pay and honesty costs the most.
+- **Conversations (Luna):** both advantages almost disappear.
+- **Terra:** dark traits pay again and honesty costs again, because dark agents betray in the final round.
+- **Cognitive reflection pays in all three settings.**
+
+Dark traits = the average of each agent's two dark traits (Machiavellianism, narcissism, psychopathy,
+sadism, spitefulness, dark personality).
 
 ### 1. Personality steers the whole swarm
 
