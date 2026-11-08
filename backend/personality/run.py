@@ -5,6 +5,8 @@ Launch:          add --execute
 Offline check:   add --backend scripted --execute
 Control group:   add --neutral (same seeds, no personalities)
 Finished games are skipped on rerun, so rerunning the same command resumes.
+Clean stop while running: create an empty file named STOP in the output folder.
+Running games finish and save; no new games start.
 """
 
 import argparse
@@ -69,6 +71,8 @@ def main(argv=None):
     ap.add_argument("--neutral", action="store_true", help="control group: no personalities")
     ap.add_argument("--workers", type=int, default=3, help="games run at the same time")
     ap.add_argument("--max-cost", type=float, default=60.0, help="stop launching new games past this USD")
+    ap.add_argument("--max-games", type=int, default=0,
+                    help="stop starting new games once this many are complete or running (0 = no limit)")
     ap.add_argument("--execute", action="store_true")
     args = ap.parse_args(argv)
 
@@ -101,6 +105,7 @@ def main(argv=None):
     provider = make_provider(settings)
     lock = threading.Lock()
     spent = {"usd": 0.0}
+    launched = {"n": len(done & set(seeds))}
     for p in eps_dir.glob("seed-*.json"):
         ep = json.loads(p.read_text(encoding="utf-8"))
         spent["usd"] += sum((r.get("cost") or 0) for r in ep.get("requests", []))
@@ -109,6 +114,11 @@ def main(argv=None):
         with lock:
             if spent["usd"] >= args.max_cost:
                 return seed, "skipped (cost cap)"
+            if (out / "STOP").exists():  # graceful stop: finish running games, start no new ones
+                return seed, "skipped (STOP file)"
+            if args.max_games and launched["n"] >= args.max_games:
+                return seed, "skipped (max games)"
+            launched["n"] += 1
         ep = new_episode(seed, settings)
         t0 = time.time()
         try:
