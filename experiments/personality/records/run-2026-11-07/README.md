@@ -1,5 +1,7 @@
 # Personality study run, 2026-11-07
 
+**Charts and takeaways for the hackathon: [FINDINGS.md](FINDINGS.md)**
+
 | Cohort | Games | Agents | Model | Cost |
 |---|---:|---:|---|---:|
 | Main (18 random traits per agent) | 300 (seeds 0-299) | 3,000 | `openai/gpt-6-luna`, medium reasoning | $45.35 |
