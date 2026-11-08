@@ -142,6 +142,24 @@ PYTHONPATH=results/luna-seed-0/runtime \
   --output results/luna-seed-0 --execute --resume
 ```
 
+### Resume independent episodes concurrently
+
+For a saved matrix, [scripts/run_concurrent_matrix.py](scripts/run_concurrent_matrix.py) schedules independent episodes using that run's frozen gameplay runtime. Stop its current runner before transferring ownership, then use its original dependency environment:
+
+```bash
+.venv/bin/python scripts/run_concurrent_matrix.py \
+  --output results/computer-3-luna-selfish-5 \
+  --workers 5 --ramp-to 10
+```
+
+This command executes remaining hosted requests when the saved backend is OpenRouter. It starts five episodes and increases to ten after a three-minute stable window: every active episode accepts at least ten new responses, records no new transport or format retries, and has a checkpoint less than 60 seconds old. Each episode keeps sequential player requests, simultaneous phase delivery, its own provider connection, and separate checkpoints. The matrix lock permits one scheduler to own the cohort.
+
+The scheduler supports up to 60 concurrent episodes. Use `--workers 60` to start every remaining episode of a 60-episode cohort immediately. To change an active scheduler's limit, send SIGTERM to its PID, wait for `execution.json` to report `paused`, and rerun with the new worker count. Its phase-boundary drain preserves accepted responses; the new invocation records its own worker limit and scheduler provenance.
+
+The scheduler validates the saved specification and source hashes, reuses accepted responses, and preserves original manifests and runtime files. It records scheduler provenance, live progress, and ramp evidence in `execution.json` and retains each invocation under `executions/`. SIGINT or SIGTERM stops new scheduling and lets active episodes finish their current phase before checkpointing and exiting. A worker failure triggers the same drain. Shared analysis and validated exports update after all workers stop; inspect `execution.json` for live progress. Use the same command to resume a drained run.
+
+Six-decimal marginal probabilities can accumulate up to half a decimal unit of rounding error per value. Current validation accounts for that precision. For older frozen runtimes that stopped on a rounded sum such as `5.000002`, add `--allow-marginal-rounding` to the concurrent resume command. This records a validation-only override, keeps the frozen source intact, and revalidates the last saved response. Recovery archives the original request records and retains all raw attempts and supplied probabilities; it makes no new model calls for those recovered responses. Other validation rules still apply. Continue using this flag on later resumes of a recovered cohort. Audit `validation_override.json`, `recoveries/`, and the invocation's `execution.json`.
+
 ## Visualization quickstart
 
 Start developing immediately with the committed fixtures:
@@ -173,6 +191,11 @@ Use `(run_id, episode_id)` to join episode tables. Keep the 1-, 3-, and 5-selfis
 The existing dashboard uses its original protocol. Build this study's visualizations against the versioned bundle above; [legacy workflows](docs/legacy-workflows.md) describe the older interface.
 
 ## Analyze and share results
+
+Browse the completed main-study results in [3 selfish agents results](experiments/swarm-game/results-by-selfish-count/3%20selfish%20agents%20results/README.md) and [5 selfish agents results](experiments/swarm-game/results-by-selfish-count/5%20selfish%20agents%20results/README.md).
+
+The completed [computer-3 Luna cohort with five selfish players](experiments/swarm-game/records/computer-3-luna-selfish-5-2026-11-07/README.md)
+includes all 60 episodes, a complete archived run, validated exports, and encounter analysis.
 
 These commands operate on saved files and make no model calls:
 

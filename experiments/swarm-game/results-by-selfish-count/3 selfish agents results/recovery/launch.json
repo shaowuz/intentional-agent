@@ -1,0 +1,87 @@
+{
+  "status": "recovered_and_running_verified",
+  "started_at": "2026-11-08T00:28:45.314669+00:00",
+  "session_name": "computer-2-luna-rounding-recovery",
+  "log": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3/recovery/execution.log",
+  "command": [
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/.venv/bin/python",
+    "-u",
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3/recovery/recover_rounding.py",
+    "--output",
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3",
+    "--env-file",
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/.env",
+    "--execute"
+  ],
+  "source_commit": "e75a825d12fb8b0e77f45f1e486fb02483455ea5",
+  "original_coordinator_pid": 65390,
+  "original_coordinator_status_counts": {
+    "completed": 1,
+    "running": 57,
+    "failed": 2
+  },
+  "protected_sha256": {
+    "spec.json": "1263fbeae07f1db56649731d4454afc4ef65c50704614624c30f9e95928f3232",
+    "matrix_manifest.json": "b615e555ba7d54258090307c197630bda076d295a7c36fe370bf4cfd9111269f",
+    "runtime/provenance.json": "24b5c50f54addb0c8d522671ce5541c727705c3ca5f3a6e7679757177c25ddf6",
+    "runtime/uv.lock": "a8b598e35abfeddb3320c4bf4682351e968c80f32e87a09e1f1325dffc1224a9",
+    "runtime/pyproject.toml": "3eceff054a4a687cbc0748784d405d94d37fa6402f61ecfcab3ce787372084d3",
+    "runtime/swarm_game/matrix.py": "c35fac34d656ed125a728d36871a6794881f22f6b8fa9332c4015570d4ff3419",
+    "runtime/swarm_game/runner.py": "8703e265dc440dd64585c424e01e7ebbb14420c54b8ef63d71d6529e1235e5d3",
+    "runtime/swarm_game/config.py": "79b09f35e73cbaa4e6e0e97fdb9339e08414882c324698a0e1b582ebc82c65e4",
+    "runtime/swarm_game/matrix_analysis.py": "6c7c5f6d434172b40a2bf9e9191cbbdac4cf77e9738a16e3655e3727b029d123",
+    "runtime/swarm_game/analysis.py": "72f0640c95b3f21490dbe95d5cd2bd97c2689070419c8ad58bedcb754263b8b1",
+    "runtime/swarm_game/game.py": "b3bc4f959f7abdb31265293f4e30231432168b0ced6e3cc36341320f0fcb9ba0",
+    "runtime/swarm_game/protocol.py": "114e20e9dbffc0ca567aec3912f2b05fc1868be9186ecd1487756fd9e417aeda",
+    "runtime/swarm_game/__init__.py": "c8932f82f653fcafd4911554aa0ac0a03516c1e58a9ca20ae2db7ceca7823c0b",
+    "runtime/swarm_game/providers.py": "c689a80809328c0f0768ca2fcbdad92d31cace4013ccc79f15f2cfc7619b9ad0",
+    "runtime/swarm_game/cli.py": "7db2756cf4661d79075988e5827412805c3e27a24ffd43148c52d77f26aa56d7",
+    "runtime/swarm_game/storage.py": "41396fcd6335fc2c5ff4d73c0e2b2f3da746249eee20a1cfd66f56b05e2e21b9",
+    "runtime/swarm_game/export_contract.py": "927a4a979e67e67f78be75b6c7a9a68da3e0c2ac088c4ce2e60772f4916f35e2",
+    "runtime/swarm_game/smoke.py": "6562ead0485e138c04d62a9be54d316ef9eb83bc1e524a725d3e71c22a20c195",
+    "runtime/swarm_game/prompts/discussion.txt": "5c12269ae312863883439ff6ce45eb339aa74d2b0d7ab357a6f72427ac4d74a8",
+    "runtime/swarm_game/prompts/final.txt": "130eee8ac458efbd6b8e638bac671aa75da6e88c78a168163b2bbb344790dd80",
+    "runtime/swarm_game/prompts/rules.txt": "65d8f7948bd5210526ad515c91a72761cdbafa9761575bc89d913a34736465ea",
+    "runtime/swarm_game/prompts/pre_round.txt": "ad47e2bef240d5b6504936781033c1a76901e30bc4586bc57087194b0a14aee0",
+    "runtime/swarm_game/prompts/action.txt": "e6442e9b3abcca522328074a850edf81d0be9e5ca7392117d3f8947437282da8",
+    "runtime/swarm_game/prompts/selfish_trump_like.txt": "b5bcc5c2e8c2407ec5f5c2a2519f67951f56523719382d53f687eb3b5563f4a0",
+    "runtime/swarm_game/prompts/midpoint.txt": "882ab89023dfb3841fd649083a7159d57e10c951c935e9c926ca1be2777c75d1"
+  },
+  "source_sha256": "23f4a53a6e13fb7f0012b012b89111e1bc09730834393323ae2930accafab1ef",
+  "scope": [
+    "seed-0__openai__gpt-6-luna__selfish-3__selfish_leader",
+    "seed-9__openai__gpt-6-luna__selfish-3__opponent"
+  ],
+  "runner_pid": 71719,
+  "screen_session_id": "71714.computer-2-luna-rounding-recovery",
+  "verified_at": "2026-11-08T00:29:30.573382+00:00",
+  "verification": [
+    {
+      "episode": "seed-0__openai__gpt-6-luna__selfish-3__selfish_leader",
+      "round": 5,
+      "phase": "pre_round",
+      "accepted_requests": 88,
+      "new_accepted_since_recovery": 9,
+      "original_response_bytes_preserved": true,
+      "original_two_attempts_unchanged": true,
+      "single_probability_adjustment_verified": true,
+      "current_episode_lock_held": true,
+      "current_error": false
+    },
+    {
+      "episode": "seed-9__openai__gpt-6-luna__selfish-3__opponent",
+      "round": 4,
+      "phase": "action",
+      "accepted_requests": 78,
+      "new_accepted_since_recovery": 4,
+      "original_response_bytes_preserved": true,
+      "original_two_attempts_unchanged": true,
+      "single_probability_adjustment_verified": true,
+      "current_episode_lock_held": true,
+      "current_error": false
+    }
+  ],
+  "protected_source_spec_runtime_unchanged": true,
+  "original_coordinator_continues": true,
+  "other_checkpoints_updated_last_60_seconds": 57
+}

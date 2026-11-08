@@ -1,0 +1,68 @@
+{
+  "status": "interrupted_or_failed",
+  "source_repository": "https://github.com/shaowuz/intentional-agent",
+  "source_commit": "e75a825d12fb8b0e77f45f1e486fb02483455ea5",
+  "checkout": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825",
+  "python": "Python 3.14.0",
+  "output": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3",
+  "log": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3-launch/execution.log",
+  "session_name": "computer-2-luna-e75a825",
+  "preview_command": [
+    "uv",
+    "run",
+    "--frozen",
+    "--no-editable",
+    "intentional-experiments",
+    "matrix",
+    "--config",
+    "configs/computer-2-luna.json"
+  ],
+  "execute_command": [
+    "uv",
+    "run",
+    "--frozen",
+    "--no-editable",
+    "intentional-experiments",
+    "matrix",
+    "--config",
+    "configs/computer-2-luna.json",
+    "--output",
+    "results/computer-2-luna-selfish-3",
+    "--execute"
+  ],
+  "config_sha256": "36c6d177594b8f1d1d2631cb0dc7ea8986f547c097b3f72c3dcbb322d4d073c1",
+  "uv_lock_sha256": "a8b598e35abfeddb3320c4bf4682351e968c80f32e87a09e1f1325dffc1224a9",
+  "counts": {
+    "episodes": 60,
+    "encounters": 3000,
+    "requests_before_retries": 12600
+  },
+  "original_checkout": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent",
+  "original_head": "b69fff59dc73361303f699beec96c4eea23fb008",
+  "original_diff_sha256": "f8dc6515520aaa7704bfa30dc4a13bb24d030d5552f7cb750acbbb1f26fc9bc7",
+  "prepared_at": "2026-11-07T23:33:42.683819+00:00",
+  "verification": {
+    "focused_tests": "84 passed in 46.37s",
+    "test_files": [
+      "tests/swarm/test_five_conditions.py",
+      "tests/swarm/test_matrix.py",
+      "tests/swarm/test_provider.py",
+      "tests/swarm/test_runner.py"
+    ],
+    "independent_protocol_check": "all 60 pure game-state cells, through ten rounds; matched roles/schedules, hidden predetermined leaders, private histories, message visibility",
+    "preview_assertions": "passed",
+    "installed_package": "20 Python/prompt files matched pinned source; non-editable installation verified"
+  },
+  "credential_source": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/.env",
+  "session_supervisor_pid": 55505,
+  "started_at": "2026-11-07T23:42:41.510548+00:00",
+  "uv_pid": 55508,
+  "sleep_guard_pid": 55509,
+  "runner_pid": 55516,
+  "screen_session_id": "55502.computer-2-luna-e75a825",
+  "startup_verified_at": "2026-11-07T23:43:32.442248+00:00",
+  "startup_completed_requests": 13,
+  "output_lock_held": true,
+  "return_code": 1,
+  "finished_at": "2026-11-08T00:01:14.994962+00:00"
+}

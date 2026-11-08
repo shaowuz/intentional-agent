@@ -1,0 +1,18 @@
+{
+  "status": "complete",
+  "started_at": "2026-11-08T00:28:45.859389+00:00",
+  "policy": "one-additional-arithmetic-only-response-per-rounding-failure/v1",
+  "request": "0004-action-P5.json",
+  "original_sha256": "aa3fc7d6b09f7d67a62ab591989ad5859c04db5ce13d470ec168685e8630fff3",
+  "prior_attempts": 2,
+  "additional_attempt_limit": 1,
+  "feedback": "Arithmetic-only correction of decimal rounding. Keep your action (if present), strategy text, own probability, and every other player probability exactly unchanged. Your probabilities sum to 5.000002; the permitted expected count is between 1 and 5. Change only beliefs['P1'] from 0.666667 to 0.666665. This changes the total to exactly 5. Return the full required JSON object with only that single numeric change. Use the same game information.",
+  "old_sum": "5.000002",
+  "new_sum": "5",
+  "adjusted_player": "P1",
+  "old_value": "0.666667",
+  "new_value": "0.666665",
+  "rounding_budget": "0.0000050",
+  "finished_at": "2026-11-08T00:28:48.533590+00:00",
+  "attempts_after": 3
+}

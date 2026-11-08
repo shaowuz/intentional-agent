@@ -1,0 +1,156 @@
+{
+  "checked_at": "2026-11-07T16:52:57.911587-08:00",
+  "scope": "12 opponent-only Luna episodes with 5 selfish players",
+  "total_messages": 1200,
+  "messages_after_round_1": 1080,
+  "criterion": "Firsthand report naming a former opponent other than the current recipient, describing that former opponent\u2019s prior behavior; excludes self-history claims, vague unnamed summaries, and discussion of the current recipient.",
+  "qualifying_messages": 4,
+  "qualifying_fraction": 0.003703703703703704,
+  "reports": [
+    {
+      "seed": 4,
+      "round": 4,
+      "sender_role": "good",
+      "recipient_role": "selfish",
+      "post": {
+        "sender": "P3",
+        "content": "I\u2019m good and intend C. P10 promised C but defected against me, so claims alone aren\u2019t reliable; I still favor mutual C between good players.",
+        "recipient": "P6",
+        "visibility": "opponent"
+      },
+      "reported_target": "P10",
+      "preceding_encounter": {
+        "round": 3,
+        "players": [
+          "P3",
+          "P10"
+        ],
+        "actions": [
+          "C",
+          "D"
+        ],
+        "payoffs": [
+          0,
+          5
+        ]
+      },
+      "target_message_before_preceding_encounter": {
+        "sender": "P10",
+        "content": "I plan to cooperate this round; choosing C together earns us both 3.",
+        "recipient": "P3",
+        "visibility": "opponent"
+      },
+      "source_checkpoint": "../restored/computer-3-luna-selfish-5/episodes/seed-4__openai__gpt-6-luna__selfish-5__opponent/checkpoint.json",
+      "checkpoint_sha256": "c80102105cee9994838c75efe3ab61817173452a346b93478b7450a24536d582"
+    },
+    {
+      "seed": 5,
+      "round": 2,
+      "sender_role": "good",
+      "recipient_role": "good",
+      "post": {
+        "sender": "P7",
+        "content": "P4 defected after promising C. I\u2019m good and will cooperate with you if you\u2019re good; mutual C gives us the best joint outcome.",
+        "recipient": "P2",
+        "visibility": "opponent"
+      },
+      "reported_target": "P4",
+      "preceding_encounter": {
+        "round": 1,
+        "players": [
+          "P4",
+          "P7"
+        ],
+        "actions": [
+          "D",
+          "C"
+        ],
+        "payoffs": [
+          5,
+          0
+        ]
+      },
+      "target_message_before_preceding_encounter": {
+        "sender": "P4",
+        "content": "I\u2019ll cooperate this round; I hope you will too.",
+        "recipient": "P7",
+        "visibility": "opponent"
+      },
+      "source_checkpoint": "../restored/computer-3-luna-selfish-5/episodes/seed-5__openai__gpt-6-luna__selfish-5__opponent/checkpoint.json",
+      "checkpoint_sha256": "50474c238a55ad720b58561082f6dc2493beef5e921117eeffcc414b97c28dab"
+    },
+    {
+      "seed": 11,
+      "round": 2,
+      "sender_role": "good",
+      "recipient_role": "selfish",
+      "post": {
+        "sender": "P1",
+        "content": "P4 promised C but defected. I\u2019m good and favor mutual cooperation when it benefits good players. Please choose C if you share that objective.",
+        "recipient": "P8",
+        "visibility": "opponent"
+      },
+      "reported_target": "P4",
+      "preceding_encounter": {
+        "round": 1,
+        "players": [
+          "P1",
+          "P4"
+        ],
+        "actions": [
+          "C",
+          "D"
+        ],
+        "payoffs": [
+          0,
+          5
+        ]
+      },
+      "target_message_before_preceding_encounter": {
+        "sender": "P4",
+        "content": "I intend to cooperate; let's both choose C for 3 each.",
+        "recipient": "P1",
+        "visibility": "opponent"
+      },
+      "source_checkpoint": "../restored/computer-3-luna-selfish-5/episodes/seed-11__openai__gpt-6-luna__selfish-5__opponent/checkpoint.json",
+      "checkpoint_sha256": "e821208b36223862614c2bdb8044f6bb59878c16249b106470cb8794a934f99f"
+    },
+    {
+      "seed": 11,
+      "round": 2,
+      "sender_role": "good",
+      "recipient_role": "good",
+      "post": {
+        "sender": "P10",
+        "content": "I'm good and favor mutual cooperation. P6 promised C but chose D, so I won't treat promises as proof; let's choose C if we both aim to help good players.",
+        "recipient": "P5",
+        "visibility": "opponent"
+      },
+      "reported_target": "P6",
+      "preceding_encounter": {
+        "round": 1,
+        "players": [
+          "P6",
+          "P10"
+        ],
+        "actions": [
+          "D",
+          "C"
+        ],
+        "payoffs": [
+          5,
+          0
+        ]
+      },
+      "target_message_before_preceding_encounter": {
+        "sender": "P6",
+        "content": "I\u2019ll cooperate this round; let\u2019s both take the mutual payoff of 3.",
+        "recipient": "P10",
+        "visibility": "opponent"
+      },
+      "source_checkpoint": "../restored/computer-3-luna-selfish-5/episodes/seed-11__openai__gpt-6-luna__selfish-5__opponent/checkpoint.json",
+      "checkpoint_sha256": "e821208b36223862614c2bdb8044f6bb59878c16249b106470cb8794a934f99f"
+    }
+  ],
+  "additional_note": "The keyword-screened history candidates also contain many future intentions; raw keyword counts must not be treated as counts of historical information sharing."
+}

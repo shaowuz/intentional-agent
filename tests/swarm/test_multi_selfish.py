@@ -73,6 +73,29 @@ def test_invalid_multi_selfish_configuration(changes):
         configuration(**changes)
 
 
+@pytest.mark.parametrize('protocol_version', ['rotating-v3', 'rotating-v4'])
+def test_marginal_sum_allows_six_decimal_rounding_without_changing_values(protocol_version):
+    config = configuration(protocol_version=protocol_version, selfish_count=5)
+    state = initial_state(config)
+    state['phase'] = 'action'
+    player = next(p for p in state['players'] if state['roles'][p] == 'selfish')
+    request = make_request(state, config, player)
+    certain = [player, *[p for p in state['players'] if p != player][:3]]
+    data = {'action': 'D', 'strategy': 'Defect.',
+            'beliefs': {p: 1 if p in certain else 0.166667 for p in state['players']}}
+    before = copy.deepcopy(data)
+    assert sum(data['beliefs'].values()) == pytest.approx(5.000002)
+    assert validate_response(data, request, config) is data and data == before
+    other = next(p for p in state['players'] if p not in certain)
+    data['beliefs'][other] = 0.166671  # Sum 5.000006 exceeds rounding uncertainty.
+    with pytest.raises(ValueError, match='between 1 and 5'):
+        validate_response(data, request, config)
+    data['beliefs'][other] = 0.166667
+    data['beliefs'][player] = 0
+    with pytest.raises(ValueError, match='self probability'):
+        validate_response(data, request, config)
+
+
 def test_multi_selfish_matrix_metrics_exports_and_resume(tmp_path):
     spec = {
         "models": ["openai/gpt-6-luna"], "selfish_counts": [1, 3, 5],

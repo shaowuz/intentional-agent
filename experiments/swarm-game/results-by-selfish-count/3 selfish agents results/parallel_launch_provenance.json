@@ -1,0 +1,33 @@
+{
+  "status": "running_startup_verified",
+  "source_commit": "e75a825d12fb8b0e77f45f1e486fb02483455ea5",
+  "session_name": "computer-2-luna-parallel60",
+  "workers": 60,
+  "command": [
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/.venv/bin/python",
+    "-u",
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3/orchestration/parallel.py",
+    "--output",
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3",
+    "--workers",
+    "60",
+    "--env-file",
+    "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/.env",
+    "--execute"
+  ],
+  "log": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3/parallel-execution.log",
+  "output": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-luna-e75a825/results/computer-2-luna-selfish-3",
+  "started_at": "2026-11-08T00:01:41.697168+00:00",
+  "preserved_serial_requests": 129,
+  "orchestration_sha256": "2186c858881a61b88399f2db8a342e3e0c1984d1bb18ccc5fecb9ed3f0c7a9ff",
+  "file_descriptor_limit": 1048575,
+  "runner_pid": 65390,
+  "screen_session_id": "65388.computer-2-luna-parallel60",
+  "verified_at": "2026-11-08T00:02:25.299680+00:00",
+  "active_episode_workers": 60,
+  "episodes_with_accepted_responses": 60,
+  "completed_requests_at_verification": 608,
+  "output_and_episode_locks_held": 61,
+  "transport_error_events_at_verification": 0,
+  "episode_errors_at_verification": []
+}
