@@ -1,4 +1,8 @@
-import fcntl
+try:
+    import fcntl
+except ImportError:  # Windows
+    fcntl = None
+    import msvcrt
 import hashlib
 import json
 import os
@@ -76,10 +80,18 @@ def exclusive_run(path, *, lock_name=".lock"):
     """Prevent two processes from issuing requests for the same episode."""
     with (Path(path) / lock_name).open("a") as f:
         try:
-            fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
+            if fcntl:
+                fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            else:
+                f.seek(0)
+                msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+        except (BlockingIOError, PermissionError, OSError):
             raise ValueError("Another process is already using this output directory") from None
         try:
             yield
         finally:
-            fcntl.flock(f, fcntl.LOCK_UN)
+            if fcntl:
+                fcntl.flock(f, fcntl.LOCK_UN)
+            else:
+                f.seek(0)
+                msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
