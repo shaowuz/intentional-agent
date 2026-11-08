@@ -48,7 +48,6 @@ class RankedMockClient:
             output_tokens=output_tokens,
             model=self.model,
             provider=self.provider,
-            raw=None,
         )
 
     # ------------------------------------------------------------------ #

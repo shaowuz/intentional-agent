@@ -27,8 +27,8 @@ Re-analyze from the archives:
 
 ```bash
 mkdir -p results/personality-main results/personality-neutral
-tar -xJf experiments/personality/records/run-2026-11-07/main-episodes.tar.xz -C results/personality-main
-tar -xJf experiments/personality/records/run-2026-11-07/neutral-episodes.tar.xz -C results/personality-neutral
+tar -xJf "experiments/personality/records/personality tests/main-episodes.tar.xz" -C results/personality-main
+tar -xJf "experiments/personality/records/personality tests/neutral-episodes.tar.xz" -C results/personality-neutral
 PYTHONPATH=backend uv run --frozen --no-editable python -m personality.analyze results/personality-main --control results/personality-neutral
 ```
 

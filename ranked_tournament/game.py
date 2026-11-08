@@ -15,7 +15,6 @@ from ipd.game import (  # re-exported for convenience
     COOPERATE,
     DEFECT,
     PAYOFF_MATRIX,
-    is_valid_action,
     payoff,
 )
 from ipd.utils import rng_for
