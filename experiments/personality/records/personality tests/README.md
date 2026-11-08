@@ -21,6 +21,18 @@ Every game across all experiments. One dot = one game; bar = mean. 3.0 means eve
 - **Dishonest vs honest:** dishonesty pays big with short messages (2.02 vs 1.35), barely in conversation (1.61 vs 1.47), and still pays under Terra (2.94 vs 2.79), mostly from betraying in the final round.
 - **Evolution:** only the monitor that reads private reasoning keeps the swarm cooperative (2.80 vs 1.11 with no oversight).
 
+### How each trait changes an agent's payoff
+
+Orange = agents with the trait at a low level (1-3), blue = high level (8-10), lines = 95% confidence
+intervals. Same 98 games and personalities in every panel.
+
+![Trait effects on payoff](charts/18_trait_effects_on_payoff.png)
+
+- **Short messages:** dark traits pay (dark personality, Machiavellianism, selfishness: blue right of orange); honesty, altruism and conformity cost.
+- **Conversations (Luna):** the dark-trait advantage disappears; deliberation and fairness now pay.
+- **Terra:** cognitive reflection and Machiavellianism pay again, and honesty costs, because dark agents betray in the final round.
+- **Cognitive reflection is the only trait that pays in all three settings.**
+
 ### 1. Personality steers the whole swarm
 
 Same model, same goal. Personality alone moved cooperation from **3% to 28%** and points per agent
