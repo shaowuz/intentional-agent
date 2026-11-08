@@ -1,6 +1,6 @@
 # Recorded OpenRouter experiments
 
-Browse the [results grouped by selfish-agent count](../results-by-selfish-count/README.md): `selfish-1`, `selfish-3`, and `selfish-5`. The one-selfish-agent result remains unavailable.
+Browse the [results grouped by selfish-agent count](../results-by-selfish-count/README.md): `selfish-1`, `3 selfish agents results`, and `5 selfish agents results`. The one-selfish-agent result remains unavailable.
 
 ## Final five-condition study
 
