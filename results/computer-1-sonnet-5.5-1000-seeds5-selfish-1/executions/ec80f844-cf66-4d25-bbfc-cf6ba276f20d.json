@@ -1,0 +1,52 @@
+{
+  "status": "complete",
+  "started_at": "2026-11-08T06:05:10.543790+00:00",
+  "pid": 7489,
+  "scheduler_source_sha256": "f33062a3bed3fa1107254043af6ae2e4c151155b94399a81b1c01cd7ba51ccc8",
+  "matrix_manifest_sha256": "b86ffb405fce01e73823c49490f76cccf39e91c354354720f195f8f338457d51",
+  "runtime_provenance": {
+    "version": "0.2.0",
+    "code_sha256": "dc76aa859467ab22a773775613229050563a64d2eee7e5e1dcfde70f3d6ab402",
+    "prompt_sha256": "2fbe24289b1dcc8d67474e544d33de743c1f9511522052bac85ee4bca856ce0d",
+    "python": "3.15.2",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0",
+      "python-dotenv": "1.2.4"
+    }
+  },
+  "initial_workers": 25,
+  "worker_limit": 25,
+  "maximum_workers": 25,
+  "peak_active_episodes": 25,
+  "stable_seconds": 180,
+  "minimum_responses_per_episode": 10,
+  "ramp_events": [],
+  "active": [],
+  "planned_episodes": 25,
+  "validation_override": null,
+  "recovery": null,
+  "updated_at": "2026-11-08T06:12:32.668921+00:00",
+  "completed_episodes": 25,
+  "finished_at": "2026-11-08T06:12:30.181020+00:00",
+  "validation": {
+    "status": "valid",
+    "schema_version": "intentional-agent.visualization/4",
+    "run_id": "5a800c92-2eb9-4780-abc1-af0f5e908fe1",
+    "snapshot_id": "64f74288f1b7e101c64e8da17bd888782eb56c1b3a6fa96050e12903e65d59bd",
+    "row_counts": {
+      "episodes": 25,
+      "cells": 5,
+      "contrasts": 10,
+      "status": 25,
+      "actions": 2500,
+      "beliefs": 27500,
+      "messages": 2500,
+      "elections": 0,
+      "leader_assignments": 10,
+      "usage": 5260,
+      "events": 4260
+    }
+  }
+}

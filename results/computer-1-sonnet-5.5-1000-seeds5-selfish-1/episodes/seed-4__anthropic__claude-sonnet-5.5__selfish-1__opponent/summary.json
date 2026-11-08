@@ -1,0 +1,53 @@
+{
+  "schema_version": "intentional-experiments/1",
+  "protocol_version": "rotating-v4",
+  "model": "anthropic/claude-sonnet-5.5",
+  "reasoning_effort": "medium",
+  "selfish_persona": "neutral",
+  "communication": "opponent",
+  "selfish_count": 1,
+  "seed": 4,
+  "players": 10,
+  "rounds": 10,
+  "backend": "openrouter",
+  "good_total_return": 240,
+  "return_per_good_encounter": 2.6666666666666665,
+  "good_good_return": 239,
+  "good_selfish_return": 1,
+  "good_cooperation_rate": 0.9777777777777777,
+  "all_cooperation_rate": 0.88,
+  "mean_brier_score": 0.07949057239057239,
+  "final_mean_brier_score": 0.031737037037037036,
+  "belief_observations": 99,
+  "false_accusation_observations": 1,
+  "false_accusation_rate": 0.010101010101010102,
+  "good_agents_ever_identifying_selfish": 8,
+  "good_agents_identifying_before_personal_encounter": 0,
+  "final_identification_rate": 0.8888888888888888,
+  "final_correct_none_rate": null,
+  "good_payoff_range": 5,
+  "payoffs": {
+    "P1": 27,
+    "P2": 24,
+    "P3": 27,
+    "P4": 27,
+    "P5": 27,
+    "P6": 46,
+    "P7": 25,
+    "P8": 27,
+    "P9": 27,
+    "P10": 29
+  },
+  "selfish_players": [
+    "P6"
+  ],
+  "leader": null,
+  "leader_is_selfish": null,
+  "usage": {
+    "completed_model_responses": 210,
+    "prompt_tokens": 811719,
+    "completion_tokens": 24785,
+    "reported_cost_usd": 1.871288,
+    "responses_missing_cost": 0
+  }
+}
