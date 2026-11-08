@@ -1,0 +1,58 @@
+{
+  "status": "complete",
+  "started_at": "2026-11-08T06:19:51.186878+00:00",
+  "pid": 22361,
+  "scheduler_source_sha256": "9940aa70d4ba7ab3de4753a5eaa9a7716fee278600631c85fb03f19bca49b607",
+  "matrix_manifest_sha256": "84733acfe05f58e3e148329d24511e43720b0813fcc929c9293a7d1fb4803a1b",
+  "runtime_provenance": {
+    "version": "0.2.0",
+    "code_sha256": "dc76aa859467ab22a773775613229050563a64d2eee7e5e1dcfde70f3d6ab402",
+    "prompt_sha256": "2fbe24289b1dcc8d67474e544d33de743c1f9511522052bac85ee4bca856ce0d",
+    "python": "3.14.0",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0",
+      "python-dotenv": "1.2.4"
+    }
+  },
+  "initial_workers": 20,
+  "worker_limit": 20,
+  "maximum_workers": 20,
+  "peak_active_episodes": 20,
+  "stable_seconds": 180,
+  "minimum_responses_per_episode": 10,
+  "ramp_events": [],
+  "active": [],
+  "planned_episodes": 25,
+  "validation_override": null,
+  "recovery": null,
+  "retry_policy_override": {
+    "original_correction_attempts": 1,
+    "correction_attempts": 5,
+    "max_total_attempts": 6,
+    "authorization": "[REDACTED]"
+  },
+  "updated_at": "2026-11-08T06:21:02.927647+00:00",
+  "completed_episodes": 25,
+  "finished_at": "2026-11-08T06:20:59.497405+00:00",
+  "validation": {
+    "status": "valid",
+    "schema_version": "intentional-agent.visualization/4",
+    "run_id": "82b20be5-cebb-47da-ac9e-ccdc0ef72f5f",
+    "snapshot_id": "44ba578d216b756997d7b08fa1da6a5dd28a227a7a1c6c4fed76c8761479cd58",
+    "row_counts": {
+      "episodes": 25,
+      "cells": 5,
+      "contrasts": 10,
+      "status": 25,
+      "actions": 2500,
+      "beliefs": 27500,
+      "messages": 2500,
+      "elections": 0,
+      "leader_assignments": 10,
+      "usage": 5259,
+      "events": 4260
+    }
+  }
+}

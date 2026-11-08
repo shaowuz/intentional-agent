@@ -14,6 +14,14 @@ retains all raw requests, frozen runtime, exports, and recovery records. Its
 [publication manifest](computer-3-luna-selfish-5-2026-11-07/publication_manifest.json)
 records member hashes; the cohort's final export validation passed.
 
+## Sonnet 5.5: 1,000-token five-seed cohort
+
+| Run | Episodes | Design | Results |
+|---|---:|---|---|
+| Computer 2: Sonnet 5.5, three selfish players | 25/25 | 10 players, 10 rounds; five modes; seeds 0–4; 1,000-token message limit | [Report, raw archive, and retry-policy audit](computer-2-sonnet-5.5-1000-seeds5-selfish-3/README.md) |
+
+This cohort includes a user-authorized increase in correction attempts with unchanged validation. It remains separate from earlier cohorts and their configurations.
+
 ## Earlier pilots
 
 | Run | Episodes | Model / conditions | Report | Agent transcripts |

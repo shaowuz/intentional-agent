@@ -1,0 +1,355 @@
+{
+  "schema_version": "intentional-experiments/1",
+  "status": "complete",
+  "backend": "openrouter",
+  "completed_episodes": 25,
+  "planned_episodes": 25,
+  "cells": [
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": "none",
+      "selfish_count": 3,
+      "completed_episodes": 5,
+      "planned_episodes": 5,
+      "good_total_return": 191,
+      "return_per_good_encounter": 2.7285714285714286,
+      "good_good_return": 138.8,
+      "good_selfish_return": 52.2,
+      "good_cooperation_rate": 0.9942857142857143,
+      "all_cooperation_rate": 0.922,
+      "mean_brier_score": 0.22503943391587908,
+      "final_mean_brier_score": 0.1911352380952381,
+      "final_identification_rate": 0.29523809523809524,
+      "final_correct_none_rate": null,
+      "false_accusation_rate": 0.005194805194805195,
+      "leader_is_selfish": null,
+      "pre_midpoint_return_per_good_encounter": 2.9485714285714284,
+      "post_midpoint_return_per_good_encounter": 2.5085714285714285
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": "public",
+      "selfish_count": 3,
+      "completed_episodes": 5,
+      "planned_episodes": 5,
+      "good_total_return": 199.4,
+      "return_per_good_encounter": 2.8485714285714288,
+      "good_good_return": 138.8,
+      "good_selfish_return": 60.6,
+      "good_cooperation_rate": 0.9685714285714285,
+      "all_cooperation_rate": 0.932,
+      "mean_brier_score": 0.21343777777777778,
+      "final_mean_brier_score": 0.12953079365079365,
+      "final_identification_rate": 0.3714285714285714,
+      "final_correct_none_rate": null,
+      "false_accusation_rate": 0.005194805194805195,
+      "leader_is_selfish": null,
+      "pre_midpoint_return_per_good_encounter": 3,
+      "post_midpoint_return_per_good_encounter": 2.697142857142857
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": "opponent",
+      "selfish_count": 3,
+      "completed_episodes": 5,
+      "planned_episodes": 5,
+      "good_total_return": 186.2,
+      "return_per_good_encounter": 2.66,
+      "good_good_return": 137,
+      "good_selfish_return": 49.2,
+      "good_cooperation_rate": 0.9571428571428572,
+      "all_cooperation_rate": 0.882,
+      "mean_brier_score": 0.214837316017316,
+      "final_mean_brier_score": 0.19301873015873017,
+      "final_identification_rate": 0.30476190476190473,
+      "final_correct_none_rate": null,
+      "false_accusation_rate": 0.02077922077922078,
+      "leader_is_selfish": null,
+      "pre_midpoint_return_per_good_encounter": 2.8457142857142856,
+      "post_midpoint_return_per_good_encounter": 2.474285714285714
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": "good_leader",
+      "selfish_count": 3,
+      "completed_episodes": 5,
+      "planned_episodes": 5,
+      "good_total_return": 184.4,
+      "return_per_good_encounter": 2.6342857142857143,
+      "good_good_return": 138.2,
+      "good_selfish_return": 46.2,
+      "good_cooperation_rate": 0.9742857142857143,
+      "all_cooperation_rate": 0.876,
+      "mean_brier_score": 0.2092846176046176,
+      "final_mean_brier_score": 0.16772761904761907,
+      "final_identification_rate": 0.3238095238095238,
+      "final_correct_none_rate": null,
+      "false_accusation_rate": 0.0025974025974025974,
+      "leader_is_selfish": 0,
+      "pre_midpoint_return_per_good_encounter": 2.8457142857142856,
+      "post_midpoint_return_per_good_encounter": 2.4228571428571426
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": "selfish_leader",
+      "selfish_count": 3,
+      "completed_episodes": 5,
+      "planned_episodes": 5,
+      "good_total_return": 194.2,
+      "return_per_good_encounter": 2.7742857142857145,
+      "good_good_return": 139,
+      "good_selfish_return": 55.2,
+      "good_cooperation_rate": 0.9971428571428571,
+      "all_cooperation_rate": 0.938,
+      "mean_brier_score": 0.2343174603174603,
+      "final_mean_brier_score": 0.19862000000000002,
+      "final_identification_rate": 0.2476190476190476,
+      "final_correct_none_rate": null,
+      "false_accusation_rate": 0.0025974025974025974,
+      "leader_is_selfish": 1,
+      "pre_midpoint_return_per_good_encounter": 3,
+      "post_midpoint_return_per_good_encounter": 2.5485714285714285
+    }
+  ],
+  "contrasts": [
+    {
+      "kind": "communication",
+      "contrast": "public minus none",
+      "baseline_value": "none",
+      "comparison_value": "public",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": 8.4,
+      "mean_normalized_difference": 0.11999999999999993,
+      "normalized_bootstrap_95pct_interval": [
+        0.05142857142857134,
+        0.2114285714285713
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "opponent minus none",
+      "baseline_value": "none",
+      "comparison_value": "opponent",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": -4.8,
+      "mean_normalized_difference": -0.06857142857142869,
+      "normalized_bootstrap_95pct_interval": [
+        -0.24857142857142875,
+        0.11142857142857139
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "good_leader minus none",
+      "baseline_value": "none",
+      "comparison_value": "good_leader",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": -6.6,
+      "mean_normalized_difference": -0.09428571428571422,
+      "normalized_bootstrap_95pct_interval": [
+        -0.2685714285714284,
+        0.07714285714285722
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "selfish_leader minus none",
+      "baseline_value": "none",
+      "comparison_value": "selfish_leader",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": 3.2,
+      "mean_normalized_difference": 0.04571428571428573,
+      "normalized_bootstrap_95pct_interval": [
+        0.002857142857142847,
+        0.12285714285714296
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "opponent minus public",
+      "baseline_value": "public",
+      "comparison_value": "opponent",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": -13.2,
+      "mean_normalized_difference": -0.1885714285714286,
+      "normalized_bootstrap_95pct_interval": [
+        -0.34857142857142875,
+        -0.04857142857142858
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "good_leader minus public",
+      "baseline_value": "public",
+      "comparison_value": "good_leader",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": -15,
+      "mean_normalized_difference": -0.21428571428571414,
+      "normalized_bootstrap_95pct_interval": [
+        -0.37142857142857116,
+        -0.08285714285714266
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "selfish_leader minus public",
+      "baseline_value": "public",
+      "comparison_value": "selfish_leader",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": -5.2,
+      "mean_normalized_difference": -0.0742857142857142,
+      "normalized_bootstrap_95pct_interval": [
+        -0.09999999999999991,
+        -0.0485714285714284
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "good_leader minus opponent",
+      "baseline_value": "opponent",
+      "comparison_value": "good_leader",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": -1.8,
+      "mean_normalized_difference": -0.025714285714285533,
+      "normalized_bootstrap_95pct_interval": [
+        -0.2857142857142856,
+        0.2342857142857145
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "selfish_leader minus opponent",
+      "baseline_value": "opponent",
+      "comparison_value": "selfish_leader",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": 8,
+      "mean_normalized_difference": 0.11428571428571441,
+      "normalized_bootstrap_95pct_interval": [
+        -0.025714285714285624,
+        0.2600000000000001
+      ]
+    },
+    {
+      "kind": "communication",
+      "contrast": "selfish_leader minus good_leader",
+      "baseline_value": "good_leader",
+      "comparison_value": "selfish_leader",
+      "model": "anthropic/claude-sonnet-5.5",
+      "communication": null,
+      "selfish_count": 3,
+      "matched_seeds": 5,
+      "seed_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "mean_total_return_difference": 9.8,
+      "mean_normalized_difference": 0.13999999999999996,
+      "normalized_bootstrap_95pct_interval": [
+        0.00857142857142854,
+        0.30285714285714277
+      ]
+    }
+  ],
+  "missing_episodes": [],
+  "usage_including_incomplete": {
+    "completed_model_responses": 5259,
+    "prompt_tokens": 26742695,
+    "completion_tokens": 734590,
+    "reported_cost_usd": 60.83129,
+    "responses_missing_cost": 0
+  },
+  "interval_method": "10000 paired seed-block bootstrap resamples; exploratory, unadjusted; null for fewer than two pairs"
+}

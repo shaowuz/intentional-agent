@@ -1,0 +1,22 @@
+--- original/scripts/run_concurrent_matrix.py
++++ retry-extension-1/resume_concurrent.py
+@@ -195,6 +195,11 @@
+     from swarm_game.runner import run_episode
+     from swarm_game.storage import exclusive_run, provenance, read_json, write_json
+ 
++    # User-authorized retry-policy extension; frozen source and validation unchanged.
++    from swarm_game import runner
++    assert runner.collect_response.__kwdefaults__ == {"correction_attempts": 1}
++    runner.collect_response.__kwdefaults__["correction_attempts"] = 5
++
+     load_dotenv(args.env_file, override=False)
+     stop = threading.Event()
+     print_lock = threading.Lock()
+@@ -266,6 +271,7 @@
+             'stable_seconds': args.stable_seconds, 'minimum_responses_per_episode': args.minimum_responses,
+             'ramp_events': [], 'active': [], 'planned_episodes': len(manifest['plan']),
+             'validation_override': override, 'recovery': recovery,
++            'retry_policy_override': {'original_correction_attempts': 1, 'correction_attempts': 5, 'max_total_attempts': 6, 'authorization': 'User explicitly authorized increased corrections with unchanged validation and preserved original responses'},
+         }
+         gate = StabilityGate(args.stable_seconds, args.minimum_responses)
+ 

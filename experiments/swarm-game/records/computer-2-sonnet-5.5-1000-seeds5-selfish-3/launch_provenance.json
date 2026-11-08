@@ -1,0 +1,75 @@
+{
+  "source_commit": "e4e1ac41ee41fcea7fcf96e78dead2b853c59014",
+  "model": "anthropic/claude-sonnet-5.5",
+  "config": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-sonnet-1000-seeds5/configs/computer-2-sonnet-5.5-1000-seeds5.json",
+  "output": "/Users/ivan/Documents/ChatGPT/AIAF project/intentional-agent-sonnet-1000-seeds5/results/computer-2-sonnet-5.5-1000-seeds5-selfish-3",
+  "python": "3.14.0 (v3.14.0:ebf955df7a8, Oct  7 2025, 08:20:14) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "provenance": {
+    "version": "0.2.0",
+    "code_sha256": "dc76aa859467ab22a773775613229050563a64d2eee7e5e1dcfde70f3d6ab402",
+    "prompt_sha256": "2fbe24289b1dcc8d67474e544d33de743c1f9511522052bac85ee4bca856ce0d",
+    "python": "3.14.0",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0",
+      "python-dotenv": "1.2.4"
+    }
+  },
+  "preview": {
+    "status": "preview",
+    "schema_version": "intentional-experiments/1",
+    "spec": {
+      "models": [
+        "anthropic/claude-sonnet-5.5"
+      ],
+      "communication_modes": [
+        "none",
+        "public",
+        "opponent",
+        "good_leader",
+        "selfish_leader"
+      ],
+      "selfish_counts": [
+        3
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "game": {
+        "protocol_version": "rotating-v4",
+        "players": 10,
+        "rounds": 10,
+        "backend": "openrouter",
+        "reasoning_effort": "medium",
+        "message_tokens": 1000,
+        "tokenizer": "o200k_base",
+        "max_completion_tokens": 4096,
+        "policy": "cooperate",
+        "selfish_policy": "cooperate",
+        "selfish_persona": "neutral"
+      }
+    },
+    "episodes": 25,
+    "encounters": 1250,
+    "requests_before_retries": 5250,
+    "midpoint_after_round": null,
+    "requests_per_episode": {
+      "none": 210,
+      "public": 210,
+      "opponent": 210,
+      "good_leader": 210,
+      "selfish_leader": 210
+    },
+    "launch": "Add --execute to run this matrix; --backend scripted uses no hosted model."
+  },
+  "matched_roles_and_schedules_verified": true,
+  "initialization": "Unmodified run_matrix saved runtime and passed live capability check; stopped at first episode progress callback before any generation.",
+  "scheduler": "scripts/run_concurrent_matrix.py",
+  "workers": 25,
+  "source_changes": false
+}
