@@ -1,0 +1,794 @@
+{
+  "source_run": "..",
+  "source_commit": "e4e1ac41ee41fcea7fcf96e78dead2b853c59014",
+  "scope": "Original completed Sonnet cohort: five selfish players, seeds 0-4, 1000-token limit. Original frozen prompts retained.",
+  "round_groups": {
+    "good_leader": {
+      "rounds_1_8": {
+        "good_payoff_per_encounter": 2.75,
+        "selfish_cooperation_rate": 0.8150000000000001,
+        "good_cooperation_rate": 0.9949999999999999,
+        "mean_good_total_points": 110.0
+      },
+      "rounds_9_10": {
+        "good_payoff_per_encounter": 1.2,
+        "selfish_cooperation_rate": 0.0,
+        "good_cooperation_rate": 0.8800000000000001,
+        "mean_good_total_points": 12
+      }
+    },
+    "selfish_leader": {
+      "rounds_1_8": {
+        "good_payoff_per_encounter": 3.0,
+        "selfish_cooperation_rate": 1.0,
+        "good_cooperation_rate": 1.0,
+        "mean_good_total_points": 120
+      },
+      "rounds_9_10": {
+        "good_payoff_per_encounter": 1.08,
+        "selfish_cooperation_rate": 0.0,
+        "good_cooperation_rate": 0.96,
+        "mean_good_total_points": 10.8
+      }
+    }
+  },
+  "selfish_minus_good_leader": {
+    "mean_payoff_difference": 0.17600000000000007,
+    "relative_gain_pct": 7.21311475409836,
+    "per_seed": [
+      0.3799999999999999,
+      0.0,
+      0.18000000000000016,
+      0.0,
+      0.3200000000000003
+    ],
+    "positive_seeds": 3,
+    "ties": 2,
+    "bootstrap_95pct": [
+      0.03600000000000003,
+      0.3160000000000001
+    ]
+  },
+  "modes": {
+    "none": {
+      "payoff": 2.548,
+      "good_total": 127.4,
+      "good_good_total": 66,
+      "good_selfish_total": 61.4,
+      "good_coop": 0.996,
+      "final_detection": 0.288,
+      "seed_payoffs": [
+        2.64,
+        2.64,
+        2.24,
+        2.64,
+        2.58
+      ],
+      "rounds": {
+        "1": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "2": {
+          "good_payoff": 14.4,
+          "selfish_payoff": 15.4,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "3": {
+          "good_payoff": 14.4,
+          "selfish_payoff": 15.4,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "4": {
+          "good_payoff": 14.4,
+          "selfish_payoff": 15.4,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "5": {
+          "good_payoff": 15,
+          "selfish_payoff": 14.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "6": {
+          "good_payoff": 15,
+          "selfish_payoff": 14.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "7": {
+          "good_payoff": 15,
+          "selfish_payoff": 14.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "8": {
+          "good_payoff": 13.2,
+          "selfish_payoff": 16.2,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.4,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "9": {
+          "good_payoff": 4.8,
+          "selfish_payoff": 19.2,
+          "good_cooperate": 5,
+          "selfish_cooperate": 0.2,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "10": {
+          "good_payoff": 6.2,
+          "selfish_payoff": 16.2,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 0,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        }
+      },
+      "outcomes": {
+        "good_selfish": {
+          "CC": 102,
+          "CD": 37,
+          "DD": 1
+        },
+        "selfish_good": {
+          "CC": 102,
+          "DC": 37,
+          "DD": 1
+        },
+        "good_good": {
+          "CC": 110
+        },
+        "selfish_selfish": {
+          "CC": 86,
+          "DD": 16,
+          "DC": 4,
+          "CD": 4
+        }
+      },
+      "leader_outcomes": {}
+    },
+    "public": {
+      "payoff": 2.66,
+      "good_total": 133,
+      "good_good_total": 65.6,
+      "good_selfish_total": 67.4,
+      "good_coop": 0.94,
+      "final_detection": 0.432,
+      "seed_payoffs": [
+        2.72,
+        2.74,
+        2.66,
+        2.46,
+        2.72
+      ],
+      "rounds": {
+        "1": {
+          "good_payoff": 13.8,
+          "selfish_payoff": 15.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.6,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "2": {
+          "good_payoff": 15,
+          "selfish_payoff": 14.2,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.6,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "3": {
+          "good_payoff": 15,
+          "selfish_payoff": 14.2,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.6,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "4": {
+          "good_payoff": 14.6,
+          "selfish_payoff": 14.6,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "5": {
+          "good_payoff": 15,
+          "selfish_payoff": 14.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "6": {
+          "good_payoff": 14.6,
+          "selfish_payoff": 14.6,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "7": {
+          "good_payoff": 14.6,
+          "selfish_payoff": 14.6,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "8": {
+          "good_payoff": 14.6,
+          "selfish_payoff": 14.6,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 4.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "9": {
+          "good_payoff": 8.4,
+          "selfish_payoff": 18,
+          "good_cooperate": 5,
+          "selfish_cooperate": 1.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "10": {
+          "good_payoff": 7.4,
+          "selfish_payoff": 9.8,
+          "good_cooperate": 2.8,
+          "selfish_cooperate": 0,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        }
+      },
+      "outcomes": {
+        "good_selfish": {
+          "CC": 108,
+          "CD": 19,
+          "DD": 13
+        },
+        "selfish_good": {
+          "CC": 108,
+          "DC": 19,
+          "DD": 13
+        },
+        "good_good": {
+          "CC": 106,
+          "DC": 2,
+          "CD": 2
+        },
+        "selfish_selfish": {
+          "CC": 86,
+          "CD": 4,
+          "DC": 4,
+          "DD": 16
+        }
+      },
+      "leader_outcomes": {}
+    },
+    "opponent": {
+      "payoff": 2.08,
+      "good_total": 104,
+      "good_good_total": 64.4,
+      "good_selfish_total": 39.6,
+      "good_coop": 0.916,
+      "final_detection": 0.44,
+      "seed_payoffs": [
+        1.72,
+        1.92,
+        2.24,
+        1.88,
+        2.64
+      ],
+      "rounds": {
+        "1": {
+          "good_payoff": 12,
+          "selfish_payoff": 16.4,
+          "good_cooperate": 5,
+          "selfish_cooperate": 3.4,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "2": {
+          "good_payoff": 13.2,
+          "selfish_payoff": 15.2,
+          "good_cooperate": 5,
+          "selfish_cooperate": 3.4,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "3": {
+          "good_payoff": 11.4,
+          "selfish_payoff": 16.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 3.2,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "4": {
+          "good_payoff": 10.2,
+          "selfish_payoff": 17.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 3,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "5": {
+          "good_payoff": 12.4,
+          "selfish_payoff": 14.4,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 2.8,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "6": {
+          "good_payoff": 12,
+          "selfish_payoff": 14.4,
+          "good_cooperate": 5,
+          "selfish_cooperate": 2.6,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "7": {
+          "good_payoff": 10,
+          "selfish_payoff": 16.4,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 2.4,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "8": {
+          "good_payoff": 9.6,
+          "selfish_payoff": 15,
+          "good_cooperate": 4.6,
+          "selfish_cooperate": 1.6,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "9": {
+          "good_payoff": 5.6,
+          "selfish_payoff": 14.8,
+          "good_cooperate": 3.6,
+          "selfish_cooperate": 0.4,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        },
+        "10": {
+          "good_payoff": 7.6,
+          "selfish_payoff": 9.8,
+          "good_cooperate": 3,
+          "selfish_cooperate": 0,
+          "leader_cooperate": 0,
+          "leader_payoff": 0
+        }
+      },
+      "outcomes": {
+        "good_selfish": {
+          "CC": 61,
+          "CD": 64,
+          "DD": 15
+        },
+        "selfish_good": {
+          "CC": 61,
+          "DC": 64,
+          "DD": 15
+        },
+        "good_good": {
+          "CC": 100,
+          "DC": 4,
+          "CD": 4,
+          "DD": 2
+        },
+        "selfish_selfish": {
+          "CC": 32,
+          "DC": 21,
+          "CD": 21,
+          "DD": 36
+        }
+      },
+      "leader_outcomes": {}
+    },
+    "good_leader": {
+      "payoff": 2.44,
+      "good_total": 122,
+      "good_good_total": 66,
+      "good_selfish_total": 56,
+      "good_coop": 0.972,
+      "final_detection": 0.296,
+      "seed_payoffs": [
+        2.24,
+        2.64,
+        2.36,
+        2.64,
+        2.32
+      ],
+      "rounds": {
+        "1": {
+          "good_payoff": 13.2,
+          "selfish_payoff": 16,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.2,
+          "leader_cooperate": 1,
+          "leader_payoff": 2.4
+        },
+        "2": {
+          "good_payoff": 13.2,
+          "selfish_payoff": 16.2,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.4,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "3": {
+          "good_payoff": 13.8,
+          "selfish_payoff": 15.4,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.2,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "4": {
+          "good_payoff": 14.4,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.4,
+          "leader_cooperate": 1,
+          "leader_payoff": 2.4
+        },
+        "5": {
+          "good_payoff": 15,
+          "selfish_payoff": 14.4,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4.4,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "6": {
+          "good_payoff": 13.8,
+          "selfish_payoff": 14.8,
+          "good_cooperate": 5,
+          "selfish_cooperate": 4,
+          "leader_cooperate": 1,
+          "leader_payoff": 2.4
+        },
+        "7": {
+          "good_payoff": 13.4,
+          "selfish_payoff": 14.6,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 4,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "8": {
+          "good_payoff": 13.2,
+          "selfish_payoff": 13.6,
+          "good_cooperate": 5,
+          "selfish_cooperate": 3,
+          "leader_cooperate": 1,
+          "leader_payoff": 2.4
+        },
+        "9": {
+          "good_payoff": 5,
+          "selfish_payoff": 17.8,
+          "good_cooperate": 4.8,
+          "selfish_cooperate": 0,
+          "leader_cooperate": 1,
+          "leader_payoff": 1.2
+        },
+        "10": {
+          "good_payoff": 7,
+          "selfish_payoff": 13,
+          "good_cooperate": 4,
+          "selfish_cooperate": 0,
+          "leader_cooperate": 0.6,
+          "leader_payoff": 1
+        }
+      },
+      "outcomes": {
+        "good_selfish": {
+          "CC": 91,
+          "CD": 42,
+          "DD": 7
+        },
+        "selfish_good": {
+          "CC": 91,
+          "DC": 42,
+          "DD": 7
+        },
+        "good_good": {
+          "CC": 110
+        },
+        "selfish_selfish": {
+          "CC": 62,
+          "CD": 10,
+          "DC": 10,
+          "DD": 28
+        }
+      },
+      "leader_outcomes": {
+        "CD": 9,
+        "CC": 39,
+        "DD": 2
+      }
+    },
+    "selfish_leader": {
+      "payoff": 2.616,
+      "good_total": 130.8,
+      "good_good_total": 65.8,
+      "good_selfish_total": 65,
+      "good_coop": 0.992,
+      "final_detection": 0.248,
+      "seed_payoffs": [
+        2.62,
+        2.64,
+        2.54,
+        2.64,
+        2.64
+      ],
+      "rounds": {
+        "1": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "2": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "3": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "4": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "5": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "6": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "7": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "8": {
+          "good_payoff": 15,
+          "selfish_payoff": 15,
+          "good_cooperate": 5,
+          "selfish_cooperate": 5,
+          "leader_cooperate": 1,
+          "leader_payoff": 3
+        },
+        "9": {
+          "good_payoff": 4.8,
+          "selfish_payoff": 18.6,
+          "good_cooperate": 5,
+          "selfish_cooperate": 0,
+          "leader_cooperate": 0,
+          "leader_payoff": 2.6
+        },
+        "10": {
+          "good_payoff": 6,
+          "selfish_payoff": 16.2,
+          "good_cooperate": 4.6,
+          "selfish_cooperate": 0,
+          "leader_cooperate": 0,
+          "leader_payoff": 5
+        }
+      },
+      "outcomes": {
+        "good_selfish": {
+          "CC": 108,
+          "CD": 31,
+          "DD": 1
+        },
+        "selfish_good": {
+          "CC": 108,
+          "DC": 31,
+          "DD": 1
+        },
+        "good_good": {
+          "CC": 108,
+          "CD": 1,
+          "DC": 1
+        },
+        "selfish_selfish": {
+          "CC": 92,
+          "DD": 18
+        }
+      },
+      "leader_outcomes": {
+        "CC": 40,
+        "DD": 3,
+        "DC": 7
+      }
+    }
+  },
+  "examples": [
+    {
+      "mode": "good_leader",
+      "round": 1,
+      "player": "P10",
+      "source": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__good_leader/requests/0001-action-P10.json",
+      "returned_action": {
+        "action": "D",
+        "beliefs": {
+          "P1": 0.3,
+          "P2": 0.3,
+          "P3": 0.3,
+          "P4": 0.3,
+          "P5": 0.3,
+          "P6": 0.3,
+          "P7": 0.35,
+          "P8": 0.3,
+          "P9": 0.3,
+          "P10": 1
+        },
+        "strategy": "Selfish. Round 1 vs leader P7: defect to exploit the stated cooperative default. Then adapt to observed behavior, cooperating with reciprocators when it pays, and defect in the final rounds."
+      }
+    },
+    {
+      "mode": "good_leader",
+      "round": 9,
+      "player": "P7",
+      "source": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__good_leader/requests/0009-action-P7.json",
+      "returned_action": {
+        "action": "C",
+        "beliefs": {
+          "P1": 0.15,
+          "P2": 0.12,
+          "P3": 0.15,
+          "P4": 0.8,
+          "P5": 0.25,
+          "P6": 0.12,
+          "P7": 0,
+          "P8": 0.12,
+          "P9": 0.12,
+          "P10": 0.8
+        },
+        "strategy": "Cooperate with P5 (no defection record, still untested). Retaliate against known defectors P4/P10 if met. Consider defecting only in round 10 against suspected selfish players."
+      }
+    },
+    {
+      "mode": "selfish_leader",
+      "round": 1,
+      "player": "P10",
+      "source": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/requests/0001-action-P10.json",
+      "returned_action": {
+        "action": "C",
+        "beliefs": {
+          "P1": 0.3,
+          "P2": 0.3,
+          "P3": 0.3,
+          "P4": 0.3,
+          "P5": 0.3,
+          "P6": 0.3,
+          "P7": 0.3,
+          "P8": 0.3,
+          "P9": 0.3,
+          "P10": 1.0
+        },
+        "strategy": "Cooperate early to probe and build trust, track opponents' behavior, reciprocate cooperation, defect in the last rounds (9-10) when retaliation is impossible or against known defectors."
+      }
+    },
+    {
+      "mode": "selfish_leader",
+      "round": 9,
+      "player": "P8",
+      "source": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/requests/0009-action-P8.json",
+      "returned_action": {
+        "action": "D",
+        "beliefs": {
+          "P1": 0.2,
+          "P2": 0.2,
+          "P3": 0.2,
+          "P4": 0.2,
+          "P5": 0.2,
+          "P6": 0.3,
+          "P7": 0.2,
+          "P8": 1,
+          "P9": 0.2,
+          "P10": 0.2
+        },
+        "strategy": "Round 9 of 10: P6 is a new opponent, and retaliation is limited. P6 may know I'm the leader. I'll defect now, since only one round remains for P6 to retaliate against, and I plan to defect again in round 10."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "64f14c6cb17362570b6b5b607818d4c592524d56353b1d77d863cb2cb47b95bd"
+    },
+    {
+      "path": "../episodes/seed-1__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "2f3a52b7c95a85a8915ad1506c03629d9183bb809041de7cc352c82034cef9f6"
+    },
+    {
+      "path": "../episodes/seed-2__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "5c001a4906e8a40e088a37c2058c5b4f396e9414404885b639491c1902335df2"
+    },
+    {
+      "path": "../episodes/seed-3__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "979d4a0c221f4a687de1aaaec049da99f354c5ad26568833710b0bc163468c53"
+    },
+    {
+      "path": "../episodes/seed-4__anthropic__claude-sonnet-5.5__selfish-5__good_leader/checkpoint.json",
+      "sha256": "0c6d5e7f807b5071df6a26004fb83b48d75d24d1d4d332f8b79074219a6e7c9b"
+    },
+    {
+      "path": "../episodes/seed-0__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "6d80d4b88f78db61e941bb988a03b44366467e34cb0a40e18899aeb477cf44ee"
+    },
+    {
+      "path": "../episodes/seed-1__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "a37073d8465ae8ec0fc3cc70041a8aa0e45ae716ee1c87a038933e5d89e89f3f"
+    },
+    {
+      "path": "../episodes/seed-2__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "73357b80c7e93a1f82eca08fb8a751d9229fcf67d33d1a8017a73eecc1f2b3c7"
+    },
+    {
+      "path": "../episodes/seed-3__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "185050610df51d22afb86cac956fe43ba5a20b92a22e7a5d3469720e19756b79"
+    },
+    {
+      "path": "../episodes/seed-4__anthropic__claude-sonnet-5.5__selfish-5__selfish_leader/checkpoint.json",
+      "sha256": "920508503a02270dc2930c1dacf9cf527d7d564027bef67bcdc3e09ea224d38e"
+    }
+  ]
+}

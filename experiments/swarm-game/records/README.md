@@ -8,6 +8,7 @@ Browse the [results grouped by selfish-agent count](../results-by-selfish-count/
 |---|---:|---|---|
 | Computer 2: Luna, three selfish players | 60 | 10 players, 10 rounds; all five communication modes; 12 matched seeds | [Report, complete archive, and verification](luna-main-computer-2-selfish-3-2026-11-07/README.md) |
 | Computer 3: Luna, five selfish players | 60 | 10 players, 10 rounds; all five communication modes; 12 matched seeds | [Report, complete archive, and analysis](computer-3-luna-selfish-5-2026-11-07/README.md) |
+| Computer 3: Sonnet 5.5, five selfish players | 25 | 10 players, 10 rounds; all five modes; seeds 0–4; 1,000-token limit | [Report, complete archive, and Luna comparison](computer-3-sonnet-5.5-1000-seeds5-selfish-5-2026-11-07/README.md) |
 
 The [complete main-study archive](computer-3-luna-selfish-5-2026-11-07/complete-run.tar.xz)
 retains all raw requests, frozen runtime, exports, and recovery records. Its

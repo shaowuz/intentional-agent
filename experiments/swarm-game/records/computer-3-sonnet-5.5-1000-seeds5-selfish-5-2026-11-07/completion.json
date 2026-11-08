@@ -1,0 +1,70 @@
+{
+  "status": "complete",
+  "started_at": "2026-11-08T05:59:29.736954+00:00",
+  "supervisor_pid": 10142,
+  "runner_pid": 10143,
+  "session_id": 10142,
+  "caffeinate_pid": 10144,
+  "command": [
+    "/Users/rworzger/Library/Mobile Documents/com~apple~CloudDocs/AI_Swarm_Hackathon/launches/computer-3-sonnet-5.5-1000-seeds5-selfish-5/.venv/bin/python",
+    "-u",
+    "/Users/rworzger/Library/Mobile Documents/com~apple~CloudDocs/AI_Swarm_Hackathon/launches/computer-3-sonnet-5.5-1000-seeds5-selfish-5/run_concurrent_matrix.py",
+    "--output",
+    "/Users/rworzger/Library/Mobile Documents/com~apple~CloudDocs/AI_Swarm_Hackathon/results/computer-3-sonnet-5.5-1000-seeds5-selfish-5",
+    "--env-file",
+    "/Users/rworzger/Library/Mobile Documents/com~apple~CloudDocs/AI_Swarm_Hackathon/.env",
+    "--workers",
+    "25"
+  ],
+  "output": "/Users/rworzger/Library/Mobile Documents/com~apple~CloudDocs/AI_Swarm_Hackathon/results/computer-3-sonnet-5.5-1000-seeds5-selfish-5",
+  "log": "/Users/rworzger/Library/Mobile Documents/com~apple~CloudDocs/AI_Swarm_Hackathon/launches/computer-3-sonnet-5.5-1000-seeds5-selfish-5/run.log",
+  "source_commit": "e4e1ac41ee41fcea7fcf96e78dead2b853c59014",
+  "checkout": "/Users/rworzger/.codex/worktrees/sonnet-1000-launch/intentional-agent",
+  "runtime_provenance": {
+    "version": "0.2.0",
+    "code_sha256": "dc76aa859467ab22a773775613229050563a64d2eee7e5e1dcfde70f3d6ab402",
+    "prompt_sha256": "2fbe24289b1dcc8d67474e544d33de743c1f9511522052bac85ee4bca856ce0d",
+    "python": "3.13.5",
+    "dependencies": {
+      "httpx": "0.28.1",
+      "jsonschema": "4.26.0",
+      "tiktoken": "0.14.0",
+      "python-dotenv": "1.2.4"
+    }
+  },
+  "model": "anthropic/claude-sonnet-5.5",
+  "message_tokens": 1000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "concurrent_episodes": 25,
+  "requests_per_episode": 1,
+  "maximum_concurrent_requests": 25,
+  "supervisor_sha256": "01cba33f1dc57d3b976546a7cf06b6cf265e27a6b9b2ce19f28de551dd9ee84b",
+  "exit_code": 0,
+  "finished_at": "2026-11-08T06:07:04.460755+00:00",
+  "completed_episodes": 25,
+  "validation": {
+    "status": "valid",
+    "schema_version": "intentional-agent.visualization/4",
+    "run_id": "75e744e1-e283-4751-95eb-c5391477a1d7",
+    "snapshot_id": "22ca4c5d49471736ea67e971c13bd10ce3baf383a025eb9ab31389207a967bd3",
+    "row_counts": {
+      "episodes": 25,
+      "cells": 5,
+      "contrasts": 10,
+      "status": 25,
+      "actions": 2500,
+      "beliefs": 27500,
+      "messages": 2500,
+      "elections": 0,
+      "leader_assignments": 10,
+      "usage": 5254,
+      "events": 4260
+    }
+  }
+}

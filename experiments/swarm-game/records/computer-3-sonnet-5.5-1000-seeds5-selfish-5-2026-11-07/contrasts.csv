@@ -1,0 +1,11 @@
+run_id,kind,contrast,baseline_value,comparison_value,model,communication,selfish_count,matched_seeds,seed_ids,mean_total_return_difference,mean_normalized_difference,normalized_ci_lower,normalized_ci_upper
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,selfish_leader minus good_leader,good_leader,selfish_leader,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",8.8,0.17600000000000007,0.03600000000000003,0.3160000000000001
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,good_leader minus none,none,good_leader,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",-5.4,-0.1080000000000001,-0.292,0.04799999999999986
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,opponent minus none,none,opponent,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",-23.4,-0.4680000000000001,-0.8160000000000002,-0.11600000000000002
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,public minus none,none,public,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",5.6,0.11200000000000002,-0.06000000000000005,0.292
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,selfish_leader minus none,none,selfish_leader,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",3.4,0.06799999999999998,-0.008000000000000007,0.1879999999999999
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,good_leader minus opponent,opponent,good_leader,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",18,0.36,-0.024000000000000198,0.6880000000000002
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,selfish_leader minus opponent,opponent,selfish_leader,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",26.8,0.536,0.21200000000000002,0.8080000000000002
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,good_leader minus public,public,good_leader,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",-11,-0.2200000000000001,-0.4120000000000002,-0.007999999999999919
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,opponent minus public,public,opponent,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",-29,-0.5800000000000001,-0.8480000000000002,-0.2960000000000001
+75e744e1-e283-4751-95eb-c5391477a1d7,communication,selfish_leader minus public,public,selfish_leader,anthropic/claude-sonnet-5.5,,5,5,"[0,1,2,3,4]",-2.2,-0.04400000000000004,-0.1080000000000001,0.06800000000000006
